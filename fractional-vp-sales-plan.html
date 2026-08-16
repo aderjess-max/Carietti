@@ -1,0 +1,1402 @@
+<title>The $400K Slot Math</title>
+<style>
+  :root {
+    --ground: #FBFBFC;
+    --surface: #F3F5F7;
+    --surface-2: #EAEEF2;
+    --ink: #13171E;
+    --ink-2: #2E3742;
+    --muted: #59626F;
+    --rule: #DCE1E7;
+    --rule-strong: #BCC5CF;
+    --accent: #1B6B51;
+    --accent-soft: #E4EFE9;
+    --flag: #9C5218;
+    --flag-soft: #F7EDE3;
+
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    --measure: 74ch;
+    --gutter: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0D1015;
+      --surface: #151A21;
+      --surface-2: #1C232C;
+      --ink: #E4E9F0;
+      --ink-2: #C3CBD6;
+      --muted: #8A94A2;
+      --rule: #232B35;
+      --rule-strong: #333D4A;
+      --accent: #4CBE93;
+      --accent-soft: #11291F;
+      --flag: #D08A4A;
+      --flag-soft: #2A1E12;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0D1015;
+    --surface: #151A21;
+    --surface-2: #1C232C;
+    --ink: #E4E9F0;
+    --ink-2: #C3CBD6;
+    --muted: #8A94A2;
+    --rule: #232B35;
+    --rule-strong: #333D4A;
+    --accent: #4CBE93;
+    --accent-soft: #11291F;
+    --flag: #D08A4A;
+    --flag-soft: #2A1E12;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16.5px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0 var(--gutter) 6rem;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  .col { max-width: var(--measure); }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ---------- Masthead ---------- */
+
+  .masthead {
+    padding: clamp(3rem, 8vw, 5.5rem) 0 2.25rem;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .kicker {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 1.5rem;
+  }
+
+  h1 {
+    font-size: clamp(2.3rem, 6.5vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -0.033em;
+    font-weight: 800;
+    margin: 0 0 1.25rem;
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+
+  .standfirst {
+    font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 60ch;
+    margin: 0 0 2.25rem;
+    text-wrap: pretty;
+  }
+
+  .params {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.73rem;
+    letter-spacing: 0.02em;
+  }
+
+  .param {
+    border: 1px solid var(--rule-strong);
+    padding: 0.3rem 0.6rem;
+    color: var(--muted);
+  }
+
+  .param b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Sections ---------- */
+
+  section { padding-top: 4rem; }
+
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    border-top: 1px solid var(--rule-strong);
+    padding-top: 0.7rem;
+    margin-bottom: 2rem;
+  }
+
+  .sec-num {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    font-weight: 600;
+    flex: none;
+  }
+
+  .sec-head h2 {
+    font-size: clamp(1.4rem, 3.2vw, 1.95rem);
+    letter-spacing: -0.022em;
+    font-weight: 750;
+    margin: 0;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  h3 {
+    font-size: 1.08rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 2.5rem 0 0.75rem;
+  }
+
+  p { margin: 0 0 1.1rem; text-wrap: pretty; }
+
+  .lede { font-size: 1.08rem; color: var(--ink-2); }
+
+  strong { font-weight: 680; color: var(--ink); }
+
+  .num { font-family: var(--mono); font-variant-numeric: tabular-nums; font-weight: 600; }
+
+  /* ---------- Figure band ---------- */
+
+  .band {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+    border-top: 1px solid var(--rule-strong);
+    border-bottom: 1px solid var(--rule-strong);
+    margin: 2rem 0 2.5rem;
+  }
+
+  .fig {
+    padding: 1.4rem 1.4rem 1.4rem 0;
+    border-right: 1px solid var(--rule);
+  }
+  .fig:last-child { border-right: 0; }
+
+  .fig-val {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: clamp(1.5rem, 3.4vw, 2rem);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 0.55rem;
+  }
+
+  .fig-val.acc { color: var(--accent); }
+
+  .fig-lab {
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+
+  /* ---------- Callout ---------- */
+
+  .callout {
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    padding: 1.35rem 1.5rem;
+    margin: 2rem 0;
+    max-width: var(--measure);
+  }
+
+  .callout p:last-child { margin-bottom: 0; }
+
+  .callout .tag {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+
+  .callout.warn { background: var(--flag-soft); border-left-color: var(--flag); }
+  .callout.warn .tag { color: var(--flag); }
+
+  /* ---------- Tables ---------- */
+
+  .scroller {
+    overflow-x: auto;
+    margin: 1.75rem 0 2rem;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.87rem;
+    min-width: 620px;
+  }
+
+  thead th {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    padding: 0 0.9rem 0.6rem 0;
+    border-bottom: 1px solid var(--ink);
+    vertical-align: bottom;
+  }
+
+  tbody td {
+    padding: 0.7rem 0.9rem 0.7rem 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    line-height: 1.45;
+  }
+
+  tbody tr:last-child td { border-bottom: 0; }
+
+  td.n, th.n {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  td.n { color: var(--ink); font-weight: 600; }
+
+  .who { font-weight: 650; color: var(--ink); }
+
+  tr.hi td { background: var(--accent-soft); }
+
+  .pill {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.14rem 0.42rem;
+    border: 1px solid var(--rule-strong);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .pill.pub { border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- Tier cards ---------- */
+
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1px;
+    background: var(--rule-strong);
+    border: 1px solid var(--rule-strong);
+    margin: 2rem 0;
+  }
+
+  .tier {
+    background: var(--ground);
+    padding: 1.5rem 1.35rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tier.core { background: var(--surface); }
+
+  .tier-name {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .tier.core .tier-name { color: var(--accent); }
+
+  .tier-price {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 1.9rem;
+    font-weight: 650;
+    letter-spacing: -0.035em;
+    line-height: 1;
+  }
+
+  .tier-rate {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .tier-for {
+    font-size: 0.87rem;
+    color: var(--ink-2);
+    line-height: 1.45;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--rule);
+    margin-top: 0.4rem;
+  }
+
+  /* ---------- Payment schedule ---------- */
+
+  .sched {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1px;
+    background: var(--rule-strong);
+    border: 1px solid var(--rule-strong);
+    margin: 1.75rem 0 2rem;
+  }
+
+  .sched-step {
+    background: var(--ground);
+    padding: 1.25rem 1.2rem 1.4rem;
+  }
+
+  .sched-pct {
+    font-family: var(--mono);
+    font-size: 1.6rem;
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .sched-amt {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.92rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.55rem;
+  }
+
+  .sched-when {
+    font-size: 0.83rem;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  /* ---------- Timeline ---------- */
+
+  .quarter {
+    border-top: 1px solid var(--rule-strong);
+    padding: 1.6rem 0 0.5rem;
+    display: grid;
+    grid-template-columns: 8.5rem 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .quarter { grid-template-columns: 1fr; gap: 0.5rem; }
+  }
+
+  .q-label { position: sticky; top: 1rem; align-self: start; }
+
+  .q-tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+  }
+
+  .q-months {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    display: block;
+    margin-top: 0.2rem;
+  }
+
+  .q-body h3 { margin-top: 0; }
+  .q-body h3:first-child { margin-top: 0; }
+
+  .q-goal {
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    color: var(--muted);
+    border-left: 2px solid var(--rule-strong);
+    padding-left: 0.8rem;
+    margin: 0 0 1.1rem;
+  }
+
+  .q-goal b { color: var(--ink); font-weight: 600; }
+
+  ul.moves {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  ul.moves li {
+    display: grid;
+    grid-template-columns: 3.1rem 1fr;
+    gap: 0.85rem;
+    font-size: 0.94rem;
+    line-height: 1.5;
+    align-items: baseline;
+  }
+
+  ul.moves .m {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    padding-top: 0.12rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ---------- Plain lists ---------- */
+
+  ul.plain {
+    padding-left: 1.15rem;
+    margin: 0 0 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  ul.plain li { line-height: 1.55; }
+  ul.plain li::marker { color: var(--accent); }
+
+  /* ---------- Checklist ---------- */
+
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .checklist li {
+    display: grid;
+    grid-template-columns: 1.6rem 1fr;
+    gap: 0.7rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    align-items: start;
+  }
+
+  .checklist li::before {
+    content: "";
+    width: 1rem;
+    height: 1rem;
+    border: 1.5px solid var(--rule-strong);
+    margin-top: 0.28rem;
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    margin-top: 5rem;
+    border-top: 2px solid var(--ink);
+    padding-top: 1.5rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  footer h3 { font-size: 0.82rem; margin: 0 0 0.7rem; color: var(--ink); }
+
+  footer ul { padding-left: 1.1rem; margin: 0 0 1.25rem; display: flex; flex-direction: column; gap: 0.35rem; }
+  footer a { color: var(--muted); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">Fractional VP of Sales &middot; Practice Plan &middot; August 2026</p>
+    <h1>The $400K Slot Math</h1>
+    <p class="standfirst">Three concurrent engagements. Six months each. The number that decides whether this works isn't your rate — it's how many months of the year your three slots sit empty.</p>
+    <div class="params">
+      <span class="param"><b>23</b> years operating</span>
+      <span class="param">quotas to <b>$12M</b></span>
+      <span class="param">Long Island &rarr; <b>NYC metro</b></span>
+      <span class="param"><b>3</b> concurrent slots</span>
+      <span class="param"><b>6</b>-month engagements</span>
+      <span class="param"><b>40/30/30</b> terms</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2>The finding</h2>
+    </div>
+
+    <div class="col">
+      <p class="lede">$400K across three slots is <strong>$11,111 per slot per month</strong> at perfect utilization. The market average for a fractional sales leader is <strong>$11,732/month</strong>. So at 100% utilization, your goal is achievable at slightly <em>below</em> market rate.</p>
+      <p>Nobody runs at 100%. Engagements end, gaps open, replacements take six to ten weeks to sign. A realistic first year from a cold start is about <strong>70% utilization</strong> — roughly 25 billable slot-months out of 36.</p>
+    </div>
+
+    <div class="band">
+      <div class="fig">
+        <span class="fig-val">36</span>
+        <span class="fig-lab">Slot-months of annual capacity (3 slots &times; 12 months)</span>
+      </div>
+      <div class="fig">
+        <span class="fig-val">~25</span>
+        <span class="fig-lab">Realistic billable slot-months, year one, cold start</span>
+      </div>
+      <div class="fig">
+        <span class="fig-val acc">$16,000</span>
+        <span class="fig-lab">Required monthly rate per slot at 70% utilization</span>
+      </div>
+      <div class="fig">
+        <span class="fig-val acc">$96,000</span>
+        <span class="fig-lab">Your core 6-month engagement price</span>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="tag">The thing to internalize</span>
+      <p>Price is not your constraint — <strong>pipeline is</strong>. At $16K/month you clear $400K with four to five signed engagements. The entire risk of this plan lives in whether you can originate five deals in twelve months from a cold start, not in whether founders will pay your rate. Plan accordingly: spend your energy on origination, and never discount to fill a slot faster.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2>What the market actually pays</h2>
+    </div>
+
+    <div class="col">
+      <p>Published rates cluster in four bands. Nearly all of the visible pricing comes from marketplaces and productized firms — which is exactly why it anchors low. Independent operators with real quota histories rarely publish, and that opacity is pricing latitude you should use.</p>
+    </div>
+
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Band</th>
+            <th class="n">Monthly</th>
+            <th>Who charges it</th>
+            <th>What the buyer gets</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="who">Marketplace floor</td>
+            <td class="n">$4K&ndash;$8K</td>
+            <td>Vetted-network operators, franchise advisors, offshore-assisted</td>
+            <td>5&ndash;10 hrs/week. Advisory cadence, forecast review. No build.</td>
+          </tr>
+          <tr>
+            <td class="who">Seed / Series A standard</td>
+            <td class="n">$8K&ndash;$12K</td>
+            <td>The bulk of the ~9,000 US/Canada fractional sales leaders</td>
+            <td>2 days/week. Playbook, pipeline cadence, some rep coaching.</td>
+          </tr>
+          <tr class="hi">
+            <td class="who">Operator premium &mdash; your band</td>
+            <td class="n">$14K&ndash;$20K</td>
+            <td>Named operators with quota history who build, not just advise</td>
+            <td>2&ndash;3 days/week. Full GTM build + hire the successor.</td>
+          </tr>
+          <tr>
+            <td class="who">Interim / near-full-time</td>
+            <td class="n">$20K&ndash;$50K</td>
+            <td>Premium firms, PE-backed mandates, interim CRO seats</td>
+            <td>20&ndash;40 hrs/week. Carries a number. Often equity-loaded.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="band">
+      <div class="fig">
+        <span class="fig-val">$11,732</span>
+        <span class="fig-lab">Average monthly comp, fractional sales leaders (Vendux, 2025)</span>
+      </div>
+      <div class="fig">
+        <span class="fig-val">88%</span>
+        <span class="fig-lab">Of engagements structured as retainers, not hourly</span>
+      </div>
+      <div class="fig">
+        <span class="fig-val">9.7 mo</span>
+        <span class="fig-lab">Average assignment length &mdash; your 6-month term is deliberately shorter</span>
+      </div>
+      <div class="fig">
+        <span class="fig-val">~9,000</span>
+        <span class="fig-lab">Fractional sales leaders in the US and Canada</span>
+      </div>
+    </div>
+
+    <div class="col">
+      <p>Two numbers in that band matter more than the rest. <strong>9,000 practitioners</strong> means generic "fractional VP of Sales for B2B SaaS" is a commodity position where you will be rate-compared to a $10K/month marketplace operator and lose. And <strong>9.7 months average</strong> means most engagements drift — the fractional leader has no incentive to end them. Your six-month term with a defined exit is a differentiator, not a limitation. Sell it that way.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>The competitive set</h2>
+    </div>
+
+    <div class="col">
+      <p>Twenty-eight players you'll be compared against, sorted by what they actually are. Note the pricing column: <span class="pill pub">published</span> means the rate is on their site; everything else is inferred from the band data above and from what buyers report paying. <strong>Almost no independent operator publishes.</strong></p>
+    </div>
+
+    <h3>Marketplaces and networks &mdash; your rate anchors, and your gap-fillers</h3>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th class="n">Rate</th>
+            <th>Position &amp; what it means for you</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="who">Vendux</td>
+            <td class="n">$11.7K avg <span class="pill pub">pub</span></td>
+            <td>1,400+ vetted sales leaders, SMB-focused matchmaking. Publishes the benchmark data everyone quotes. Worth joining — it fills slot gaps.</td>
+          </tr>
+          <tr>
+            <td class="who">Chief Outsiders</td>
+            <td class="n">$15K&ndash;$30K</td>
+            <td>120+ CMO/CSO/CRO bench, mid-market and PE-backed. Premium end. Proof the ceiling is well above $16K.</td>
+          </tr>
+          <tr>
+            <td class="who">Go Fractional</td>
+            <td class="n">$8K&ndash;$15K</td>
+            <td>Handpicked startup-oriented marketplace. Fast placement, seed-stage skew.</td>
+          </tr>
+          <tr>
+            <td class="who">Bolster</td>
+            <td class="n">$10K&ndash;$20K</td>
+            <td>Exec network, deepest PLG-experienced CRO bench. VC-adjacent distribution.</td>
+          </tr>
+          <tr>
+            <td class="who">Continuum</td>
+            <td class="n">$10K&ndash;$18K</td>
+            <td>Mid-priced exec marketplace. Positions on speed-to-match.</td>
+          </tr>
+          <tr>
+            <td class="who">Sales Xceleration</td>
+            <td class="n">$6K&ndash;$12K</td>
+            <td>Franchise network, 75+ "Outsourced VPs of Sales," has NY-state advisors. Certified methodology, SMB. Your nearest structural competitor upstate and on LI.</td>
+          </tr>
+          <tr>
+            <td class="who">Activated Scale</td>
+            <td class="n">$5K&ndash;$20K <span class="pill pub">pub</span></td>
+            <td>Seed&ndash;Series A B2B SaaS specifically. Publishes cost guides that anchor buyers low.</td>
+          </tr>
+          <tr>
+            <td class="who">Revenue Nomad</td>
+            <td class="n">$8K&ndash;$25K <span class="pill pub">pub</span></td>
+            <td>Runs a New York&ndash;specific fractional VP of Sales page. Direct geographic competitor for inbound search.</td>
+          </tr>
+          <tr>
+            <td class="who">Knex</td>
+            <td class="n">$6K&ndash;$15K <span class="pill pub">pub</span></td>
+            <td>Marketplace with public cost-comparison tooling. Trains buyers to shop on price.</td>
+          </tr>
+          <tr>
+            <td class="who">RevPilots</td>
+            <td class="n">Varies</td>
+            <td>Sales recruiting plus fractional placement. Both a competitor and a referral source.</td>
+          </tr>
+          <tr>
+            <td class="who">Fractional Jobs</td>
+            <td class="n">Listing platform</td>
+            <td>Aggregates fractional CRO/VP roles. Low-cost origination channel.</td>
+          </tr>
+          <tr>
+            <td class="who">GTM 80/20</td>
+            <td class="n">$10K&ndash;$25K</td>
+            <td>Vetted operator network, marketing-leaning, 3% acceptance rate as a quality signal.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Boutique firms &mdash; competitors on scope</h3>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th class="n">Rate</th>
+            <th>Position &amp; what it means for you</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="who">Winning by Design</td>
+            <td class="n">$25K&ndash;$75K+ / program</td>
+            <td>SPICED methodology, SaaS revenue architecture. Training-led, not embedded. Founders often buy this <em>and</em> still need someone to run it &mdash; that's your opening.</td>
+          </tr>
+          <tr>
+            <td class="who">Skaled Consulting</td>
+            <td class="n">$15K&ndash;$40K/mo</td>
+            <td>1,000+ startups and mid-market since 2013. Team-delivered, not solo. You win on senior-person-actually-does-the-work.</td>
+          </tr>
+          <tr>
+            <td class="who">Force Management</td>
+            <td class="n">Enterprise pricing</td>
+            <td>Command of the Message. Upmarket, six-figure programs. Not your bracket, but sets the credibility ceiling.</td>
+          </tr>
+          <tr>
+            <td class="who">Sales Assembly</td>
+            <td class="n">Membership model</td>
+            <td>Community and enablement for B2B tech, strong NYC presence. A room full of your buyers.</td>
+          </tr>
+          <tr>
+            <td class="who">MindRacer Consulting</td>
+            <td class="n">Undisclosed</td>
+            <td>Revenue consulting explicitly for founder-led companies &mdash; "remove the founder as the bottleneck," documented process, ICP, CRM workflows. <strong>Closest positioning match in the set.</strong> Study their language.</td>
+          </tr>
+          <tr>
+            <td class="who">The Liberti Group</td>
+            <td class="n">Undisclosed</td>
+            <td>Fractional sales leadership with explicit Metro NY / Long Island focus. <strong>Your closest geographic competitor.</strong></td>
+          </tr>
+          <tr>
+            <td class="who">KSW Solutions</td>
+            <td class="n">$6K&ndash;$12K <span class="pill pub">pub</span></td>
+            <td>Publishes packaged tiers scaling to full CRO involvement. A useful model for how to structure tier language.</td>
+          </tr>
+          <tr>
+            <td class="who">Sales Schema</td>
+            <td class="n">Undisclosed</td>
+            <td>NYC-based, helps agencies and productized services grow past founder-led sales. Adjacent vertical, same core problem.</td>
+          </tr>
+          <tr>
+            <td class="who">Arise GTM</td>
+            <td class="n">Project / retainer</td>
+            <td>GTM strategy for B2B SaaS and fintech. Strategy-first; light on execution.</td>
+          </tr>
+          <tr>
+            <td class="who">Checkpoint GTM</td>
+            <td class="n">Undisclosed</td>
+            <td>GTM plus RevOps for B2B SaaS. Overlaps your CRM and tech-stack deliverable.</td>
+          </tr>
+          <tr>
+            <td class="who">Groove Consulting</td>
+            <td class="n">Undisclosed</td>
+            <td>Go-to-market and sales strategy consulting. Generalist.</td>
+          </tr>
+          <tr>
+            <td class="who">JZ Sales Consulting</td>
+            <td class="n">Undisclosed</td>
+            <td>Independent fractional VP of Sales practice. Direct solo peer.</td>
+          </tr>
+          <tr>
+            <td class="who">Betts Recruiting</td>
+            <td class="n">20&ndash;25% of salary</td>
+            <td>Top NYC sales recruiting firm. Competitor on your VP-hire deliverable &mdash; but a strong referral partner, see below.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Named solo operators &mdash; your actual peer set</h3>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Operator</th>
+            <th>Stated positioning</th>
+            <th>Where you differ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="who">Michael Chang</td>
+            <td>Fractional B2B startup sales leader, 20+ yrs SaaS and enterprise, GTM and team building</td>
+            <td>He's SaaS-only. You carry four verticals including two nobody else serves.</td>
+          </tr>
+          <tr>
+            <td class="who">Michael Wills</td>
+            <td>Fractional VP of Sales, founder-led focus, tactical and strategic, mid-sized businesses</td>
+            <td>Nearly identical pitch. Your defined six-month exit and successor hire is the separator.</td>
+          </tr>
+          <tr>
+            <td class="who">Jeff Pecaro</td>
+            <td>Sales process consultant for founder-led companies</td>
+            <td>Process-only. You own the full build plus the hire.</td>
+          </tr>
+          <tr>
+            <td class="who">Louie Bernstein</td>
+            <td>Fractional sales leader targeting CEOs still running sales at $1M&ndash;$10M; scaled MindIQ to Inc. 500</td>
+            <td>Same ICP band as you, content-led origination. Study his LinkedIn cadence.</td>
+          </tr>
+          <tr>
+            <td class="who">Susan Cashion</td>
+            <td>Outsourced sales leadership, fractional CRO, advisor to PE and investment firms</td>
+            <td>PE-channel origination. A channel you should copy, not compete in yet.</td>
+          </tr>
+          <tr>
+            <td class="who">Suzanne Mackay</td>
+            <td>Fractional CRO/VP Sales &mdash; SaaS, hardware, e-commerce, retail, enterprise, construction</td>
+            <td>Also claims construction. Multi-vertical breadth can read as unfocused; go deeper than she does.</td>
+          </tr>
+          <tr>
+            <td class="who">Chelsea Klinke</td>
+            <td>Fractional sales leader, 25+ yrs B2B, strategy plus hands-on execution, early and growth stage</td>
+            <td>Comparable seniority. Differentiate on quota scale &mdash; your $12M number is a hard credential.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <span class="tag">Read of the landscape</span>
+      <p>The middle is crowded and the language is interchangeable — "founder-led sales," "playbook," "repeatable process" appear on nearly every site in this set. Two things are genuinely scarce: <strong>operators who name a vertical and go deep</strong>, and <strong>engagements that end on purpose</strong>. Both are available to you and neither costs money to claim.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2>Your pricing architecture</h2>
+    </div>
+
+    <div class="col">
+      <p>Three tiers, priced off scope and stage — never off hours. The middle tier is the one you sell; the outer two exist so the middle looks chosen rather than quoted. Every tier includes the same deliverable set. What changes is company complexity: number of products, segments, existing reps, and CRM state.</p>
+    </div>
+
+    <div class="tiers">
+      <div class="tier">
+        <span class="tier-name">Foundation</span>
+        <span class="tier-price">$72K</span>
+        <span class="tier-rate">$12,000 / mo &times; 6</span>
+        <p class="tier-for">Pre-Series A, under ~$2M revenue. Founder plus maybe one rep. One product, one segment, CRM is a spreadsheet or nothing.</p>
+      </div>
+      <div class="tier core">
+        <span class="tier-name">Founder to Team &mdash; core</span>
+        <span class="tier-price">$96K</span>
+        <span class="tier-rate">$16,000 / mo &times; 6</span>
+        <p class="tier-for">$2M&ndash;$10M revenue. One to three reps hired reactively, no manager. Founder is still the closer and the bottleneck. <strong>This is the deal you're built for.</strong></p>
+      </div>
+      <div class="tier">
+        <span class="tier-name">Scale Engine</span>
+        <span class="tier-price">$120K</span>
+        <span class="tier-rate">$20,000 / mo &times; 6</span>
+        <p class="tier-for">$10M+, or multi-product, multi-segment, or post-raise with an aggressive plan. Existing team needs restructuring, not just building.</p>
+      </div>
+    </div>
+
+    <h3>What every tier includes</h3>
+    <div class="col">
+      <ul class="plain">
+        <li><strong>ICP and segmentation</strong> — defined, sized, and sourced into a target list, not a slide</li>
+        <li><strong>The story</strong> — full sales narrative, pitch deck, objection handling, proof architecture</li>
+        <li><strong>Outbound system</strong> — email templates, multi-channel cadences, sequence logic, messaging by persona</li>
+        <li><strong>Sales process</strong> — stages, exit criteria, qualification framework, forecast discipline</li>
+        <li><strong>Tech stack</strong> — selection, procurement, and implementation; CRM configured and live with pipeline, fields, reporting, and hygiene rules</li>
+        <li><strong>Enablement</strong> — onboarding path and ramp plan for the reps who come next</li>
+        <li><strong>The successor</strong> — scorecard, comp plan, interview loop, sourcing, and selection of your replacement</li>
+      </ul>
+      <p>Everything built during the engagement transfers to the client on completion. Say that explicitly in the SOW — it removes a standard objection before it's raised.</p>
+    </div>
+
+    <h3>The back end &mdash; where the margin lives</h3>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Lever</th>
+            <th class="n">Price</th>
+            <th>Structure and rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td class="who">VP of Sales placement</td>
+            <td class="n">20% of base<br>floor $35K</td>
+            <td>Retained search runs 20&ndash;30% of first-year total comp; Korn Ferry bills 30&ndash;33% at VP level. At a $200K&ndash;$250K NYC base that's <strong>$40K&ndash;$50K</strong> to you, priced visibly below market because you've already scoped the role, written the scorecard, and built what the hire inherits. Invoice half on offer acceptance, half at day 90.</td>
+          </tr>
+          <tr>
+            <td class="who">Post-engagement advisory</td>
+            <td class="n">$4,500 / mo</td>
+            <td>Six-month minimum, <strong>$27K</strong>. You coach the VP you placed through their first two quarters. Costs you two hours a week, protects the placement, and converts every client into an annuity. Sell it in the original SOW as an option, not as an upsell later.</td>
+          </tr>
+          <tr>
+            <td class="who">Equity</td>
+            <td class="n">0.25&ndash;0.5%</td>
+            <td>In exchange for no more than 20% of the cash fee, seed stage only, <strong>one slot at a time, maximum</strong>. Equity is a lottery ticket that doesn't pay a mortgage. Two equity-discounted clients at once puts the year at risk.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn">
+      <span class="tag">Disclose the placement fee in writing</span>
+      <p>A founder will eventually notice that you're paid to conclude they need a VP. Get ahead of it: name the fee in the MSA, cap it, and make the second half contingent on the hire clearing 90 days. Handled openly it reads as alignment. Discovered later it reads as a conflict and costs you the referral.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2>Payment mechanics</h2>
+    </div>
+
+    <div class="col">
+      <p>Your 40/30/30 structure is well-suited to a cold start — it front-loads cash at signature, which is exactly what you need. Worked here against the core $96K engagement.</p>
+    </div>
+
+    <div class="sched">
+      <div class="sched-step">
+        <span class="sched-pct">40%</span>
+        <span class="sched-amt">$38,400</span>
+        <p class="sched-when">Due at signature, before kickoff. Non-refundable. Covers discovery, ICP work, and the narrative build — the front-loaded half of your effort.</p>
+      </div>
+      <div class="sched-step">
+        <span class="sched-pct">30%</span>
+        <span class="sched-amt">$28,800</span>
+        <p class="sched-when">Month 3 gate. Tied to a named artifact set: process live, CRM configured, cadences running, first sequences sending.</p>
+      </div>
+      <div class="sched-step">
+        <span class="sched-pct">30%</span>
+        <span class="sched-amt">$28,800</span>
+        <p class="sched-when">Terminal deliverable, client-specific. Default is <strong>signed offer accepted by the VP of Sales</strong>. Negotiate the trigger per client at signing &mdash; never leave it vague.</p>
+      </div>
+    </div>
+
+    <div class="col">
+      <p>Two rules that protect this structure. <strong>Define the final trigger in the SOW with a date ceiling</strong> — "VP hired, or month 7, whichever comes first" — otherwise a slow-hiring client holds 30% of your fee hostage while you carry an empty slot. And <strong>bill the milestone, not the calendar</strong>: if they delay the search, the clock still runs.</p>
+      <p>When a founder pushes back on 40% upfront, the concession is <em>a smaller first payment against a shorter first milestone</em> — never a lower total. Moving to 30/30/40 costs you nothing structurally. Moving to $12K/month costs you $24K and resets your anchor with every future client they refer.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <h2>The revenue model</h2>
+    </div>
+
+    <div class="col">
+      <p>Three scenarios, all assuming a cold start in month one and the slot-filling sequence in the plan below. Cash is modeled on 40/30/30 timing, so payments falling past month 12 are excluded — this is <em>collected</em> revenue, not booked.</p>
+    </div>
+
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Scenario</th>
+            <th class="n">Signed</th>
+            <th class="n">Retainer</th>
+            <th class="n">Placements</th>
+            <th class="n">Advisory</th>
+            <th class="n">Collected</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="who">Floor &mdash; slow origination</td>
+            <td class="n">3</td>
+            <td class="n">$235K</td>
+            <td class="n">$38K</td>
+            <td class="n">$14K</td>
+            <td class="n">$287K</td>
+          </tr>
+          <tr>
+            <td class="who">Base &mdash; credible</td>
+            <td class="n">4</td>
+            <td class="n">$274K</td>
+            <td class="n">$76K</td>
+            <td class="n">$36K</td>
+            <td class="n">$386K</td>
+          </tr>
+          <tr class="hi">
+            <td class="who">Target &mdash; the plan</td>
+            <td class="n">5</td>
+            <td class="n">$358K</td>
+            <td class="n">$76K</td>
+            <td class="n">$27K</td>
+            <td class="n">$461K</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <span class="tag">What the model tells you</span>
+      <p><strong>Four signed engagements plus both back-end levers lands at $386K — just short.</strong> Five clears $400K with room. That's the whole plan in one line: your number is <strong>five signed engagements in twelve months</strong>, and the placement fees and advisory retainers are what make a four-client year survivable instead of a failure. Without the back end, four clients is $274K and you miss badly.</p>
+    </div>
+
+    <h3>Slot sequence, target case</h3>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th class="n">Signs</th>
+            <th class="n">Runs</th>
+            <th>Tier</th>
+            <th class="n">Value</th>
+            <th class="n">Collected yr 1</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="who">Slot 1 &mdash; anchor</td>
+            <td class="n">M2</td>
+            <td class="n">M2&ndash;M7</td>
+            <td>Foundation, discounted for the case study</td>
+            <td class="n">$60K</td>
+            <td class="n">$60K</td>
+          </tr>
+          <tr>
+            <td class="who">Slot 2</td>
+            <td class="n">M4</td>
+            <td class="n">M4&ndash;M9</td>
+            <td>Core &mdash; full price, you have a reference now</td>
+            <td class="n">$96K</td>
+            <td class="n">$96K</td>
+          </tr>
+          <tr>
+            <td class="who">Slot 3</td>
+            <td class="n">M6</td>
+            <td class="n">M6&ndash;M11</td>
+            <td>Core</td>
+            <td class="n">$96K</td>
+            <td class="n">$96K</td>
+          </tr>
+          <tr>
+            <td class="who">Slot 1 refill</td>
+            <td class="n">M9</td>
+            <td class="n">M9&ndash;M14</td>
+            <td>Core</td>
+            <td class="n">$96K</td>
+            <td class="n">$67K</td>
+          </tr>
+          <tr>
+            <td class="who">Slot 2 refill</td>
+            <td class="n">M11</td>
+            <td class="n">M11&ndash;M16</td>
+            <td>Core</td>
+            <td class="n">$96K</td>
+            <td class="n">$38K</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <p>Note what the sequence does to year two: three engagements are already running on January 1, and roughly <strong>$123K of year-one bookings collect in year two</strong> before you sign anything new. The second year starts with the hardest problem already solved.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07</span>
+      <h2>Positioning</h2>
+    </div>
+
+    <h3>The wedge</h3>
+    <div class="col">
+      <p>Every competitor in section three sells "help scaling out of founder-led sales." You sell the same thing with one structural difference worth stating in the first sentence of every conversation:</p>
+    </div>
+
+    <div class="callout">
+      <span class="tag">The line</span>
+      <p><strong>"I'm hired to make myself unnecessary in six months. The last thing I deliver is the person who replaces me."</strong></p>
+      <p>The average fractional engagement runs 9.7 months and drifts, because nobody in the seat is paid to end it. Yours ends on a date, with a named successor and a signed offer. For a founder who has been burned by an open-ended consulting relationship — and many have — that's the whole pitch.</p>
+    </div>
+
+    <h3>Lead with two verticals, not four</h3>
+    <div class="col">
+      <p>Your range across digital healthcare, SaaS, automotive, and commercial construction is real experience but a weak market position — breadth reads as generalist, and generalist gets rate-compared. Lead with the two where your experience is scarce and the buyers are underserved:</p>
+      <ul class="plain">
+        <li><strong>Digital health</strong> — long, committee-heavy, compliance-gated sales cycles that generic SaaS fractional operators consistently misjudge. NYC has a dense cluster of funded companies and a founder population that has watched a generic sales hire fail against hospital procurement.</li>
+        <li><strong>Commercial construction and construction tech</strong> — almost entirely unserved by fractional sales leadership, high average contract values, relationship-driven cycles that reward exactly your kind of operator, and it sits in your backyard. Long Island and the outer boroughs are full of contractors and suppliers who have never been sold to by a fractional exec.</li>
+      </ul>
+      <p>Keep SaaS as the pattern language you speak in and automotive as a third card for supplier and dealer-group conversations. But the website, the LinkedIn headline, and the first sentence should name two verticals, not four. You can always take an adjacent deal; you cannot un-say a generalist positioning.</p>
+    </div>
+
+    <h3>Credentials to lead with</h3>
+    <div class="col">
+      <ul class="plain">
+        <li><strong>$12M carried quota.</strong> A hard number almost nobody in the fractional market can match. It answers "have you actually done this at scale" before it's asked.</li>
+        <li><strong>23 years.</strong> Frame as four full market cycles, not as tenure.</li>
+        <li><strong>Long Island base, NYC metro coverage.</strong> An advantage, not an apology — you can be on-site weekly, which most remote fractional operators cannot. For construction and healthcare clients especially, showing up in person is a differentiator. Say "NYC metro," not "Long Island," in market-facing copy.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">08</span>
+      <h2>Origination &mdash; where five deals come from</h2>
+    </div>
+
+    <div class="col">
+      <p>You need five signings. Working backward through a realistic consulting funnel with a warm-heavy mix:</p>
+    </div>
+
+    <div class="band">
+      <div class="fig">
+        <span class="fig-val">150</span>
+        <span class="fig-lab">Targeted conversations initiated over the year</span>
+      </div>
+      <div class="fig">
+        <span class="fig-val">50</span>
+        <span class="fig-lab">Qualified discovery calls &mdash; real problem, real budget</span>
+      </div>
+      <div class="fig">
+        <span class="fig-val">15</span>
+        <span class="fig-lab">Proposals issued</span>
+      </div>
+      <div class="fig">
+        <span class="fig-val acc">5</span>
+        <span class="fig-lab">Signed engagements</span>
+      </div>
+    </div>
+
+    <div class="col">
+      <p>That is <strong>roughly 13 new conversations and 4 qualified calls per month</strong> — sustainable alongside three active engagements only if you protect the time. Block it like a client meeting. The single most common failure mode for a fractional practice is going dark on origination while delivery is busy, then facing an empty slot with an empty pipeline.</p>
+    </div>
+
+    <h3>Channels, ranked by leverage</h3>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Channel</th>
+            <th class="n">Target</th>
+            <th>How to work it</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td class="who">VC and PE platform / talent partners</td>
+            <td class="n">2&ndash;3 deals</td>
+            <td>The highest-leverage channel by a wide margin. Platform partners field "our founder can't get out of founder-led sales" constantly and need someone to hand it to. Target 40 named partners at NYC seed and Series A funds &mdash; Primary, Work-Bench, Lerer Hippeau, FirstMark, Contour, Newark Venture Partners, Insight's ScaleUp group &mdash; plus LI angel and accelerator networks. One trusted relationship here produces repeat referrals for years.</td>
+          </tr>
+          <tr>
+            <td class="who">Your 23-year network</td>
+            <td class="n">1&ndash;2 deals</td>
+            <td>Build a named list of 250 people, tier it, and work it systematically over the first 90 days. Not a broadcast announcement &mdash; individual messages naming a specific reason you thought of them. This is your fastest path to first revenue and the reason a cold start isn't actually cold.</td>
+          </tr>
+          <tr>
+            <td class="who">Recruiter referral swap</td>
+            <td class="n">1 deal</td>
+            <td>Sales recruiting firms turn away founders every week who aren't ready to hire a VP &mdash; no process, no comp plan, no scorecard, nothing for a VP to inherit. <strong>That rejected pile is your exact ICP.</strong> Approach Betts and similar NYC firms with a clean split: you take the pre-work, they take the search, or you refer the search to them and skip your placement fee on those deals. Be explicit about which, up front.</td>
+          </tr>
+          <tr>
+            <td class="who">Vertical communities</td>
+            <td class="n">1 deal</td>
+            <td>Digital health: NYC digital-health meetups, HLTH and StartUp Health orbit, hospital-innovation circles. Construction: AGC New York, the Building Congress, ENR-ranked regional firms, construction-tech founder groups. Show up as an operator with a point of view, not a vendor.</td>
+          </tr>
+          <tr>
+            <td class="who">Fractional marketplaces</td>
+            <td class="n">Gap-filler</td>
+            <td>List with Vendux, Go Fractional, Bolster, and Continuum. Lower rates and less control, but they fill slot gaps &mdash; and an empty slot at $10K beats an empty slot at $0. Use them for the refill, never for the anchor.</td>
+          </tr>
+          <tr>
+            <td class="who">LinkedIn, narrow</td>
+            <td class="n">Compounding</td>
+            <td>One channel, one theme: what actually breaks when a founder hands off sales. Two posts a week, specific and tactical, drawn from live engagements with details changed. This won't produce deals in month two; it makes every other channel convert better by month six.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">09</span>
+      <h2>The twelve-month plan</h2>
+    </div>
+
+    <div class="quarter">
+      <div class="q-label">
+        <span class="q-tag">Quarter 1</span>
+        <span class="q-months">Months 1&ndash;3</span>
+      </div>
+      <div class="q-body">
+        <h3>Build the machine, land the anchor</h3>
+        <p class="q-goal">Exit criteria: <b>1 signed engagement</b> &middot; <b>60 qualified conversations initiated</b> &middot; <b>$60K collected</b></p>
+        <ul class="moves">
+          <li><span class="m">M1</span><span>Lock the offer: three tiers, the deliverable set, the MSA and SOW template with 40/30/30 and a defined terminal trigger. Write three case studies from your operating history with real numbers &mdash; anonymize the logos if you must, never the metrics. Rebuild LinkedIn on the two-vertical wedge. Assemble the target list: 150 named companies, 40 VC and PE platform contacts, 250 network contacts tiered by warmth.</span></li>
+          <li><span class="m">M1&ndash;2</span><span>Convert your two current 1099 fractional engagements into referenceable assets. Get metrics documented and a quote from each founder while you're still in the seat. Then put an end date on both &mdash; open-ended 1099 work is the direct competitor to the practice you're building, and it will eat the slots you need.</span></li>
+          <li><span class="m">M2</span><span>Work the network list hard &mdash; 60 individual outreaches. Sign the anchor client. <strong>This is the one deal you're permitted to discount</strong>, to roughly $60K, in exchange for a named case study, a metrics-backed testimonial, and three introductions. Get all three in the SOW.</span></li>
+          <li><span class="m">M3</span><span>First VC and PE platform partner meetings &mdash; target 15 conversations. Deliver the anchor engagement visibly and fast; the first 90 days of client one are the raw material for everything you'll sell for the rest of the year.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quarter">
+      <div class="q-label">
+        <span class="q-tag">Quarter 2</span>
+        <span class="q-months">Months 4&ndash;6</span>
+      </div>
+      <div class="q-body">
+        <h3>Fill the slots, hold the price</h3>
+        <p class="q-goal">Exit criteria: <b>3 slots full</b> &middot; <b>asset library built</b> &middot; <b>~$230K collected to date</b></p>
+        <ul class="moves">
+          <li><span class="m">M4</span><span>Sign client two at the full $96K. No discount &mdash; you have a live reference now and the anchor's discount was a one-time purchase of proof, not a price. If the deal dies on price, it was the wrong deal.</span></li>
+          <li><span class="m">M5</span><span>Build the reusable asset library: ICP workbook, cadence and sequence templates, pitch narrative framework, CRM build checklists per platform, VP scorecard and comp plan templates, onboarding and ramp plan. <strong>This is the work that makes three concurrent engagements possible.</strong> Client three should cost you 40% of the effort client one did, at the same price.</span></li>
+          <li><span class="m">M6</span><span>Sign client three. All slots full. Publish the anchor case study with hard numbers &mdash; pipeline created, cycle time, ramp to first rep quota. Push it through the VC channel specifically.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quarter">
+      <div class="q-label">
+        <span class="q-tag">Quarter 3</span>
+        <span class="q-months">Months 7&ndash;9</span>
+      </div>
+      <div class="q-body">
+        <h3>Monetize the back end</h3>
+        <p class="q-goal">Exit criteria: <b>1&ndash;2 placements billed</b> &middot; <b>slot 1 refilled at full price</b> &middot; <b>advisory annuity started</b></p>
+        <ul class="moves">
+          <li><span class="m">M7</span><span>Anchor engagement completes. Run the VP of Sales search &mdash; scorecard, sourcing, loop, selection. First placement fee invoiced. Convert the client to the $4,500/month advisory retainer to coach the new VP. This is the moment the economics of the practice change.</span></li>
+          <li><span class="m">M8</span><span>Refill slot 1 &mdash; you should have been working this pipeline since month 5. <strong>Raise prices:</strong> Foundation to $84K, Core to $102K. You now have completed engagements and a placed VP; the market rate for that is not what you charged in month two.</span></li>
+          <li><span class="m">M9</span><span>Client two completes; second placement. Structured referral ask to every completed client &mdash; not "know anyone," but "who else in your investor's portfolio is where you were nine months ago." Refill slot 2 pipeline.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quarter">
+      <div class="q-label">
+        <span class="q-tag">Quarter 4</span>
+        <span class="q-months">Months 10&ndash;12</span>
+      </div>
+      <div class="q-body">
+        <h3>Price up and pre-sell year two</h3>
+        <p class="q-goal">Exit criteria: <b>$400K+ collected</b> &middot; <b>3 engagements running into January</b> &middot; <b>waitlist forming</b></p>
+        <ul class="moves">
+          <li><span class="m">M10&ndash;11</span><span>Refill slots 2 and 3 at the raised prices. Introduce the Scale Engine tier at $120K&ndash;$135K for the first qualifying client &mdash; post-raise, multi-segment, or an existing team needing restructuring.</span></li>
+          <li><span class="m">M11</span><span>Stack the advisory annuity: two to three former clients at $4,500/month is $9K&ndash;$13.5K of recurring revenue that costs you six hours a week and floors your next year.</span></li>
+          <li><span class="m">M12</span><span>Pre-sell Q1 of year two. Target two slots booked before January. Once you're turning work away, introduce a start-date waitlist &mdash; scarcity you actually have is the cheapest pricing power available to a solo practice.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">10</span>
+      <h2>What breaks this</h2>
+    </div>
+
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Risk</th>
+            <th>Why it's real</th>
+            <th>What you do about it</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="who">Cash pressure drives discounting</td>
+            <td>You're full-time on this and need revenue fast. The first founder who says "$16K is a lot" will be tempting to accommodate.</td>
+            <td><strong>Discount the scope, never the rate.</strong> The Foundation tier at $72K <em>is</em> your concession. Dropping the core to $12K/month costs $24K on the deal and permanently resets the anchor with everyone they refer.</td>
+          </tr>
+          <tr>
+            <td class="who">Origination stops during delivery</td>
+            <td>The classic solo-practice death spiral: three clients keep you busy, pipeline goes to zero, an engagement ends and the slot sits empty for two months.</td>
+            <td>Calendar-block origination like a client commitment. Start refilling each slot at <strong>month 4 of its 6-month engagement</strong>, not month 6.</td>
+          </tr>
+          <tr>
+            <td class="who">Three concurrent tactical builds is genuinely heavy</td>
+            <td>You've promised hands-on execution, not advisory. Three simultaneous CRM implementations and playbook builds will exceed capacity if each is bespoke.</td>
+            <td>The month-5 asset library is not optional &mdash; it's the load-bearing element of the whole model. Productize hard; customize only the narrative and ICP.</td>
+          </tr>
+          <tr>
+            <td class="who">The current 1099 engagements crowd out the practice</td>
+            <td>Open-ended fractional work at presumably lower effective rates competes directly for the three slots this plan depends on.</td>
+            <td>Use them as bridge cash and case studies, but set end dates in Q1. They cannot occupy a slot in Q2 onward.</td>
+          </tr>
+          <tr>
+            <td class="who">Placement fee reads as a conflict</td>
+            <td>You're paid to conclude they need a VP. A sharp founder or a board member will notice.</td>
+            <td>Disclose in the MSA, cap the fee, tie half to the hire clearing 90 days. Openly stated it's alignment; discovered later it costs the relationship.</td>
+          </tr>
+          <tr>
+            <td class="who">Slow client hiring holds your final 30%</td>
+            <td>If the terminal payment is tied to a VP hire and the founder drags the search, you carry an empty slot with $28,800 outstanding.</td>
+            <td>Every SOW gets a date ceiling on the final trigger: "VP hired, or month 7, whichever comes first."</td>
+          </tr>
+          <tr>
+            <td class="who">Equity dilutes the year</td>
+            <td>Seed founders will offer equity instead of cash, and it's flattering.</td>
+            <td>One equity-discounted slot at a time, capped at 20% of the cash fee. Two at once puts the $400K out of reach.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">11</span>
+      <h2>The next thirty days</h2>
+    </div>
+
+    <div class="col">
+      <p>Nothing above matters until the first engagement is signed. This is the month-one list, in order.</p>
+      <ul class="checklist">
+        <li>Write the three tiers and the deliverable set into a one-page offer document you can send the same day as a call.</li>
+        <li>Draft the MSA and SOW template &mdash; 40/30/30, defined terminal trigger with a date ceiling, IP transfer clause, placement fee disclosed.</li>
+        <li>Write three case studies from your operating history. Real numbers: quota carried, pipeline built, ramp achieved, team scaled.</li>
+        <li>Get metrics and a written quote from both current 1099 clients while you're still in the seat.</li>
+        <li>Rebuild the LinkedIn headline and about section on the two-vertical wedge and the "I make myself unnecessary" line.</li>
+        <li>Build the 250-name network list, tiered by warmth, with a specific reason-to-reach-out per person in tier one.</li>
+        <li>Build the 40-name VC and PE platform partner list across NYC seed and Series A funds.</li>
+        <li>Send the first 60 network outreaches &mdash; individual, specific, no broadcast announcement.</li>
+        <li>Set the price and write it down where you'll see it. The single highest-value decision in this plan is refusing the first cheap deal.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <h3>Sources</h3>
+    <ul>
+      <li><a href="https://www.vendux.org/press/proven-by-the-numbers">Vendux — "Proven by the Numbers," fractional sales leadership benchmarks</a> and <a href="https://www.vendux.org/blog/maturity-achieved-the-fractional-market-in-north-america">Maturity Achieved: The Fractional Market in North America</a></li>
+      <li><a href="https://rrclosers.com/fractional-vp-of-sales-cost">RRClosers — Fractional VP of Sales Cost in 2026: Real Pricing &amp; the Math</a></li>
+      <li><a href="https://www.activatedscale.com/feeds/blog/vp-sales-cost-month">Activated Scale — Fractional VP of Sales Cost Per Month</a> and <a href="https://www.activatedscale.com/feeds/blog/fractional-sales-leadership-cost-comparison">Cost vs. a Full-Time VP of Sales</a></li>
+      <li><a href="https://www.upliftgtm.com/blog/best-fractional-vp-sales-services">UpliftGTM — Best Fractional VP Sales Services 2026</a></li>
+      <li><a href="https://fractionalpulse.com/insights/fractional-cro-marketplaces-ranked/">Fractional Pulse — Fractional CRO Marketplaces Ranked 2026</a></li>
+      <li><a href="https://bestsalesteamtraining.com/fractional-sales-leadership-cost">Best Sales Team Training — What a Part-Time VP of Sales Costs</a></li>
+      <li><a href="https://www.revenuenomad.com/hire-fractional-vp-of-sales-in-new-york">Revenue Nomad — Fractional VP of Sales in New York</a></li>
+      <li><a href="https://salesxceleration.com/consultants/state/NY/">Sales Xceleration — New York consultant roster</a></li>
+      <li><a href="https://stealthagents.com/research/cost-of-hiring-a-vp-of-sales-2026">Cost of Hiring a VP of Sales in 2026: Salary, OTE, Search Fees</a> and <a href="https://valuablerecruitment.com/blog/recruitment-agency-fees">Recruitment Agency Fees: Contingency vs. Retained vs. Embedded</a></li>
+      <li><a href="https://www.consultingsuccess.com/value-based-pricing">Consulting Success — Value-Based Pricing for Consultants</a></li>
+      <li><a href="https://review.firstround.com/0-5m-first-sales-hire/">First Round Review — When to Make Your First Sales Hire</a> and <a href="https://www.primary.vc/firstedition/posts/transitioning-from-founder-led-sales-to-your-critical-first-sales-hire/">Primary VC — Transitioning from Founder-Led Sales</a></li>
+      <li><a href="https://bettsrecruiting.com/blog/top-10-sales-recruiting-agencies-in-nyc/">Betts Recruiting — Top Sales Recruiting Agencies in NYC</a></li>
+    </ul>
+    <p>Rates marked “published” are taken from the provider’s own site or published guides. Unmarked rates are inferred from the band data and buyer-reported ranges in the sources above, and should be treated as estimates. Revenue scenarios are models, not forecasts.</p>
+  </footer>
+
+</div>
