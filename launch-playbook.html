@@ -1,0 +1,1039 @@
+<title>The Origination Engine</title>
+<style>
+  :root {
+    --ground: #FBFBFC;
+    --surface: #F3F5F7;
+    --surface-2: #EAEEF2;
+    --ink: #13171E;
+    --ink-2: #2E3742;
+    --muted: #59626F;
+    --rule: #DCE1E7;
+    --rule-strong: #BCC5CF;
+    --accent: #1B6B51;
+    --accent-soft: #E4EFE9;
+    --flag: #9C5218;
+    --flag-soft: #F7EDE3;
+
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    --measure: 74ch;
+    --gutter: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0D1015;
+      --surface: #151A21;
+      --surface-2: #1C232C;
+      --ink: #E4E9F0;
+      --ink-2: #C3CBD6;
+      --muted: #8A94A2;
+      --rule: #232B35;
+      --rule-strong: #333D4A;
+      --accent: #4CBE93;
+      --accent-soft: #11291F;
+      --flag: #D08A4A;
+      --flag-soft: #2A1E12;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0D1015;
+    --surface: #151A21;
+    --surface-2: #1C232C;
+    --ink: #E4E9F0;
+    --ink-2: #C3CBD6;
+    --muted: #8A94A2;
+    --rule: #232B35;
+    --rule-strong: #333D4A;
+    --accent: #4CBE93;
+    --accent-soft: #11291F;
+    --flag: #D08A4A;
+    --flag-soft: #2A1E12;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16.5px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0 var(--gutter) 6rem;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  .col { max-width: var(--measure); }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .masthead { padding: clamp(3rem, 8vw, 5.5rem) 0 2.25rem; border-bottom: 2px solid var(--ink); }
+
+  .kicker {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted); margin: 0 0 1.5rem;
+  }
+
+  h1 {
+    font-size: clamp(2.3rem, 6.5vw, 4rem); line-height: 1.02; letter-spacing: -0.033em;
+    font-weight: 800; margin: 0 0 1.25rem; max-width: 18ch; text-wrap: balance;
+  }
+
+  .standfirst {
+    font-size: clamp(1.05rem, 2.2vw, 1.3rem); line-height: 1.5; color: var(--ink-2);
+    max-width: 60ch; margin: 0 0 2.25rem; text-wrap: pretty;
+  }
+
+  .params { display: flex; flex-wrap: wrap; gap: 0.5rem; font-family: var(--mono); font-size: 0.73rem; }
+  .param { border: 1px solid var(--rule-strong); padding: 0.3rem 0.6rem; color: var(--muted); }
+  .param b { color: var(--ink); font-weight: 600; }
+
+  section { padding-top: 4rem; }
+
+  .sec-head {
+    display: flex; align-items: baseline; gap: 1rem;
+    border-top: 1px solid var(--rule-strong); padding-top: 0.7rem; margin-bottom: 2rem;
+  }
+
+  .sec-num {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em;
+    color: var(--accent); font-weight: 600; flex: none;
+  }
+
+  .sec-head h2 {
+    font-size: clamp(1.4rem, 3.2vw, 1.95rem); letter-spacing: -0.022em;
+    font-weight: 750; margin: 0; line-height: 1.15; text-wrap: balance;
+  }
+
+  h3 { font-size: 1.08rem; font-weight: 700; letter-spacing: -0.01em; margin: 2.5rem 0 0.75rem; }
+  h4 { font-size: 0.95rem; font-weight: 700; margin: 2rem 0 0.6rem; }
+
+  p { margin: 0 0 1.1rem; text-wrap: pretty; }
+  .lede { font-size: 1.08rem; color: var(--ink-2); }
+  strong { font-weight: 680; color: var(--ink); }
+
+  .band {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+    border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong);
+    margin: 2rem 0 2.5rem;
+  }
+
+  .fig { padding: 1.4rem 1.4rem 1.4rem 0; border-right: 1px solid var(--rule); }
+  .fig:last-child { border-right: 0; }
+
+  .fig-val {
+    font-family: var(--mono); font-variant-numeric: tabular-nums;
+    font-size: clamp(1.5rem, 3.4vw, 2rem); font-weight: 650; letter-spacing: -0.03em;
+    line-height: 1; color: var(--ink); display: block; margin-bottom: 0.55rem;
+  }
+  .fig-val.acc { color: var(--accent); }
+  .fig-lab { font-size: 0.82rem; line-height: 1.4; color: var(--muted); }
+
+  .callout {
+    background: var(--accent-soft); border-left: 3px solid var(--accent);
+    padding: 1.35rem 1.5rem; margin: 2rem 0; max-width: var(--measure);
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout .tag {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.13em;
+    text-transform: uppercase; color: var(--accent); font-weight: 700;
+    display: block; margin-bottom: 0.6rem;
+  }
+  .callout.warn { background: var(--flag-soft); border-left-color: var(--flag); }
+  .callout.warn .tag { color: var(--flag); }
+
+  .scroller { overflow-x: auto; margin: 1.75rem 0 2rem; border-bottom: 1px solid var(--rule-strong); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.87rem; min-width: 620px; }
+
+  thead th {
+    text-align: left; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--muted); font-weight: 600;
+    padding: 0 0.9rem 0.6rem 0; border-bottom: 1px solid var(--ink); vertical-align: bottom;
+  }
+
+  tbody td {
+    padding: 0.7rem 0.9rem 0.7rem 0; border-bottom: 1px solid var(--rule);
+    vertical-align: top; line-height: 1.45;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+
+  td.n, th.n { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td.n { color: var(--ink); font-weight: 600; }
+  .who { font-weight: 650; color: var(--ink); }
+  tr.hi td { background: var(--accent-soft); }
+
+  .pill {
+    display: inline-block; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 0.14rem 0.42rem; border: 1px solid var(--rule-strong);
+    color: var(--muted); white-space: nowrap;
+  }
+  .pill.hot { border-color: var(--accent); color: var(--accent); }
+  .pill.watch { border-color: var(--flag); color: var(--flag); }
+
+  /* Day plan */
+  .days { display: flex; flex-direction: column; margin: 2rem 0; }
+  .day {
+    display: grid; grid-template-columns: 7rem 1fr; gap: 1.5rem;
+    border-top: 1px solid var(--rule-strong); padding: 1.4rem 0;
+  }
+  @media (max-width: 640px) { .day { grid-template-columns: 1fr; gap: 0.5rem; } }
+  .day-tag {
+    font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.09em;
+    text-transform: uppercase; font-weight: 700; color: var(--accent);
+  }
+  .day-sub { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); display: block; margin-top: 0.2rem; }
+  .day-body h4 { margin-top: 0; }
+  .day-body p:last-child { margin-bottom: 0; }
+
+  ul.plain { padding-left: 1.15rem; margin: 0 0 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  ul.plain li { line-height: 1.55; }
+  ul.plain li::marker { color: var(--accent); }
+
+  .checklist { list-style: none; padding: 0; margin: 1.25rem 0 0; display: flex; flex-direction: column; }
+  .checklist li {
+    display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.7rem; padding: 0.7rem 0;
+    border-bottom: 1px solid var(--rule); font-size: 0.94rem; line-height: 1.5; align-items: start;
+  }
+  .checklist li::before {
+    content: ""; width: 1rem; height: 1rem; border: 1.5px solid var(--rule-strong); margin-top: 0.28rem;
+  }
+
+  /* Message templates */
+  .msg {
+    border: 1px solid var(--rule-strong); background: var(--surface);
+    margin: 1.5rem 0; max-width: var(--measure);
+  }
+  .msg-head {
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: baseline;
+    padding: 0.75rem 1.15rem; border-bottom: 1px solid var(--rule-strong); background: var(--surface-2);
+  }
+  .msg-to {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 700; color: var(--accent);
+  }
+  .msg-mode { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+  .msg-body { padding: 1.15rem 1.15rem 1.25rem; font-size: 0.93rem; line-height: 1.6; }
+  .msg-body p { margin: 0 0 0.85rem; }
+  .msg-body p:last-child { margin-bottom: 0; }
+  .msg-subj {
+    font-family: var(--mono); font-size: 0.8rem; color: var(--ink-2);
+    padding-bottom: 0.85rem; margin-bottom: 0.95rem; border-bottom: 1px dashed var(--rule-strong);
+  }
+  .msg-subj b { color: var(--muted); font-weight: 600; }
+  .msg-note {
+    font-size: 0.82rem; color: var(--muted); padding: 0.8rem 1.15rem;
+    border-top: 1px solid var(--rule); line-height: 1.5;
+  }
+
+  footer {
+    margin-top: 5rem; border-top: 2px solid var(--ink); padding-top: 1.5rem;
+    font-size: 0.82rem; color: var(--muted);
+  }
+  footer h3 { font-size: 0.82rem; margin: 0 0 0.7rem; color: var(--ink); }
+  footer ul { padding-left: 1.1rem; margin: 0 0 1.25rem; display: flex; flex-direction: column; gap: 0.35rem; }
+  footer a { color: var(--muted); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">Fractional VP of Sales &middot; Launch Playbook &middot; Week of 18 August 2026</p>
+    <h1>The Origination Engine</h1>
+    <p class="standfirst">Where the outreach goes, how often, in what form, and to whom — starting Monday. Everything here is built to be executed alongside your current 1099 work, not after it.</p>
+    <div class="params">
+      <span class="param">target <b>5</b> signings</span>
+      <span class="param"><b>25</b> actions / week</span>
+      <span class="param"><b>3</b> conversations / week</span>
+      <span class="param">fully <b>remote</b></span>
+      <span class="param">verticals: <b>health</b> + <b>construction</b></span>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2>What remote changes</h2>
+    </div>
+
+    <div class="col">
+      <p class="lede">Working fully remote removes your geographic ceiling and raises the cost of being a generalist. Those are the same fact seen from two sides.</p>
+      <p>When you sell within an hour's drive, proximity does some of your differentiation for you — you're the operator who shows up. Nationally, you're one of roughly <strong>9,000 fractional sales leaders</strong>, and the founder comparing you to three others on a Zoom has nothing to go on but what you claim to know. That's why the two-vertical wedge matters more now, not less.</p>
+      <p>So the model is a <strong>beachhead, not a boundary</strong>:</p>
+      <ul class="plain">
+        <li><strong>NY metro is where you start</strong> — your 23-year network is here, in-person coffee still converts better than a cold Zoom, and being able to say "I can be in your office Thursday" closes deals that remote competitors can't reach. Work this hard for the first two clients.</li>
+        <li><strong>Vertical is where you scale</strong> — digital health and construction tech founders in Denver, Austin, and Boston have the same problem and fewer credible options. Every case study you publish travels nationally; every referral from a VC platform partner travels nationally.</li>
+      </ul>
+      <p>Practically: <strong>keep "NYC metro" in your copy, drop it from your filters.</strong> Say you're NY-based and work with companies nationally. The location signals substance to the local network and costs you nothing with a founder in Chicago.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2>The volume math</h2>
+    </div>
+
+    <div class="col">
+      <p>Five signings is the year's number. Working backward through a realistic funnel, weighted toward warm and referred sources because that's where your leverage is:</p>
+    </div>
+
+    <div class="band">
+      <div class="fig">
+        <span class="fig-val">~1,200</span>
+        <span class="fig-lab">Total outreach actions across the year, all channels</span>
+      </div>
+      <div class="fig">
+        <span class="fig-val">150</span>
+        <span class="fig-lab">Real conversations that result</span>
+      </div>
+      <div class="fig">
+        <span class="fig-val">50</span>
+        <span class="fig-lab">Qualified calls &mdash; real problem, real budget, real timing</span>
+      </div>
+      <div class="fig">
+        <span class="fig-val acc">5</span>
+        <span class="fig-lab">Signed engagements, via ~15 proposals</span>
+      </div>
+    </div>
+
+    <div class="col">
+      <p>Divided across 48 working weeks that's roughly <strong>25 outbound actions, 3 conversations, and 1 qualified call per week</strong>. Modest volume by the standards of what you've managed — but it has to happen <em>every</em> week, including the ones where delivery is loud.</p>
+    </div>
+
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Channel</th>
+            <th class="n">Weekly actions</th>
+            <th class="n">Expected reply</th>
+            <th class="n">Deals</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="who">Warm network reactivation</td>
+            <td class="n">5&ndash;20</td>
+            <td class="n">50&ndash;60%</td>
+            <td class="n">1&ndash;2</td>
+          </tr>
+          <tr class="hi">
+            <td class="who">VC &amp; PE platform partners</td>
+            <td class="n">3&ndash;5</td>
+            <td class="n">25&ndash;35%</td>
+            <td class="n">2&ndash;3</td>
+          </tr>
+          <tr>
+            <td class="who">Signal-based cold outbound</td>
+            <td class="n">15</td>
+            <td class="n">8&ndash;12%</td>
+            <td class="n">1&ndash;2</td>
+          </tr>
+          <tr>
+            <td class="who">Recruiter referral swap</td>
+            <td class="n">1&ndash;2</td>
+            <td class="n">40%+</td>
+            <td class="n">1</td>
+          </tr>
+          <tr>
+            <td class="who">Vertical communities</td>
+            <td class="n">1 event / 2 wks</td>
+            <td class="n">&mdash;</td>
+            <td class="n">1</td>
+          </tr>
+          <tr>
+            <td class="who">LinkedIn content</td>
+            <td class="n">2&ndash;3 posts</td>
+            <td class="n">&mdash;</td>
+            <td class="n">compounding</td>
+          </tr>
+          <tr>
+            <td class="who">Fractional marketplaces</td>
+            <td class="n">setup once</td>
+            <td class="n">inbound</td>
+            <td class="n">gap-filler</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <span class="tag">The one rule</span>
+      <p>The deals column is a forecast; the actions column is a commitment. <strong>Never let a delivery week eat the origination block.</strong> The classic solo-practice failure is three busy months followed by an empty slot and an empty pipeline — and the gap between them is always a quarter you can't get back.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>Channels, modality, and cadence</h2>
+    </div>
+
+    <h3>Warm network &mdash; your fastest path to client one</h3>
+    <div class="col">
+      <p><strong>Who:</strong> 250 named people from 23 years — former colleagues, managers, reports, customers, partners, vendors. Tier them: T1 are people who would take your call today (~40), T2 know you well but haven't spoken in years (~110), T3 are looser ties (~100).</p>
+      <p><strong>Modality:</strong> T1 gets a phone call or a coffee, not a message. T2 gets a personal email, LinkedIn DM as backup. T3 gets LinkedIn DM. <strong>No broadcast announcement post</strong> — it converts far worse than 40 individual messages and it burns the news value.</p>
+      <p><strong>Cadence:</strong> 20/week for the first 12 weeks to clear the list, then 5/week as maintenance. Follow up once after 10 days, then leave it.</p>
+      <p><strong>The angle:</strong> Ask for a read on your positioning, not for business. People help with advice more readily than with referrals, and the referral follows the advice conversation about a third of the time.</p>
+    </div>
+
+    <h3>VC and PE platform partners &mdash; highest leverage in the plan</h3>
+    <div class="col">
+      <p><strong>Who:</strong> 40 named platform, talent, or portfolio-services partners — the person at the fund whose job is helping portfolio companies hire and operate, not the investing partner. Titles: Head of Talent, Platform Director, Head of Portfolio Services, Operating Partner.</p>
+      <p><strong>Modality:</strong> LinkedIn DM or email to book a 20-minute intro call. This is a relationship channel, not a pitch channel — the call's only goal is that they know precisely what you do and precisely who you're right for.</p>
+      <p><strong>Cadence:</strong> 3&ndash;5 new outreaches/week until the list is worked. Then a genuinely useful quarterly touch — a market observation, a comp benchmark, a note on what you're seeing in their vertical. Not a check-in.</p>
+      <p><strong>Why it's first:</strong> These people field "our founder can't get out of founder-led sales" constantly and have nobody good to hand it to. One trusted relationship here produces referrals for years, and referrals arrive pre-qualified and pre-trusted, which is worth more than the volume.</p>
+    </div>
+
+    <h3>Signal-based cold outbound &mdash; the repeatable engine</h3>
+    <div class="col">
+      <p><strong>Who:</strong> Companies showing a buying signal, not companies matching a firmographic profile. The signals are in section four and they're the whole game — untriggered cold outbound to "Series A healthtech" converts at a fraction of the rate.</p>
+      <p><strong>Modality:</strong> A four-touch sequence over 18 days — email, LinkedIn connect with note, email, LinkedIn DM. Add a 45-second video or voice note on touch three for your top-20 targets; it roughly doubles reply rate and almost nobody at your level bothers. Then stop. A fifth touch to a founder who hasn't answered costs you the relationship for when the signal is real.</p>
+      <p><strong>Cadence:</strong> 15 new companies entered per week, which means roughly 30&ndash;40 total sends weekly once sequences overlap. Batch the research Monday morning; let the sends run through the week.</p>
+    </div>
+
+    <h3>Recruiter referral swap &mdash; the underused one</h3>
+    <div class="col">
+      <p><strong>Who:</strong> Sales-focused recruiting firms and independent sales recruiters. Betts, RevPilots, Paraform's recruiter network, plus independents on LinkedIn who post VP Sales searches.</p>
+      <p><strong>The pitch:</strong> They turn away founders every week who want a VP of Sales but aren't ready for one — no process, no comp plan, no scorecard, nothing for a VP to inherit. Placing into that produces a fall-off, which costs them the fee. <strong>That rejected pile is your exact ICP.</strong></p>
+      <p><strong>Be explicit about the fee overlap up front.</strong> Two clean structures: you refer the eventual search to them and waive your placement fee, or you split it. Ambiguity here turns a partner into a competitor about four months in.</p>
+      <p><strong>Cadence:</strong> 1&ndash;2 new recruiter conversations a month, high-touch. This is a small set of relationships, not a list to blast.</p>
+    </div>
+
+    <h3>Communities and content &mdash; compounding, not immediate</h3>
+    <div class="col">
+      <p><strong>Communities:</strong> One vertical event or community every two weeks. Show up as an operator with a point of view, never as a vendor working the room. Pavilion is the single highest-value paid community for your peer network and referral flow; BuiltWorlds and HLTH are where your buyers are.</p>
+      <p><strong>Content:</strong> Two to three LinkedIn posts a week, one theme only — what actually breaks when a founder hands off sales. Specific and tactical, drawn from live engagements with details changed. This produces nothing in month two and makes every other channel convert better by month six. Post from your own account; do not build a company page.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2>Buying signals &mdash; how to source targets forever</h2>
+    </div>
+
+    <div class="col">
+      <p>A static list of 40 companies is exhausted in six weeks. What you need is a repeatable weekly search that surfaces companies <em>at the moment</em> the problem becomes urgent. Ranked by how well each predicts a real conversation:</p>
+    </div>
+
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th class="n">Rank</th>
+            <th>Signal</th>
+            <th>Why it works</th>
+            <th>Where to find it</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td class="n">1</td>
+            <td class="who">Hiring AEs or SDRs with no VP/Head of Sales on the team</td>
+            <td>The sharpest signal there is. They're about to hand new reps a process that exists only in the founder's head. Most of those reps fail, and the founder half-knows it.</td>
+            <td>LinkedIn Sales Navigator, Wellfound, Built In, YC jobs, company careers pages</td>
+          </tr>
+          <tr>
+            <td class="n">2</td>
+            <td class="who">Head of Sales or VP Sales req open more than 60 days</td>
+            <td>They can't fill it — wrong comp, wrong stage, or an unsellable role. You're the bridge, and you make the eventual search fillable.</td>
+            <td>Job boards, re-posted listings, LinkedIn job age</td>
+          </tr>
+          <tr>
+            <td class="n">3</td>
+            <td class="who">Series A raised 9&ndash;24 months ago</td>
+            <td>Long enough to have hit the founder-led ceiling, early enough that a $250K VP still feels premature. Fresh raises are too early; 30+ months usually means they solved it or stalled.</td>
+            <td>AlleyWatch, Tech:NYC Series A tracker, Crunchbase, vertical funding newsletters</td>
+          </tr>
+          <tr>
+            <td class="n">4</td>
+            <td class="who">First sales hire departed inside 18 months</td>
+            <td>Proof the problem is real and the founder has now paid for it once. Painful, and therefore fundable.</td>
+            <td>LinkedIn tenure checks on the company's sales alumni</td>
+          </tr>
+          <tr>
+            <td class="n">5</td>
+            <td class="who">Founder is still the contact on the demo or pricing page</td>
+            <td>Literal evidence of founder-led sales. Cheap to check and surprisingly common at $3&ndash;8M.</td>
+            <td>The company's own website</td>
+          </tr>
+          <tr>
+            <td class="n">6</td>
+            <td class="who">New segment, new geography, or new product announced</td>
+            <td>The existing motion won't transfer, and the founder usually discovers that about 90 days in.</td>
+            <td>Press releases, LinkedIn company posts, product changelogs</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <span class="tag">Your Monday morning search</span>
+      <p>Run signal 1 across both verticals every Monday: companies with 15&ndash;150 employees, posting an AE or SDR role, with no one holding a VP Sales / Head of Sales / CRO title. That single query will produce more qualified targets per week than you can work — which is exactly the position you want to be in.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2>The target list</h2>
+    </div>
+
+    <div class="col">
+      <p>A starter set to work in weeks one through six, while you build the repeatable sourcing habit above. <strong>Fit is inferred from public funding and stage data, not verified</strong> — qualify each against the signals in section four before you spend a personalized touch on it. Stage notes matter: <span class="pill hot">fit</span> means likely in the founder-led-ceiling window now, <span class="pill watch">watch</span> means probably too early or already past it.</p>
+    </div>
+
+    <h3>Construction tech &mdash; the least contested vertical you have</h3>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Base</th>
+            <th>What they do</th>
+            <th class="n">Stage read</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td class="who">Adaptive</td>
+            <td>NYC</td>
+            <td>Financial operations software for construction firms &mdash; contractor CFO buyer, long relationship cycles</td>
+            <td class="n">~$26M <span class="pill hot">fit</span></td>
+          </tr>
+          <tr class="hi">
+            <td class="who">Acelab</td>
+            <td>Boston</td>
+            <td>Building materials selection platform for architects and specifiers</td>
+            <td class="n">$16.6M A <span class="pill hot">fit</span></td>
+          </tr>
+          <tr class="hi">
+            <td class="who">Moab</td>
+            <td>NYC</td>
+            <td>Operating system for the construction equipment rental industry</td>
+            <td class="n">$16M seed+A <span class="pill hot">fit</span></td>
+          </tr>
+          <tr class="hi">
+            <td class="who">Dili</td>
+            <td>NYC</td>
+            <td>Construction diligence and underwriting; Brick &amp; Mortar backed</td>
+            <td class="n">$15M A <span class="pill hot">fit</span></td>
+          </tr>
+          <tr>
+            <td class="who">Cascade</td>
+            <td>NYC</td>
+            <td>Pursuit intelligence &mdash; watches bond filings, permits, public meeting minutes for early construction signals</td>
+            <td class="n">$3.5M seed <span class="pill watch">early</span></td>
+          </tr>
+          <tr>
+            <td class="who">OnSiteIQ</td>
+            <td>NYC</td>
+            <td>Jobsite reality capture and construction risk visibility</td>
+            <td class="n">$46M <span class="pill watch">watch</span></td>
+          </tr>
+          <tr>
+            <td class="who">Trunk Tools</td>
+            <td>NYC</td>
+            <td>AI agents over construction project documents</td>
+            <td class="n">$30M+ <span class="pill watch">watch</span></td>
+          </tr>
+          <tr>
+            <td class="who">Urbint</td>
+            <td>NYC</td>
+            <td>AI for infrastructure and utility field risk</td>
+            <td class="n">later <span class="pill watch">past</span></td>
+          </tr>
+          <tr>
+            <td class="who">PermitFlow</td>
+            <td>NYC</td>
+            <td>Construction permitting workflow &mdash; ~149 employees</td>
+            <td class="n">$91M B <span class="pill watch">past</span></td>
+          </tr>
+          <tr>
+            <td class="who">GreenLite</td>
+            <td>NYC</td>
+            <td>AI permitting and plan review; Insight-backed</td>
+            <td class="n">$86M B <span class="pill watch">past</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <p>Beyond named startups, construction gives you a second target class nobody else is working: <strong>the contractors, suppliers, and building-products firms themselves.</strong> ENR-ranked regional GCs, specialty subs, and manufacturers in the $20&ndash;200M range are frequently run by an owner who is still the top salesperson, has no CRM worth the name, and has never been approached by a fractional sales executive. Your automotive and construction background reads as native there in a way it doesn't in SaaS. Source these through AGC New York, the NY Building Congress, and ENR regional lists.</p>
+    </div>
+
+    <h3>Digital health</h3>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Base</th>
+            <th>What they do</th>
+            <th class="n">Stage read</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td class="who">Claim Health</td>
+            <td>NYC</td>
+            <td>Patient access and claims &mdash; provider-side buyer, committee sale</td>
+            <td class="n">seed/A <span class="pill hot">fit</span></td>
+          </tr>
+          <tr class="hi">
+            <td class="who">Ready Health</td>
+            <td>NYC</td>
+            <td>Care coordination</td>
+            <td class="n">seed/A <span class="pill hot">fit</span></td>
+          </tr>
+          <tr class="hi">
+            <td class="who">Oasys Health</td>
+            <td>NYC</td>
+            <td>AI-powered clinical operations</td>
+            <td class="n">seed/A <span class="pill hot">fit</span></td>
+          </tr>
+          <tr class="hi">
+            <td class="who">Understood Care</td>
+            <td>NYC</td>
+            <td>Care navigation</td>
+            <td class="n">seed/A <span class="pill hot">fit</span></td>
+          </tr>
+          <tr>
+            <td class="who">Crosby Health</td>
+            <td>NYC</td>
+            <td>Automated clinical appeals for providers</td>
+            <td class="n">$2.2M pre-seed <span class="pill watch">early</span></td>
+          </tr>
+          <tr>
+            <td class="who">Kadia Health</td>
+            <td>NYC</td>
+            <td>Group therapy for families affected by substance use disorder</td>
+            <td class="n">$1.1M, A Dec-25 <span class="pill watch">early</span></td>
+          </tr>
+          <tr>
+            <td class="who">Proxima</td>
+            <td>NYC</td>
+            <td>Clinical research and trials infrastructure</td>
+            <td class="n">seed <span class="pill watch">early</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <p>Digital health at this stage skews earlier than construction tech, so the named list is thinner on immediate fit. Lean harder on signal-based sourcing here: the 2024&ndash;2025 Series A cohort is the right window, and hospital-facing or payer-facing companies hitting their first enterprise ceiling are your best conversations. <strong>Your differentiator in this vertical is that you understand a committee sale with a compliance gate</strong> — most fractional sales leaders are transactional-SaaS operators who quietly fumble a 9-month provider cycle.</p>
+    </div>
+
+    <h3>VC and PE platform partners &mdash; build to 40 names</h3>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Firm</th>
+            <th>Why them</th>
+            <th>Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td class="who">Primary Venture Partners</td>
+            <td>NYC-only seed with one of the strongest formal platform teams in the market. Publishes directly on founder-led sales transitions &mdash; they've named your exact problem in print.</td>
+            <td>NYC seed, B2B</td>
+          </tr>
+          <tr class="hi">
+            <td class="who">Work-Bench</td>
+            <td>Funds NYC-based enterprise companies only. Small, deep portfolio; enterprise GTM is their explicit thesis.</td>
+            <td>NYC enterprise</td>
+          </tr>
+          <tr class="hi">
+            <td class="who">Brick &amp; Mortar Ventures</td>
+            <td>The most established construction-tech fund. 64 investments, Series A focus. Highest-value single relationship for your construction wedge.</td>
+            <td>Contech</td>
+          </tr>
+          <tr class="hi">
+            <td class="who">Zacua Ventures</td>
+            <td>$56M contech fund whose LPs include Procore, Volvo, and Cemex &mdash; a corporate network behind the portfolio access.</td>
+            <td>Contech</td>
+          </tr>
+          <tr>
+            <td class="who">Foundamental</td>
+            <td>Vertical fund for construction, renovation, blue-collar workforce, and supply chains.</td>
+            <td>Built world</td>
+          </tr>
+          <tr>
+            <td class="who">Building Ventures</td>
+            <td>Built-environment specialist, early stage.</td>
+            <td>Contech</td>
+          </tr>
+          <tr>
+            <td class="who">Suffolk Technologies</td>
+            <td>Backed by a major GC &mdash; portfolio companies sell into real contractors.</td>
+            <td>Contech</td>
+          </tr>
+          <tr>
+            <td class="who">AlleyCorp</td>
+            <td>NYC, heavily healthcare, and builds companies in-house &mdash; unusually operator-minded.</td>
+            <td>NYC health</td>
+          </tr>
+          <tr>
+            <td class="who">Oak HC/FT</td>
+            <td>Major healthcare and fintech fund with a real platform function.</td>
+            <td>Health</td>
+          </tr>
+          <tr>
+            <td class="who">Flare Capital</td>
+            <td>Healthcare-only venture, strong portfolio-support model.</td>
+            <td>Health</td>
+          </tr>
+          <tr>
+            <td class="who">.406 Ventures</td>
+            <td>Health tech and data security, early stage.</td>
+            <td>Health</td>
+          </tr>
+          <tr>
+            <td class="who">Lerer Hippeau</td>
+            <td>NYC-native seed, 100+ investments spanning consumer to B2B.</td>
+            <td>NYC seed</td>
+          </tr>
+          <tr>
+            <td class="who">FirstMark</td>
+            <td>380+ investments, partners who go deep with companies.</td>
+            <td>NYC early</td>
+          </tr>
+          <tr>
+            <td class="who">BoxGroup, Contour, BBG, Great Oaks, Graph, Newark Venture Partners</td>
+            <td>Round out the NYC seed set. Smaller platform teams &mdash; go to the investing partner directly.</td>
+            <td>NYC seed</td>
+          </tr>
+          <tr>
+            <td class="who">Insight Partners ScaleUp</td>
+            <td>Large dedicated portfolio operations group. Longer to reach, high value once inside.</td>
+            <td>Growth</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Communities, marketplaces, and sourcing infrastructure</h3>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Where</th>
+            <th>How to use it</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td class="who">Peer community</td>
+            <td>Pavilion</td>
+            <td>The main community for sales leaders and a genuine source of fractional referrals. Paid, worth it. Join week one.</td>
+          </tr>
+          <tr>
+            <td class="who">Construction</td>
+            <td>BuiltWorlds, AGC New York, NY Building Congress, Procore Groundbreak, Bricks &amp; Bytes</td>
+            <td>Where contech founders and actual contractors both are. BuiltWorlds is the fastest route to the startup side.</td>
+          </tr>
+          <tr>
+            <td class="who">Digital health</td>
+            <td>HLTH, ViVE, StartUp Health, Rock Health community, HIMSS</td>
+            <td>Expensive conferences; the online communities are the cheap entry. Pick one conference for year one, not three.</td>
+          </tr>
+          <tr>
+            <td class="who">Long Island</td>
+            <td>LISTnet (~1,000 member companies), Accelerate Long Island, LIFT, Stony Brook CEWIT incubator</td>
+            <td>Thin on venture-stage software but strong for local relationship density and the contractor/manufacturer target class.</td>
+          </tr>
+          <tr>
+            <td class="who">Marketplaces</td>
+            <td>Vendux, Go Fractional, Bolster, Continuum, Fractional Jobs, Activated Scale, Chief Outsiders</td>
+            <td>One-time setup in week one, then passive. Lower rates &mdash; use for slot refills, never for the anchor.</td>
+          </tr>
+          <tr>
+            <td class="who">Sourcing tools</td>
+            <td>LinkedIn Sales Navigator, Wellfound, Built In, YC directory, AlleyWatch, Tech:NYC trackers</td>
+            <td>Sales Navigator is the one paid tool worth buying immediately &mdash; it's what makes the signal-1 search run in 20 minutes.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <h2>The messages</h2>
+    </div>
+
+    <div class="col">
+      <p>Written to sound like a 23-year operator, not a consultant with a funnel. Short, specific, and asking for something small. Adapt the vertical detail per target; keep the structure.</p>
+    </div>
+
+    <div class="msg">
+      <div class="msg-head">
+        <span class="msg-to">Warm network &mdash; tier 1 &amp; 2</span>
+        <span class="msg-mode">Email or DM &middot; T1 gets a call instead</span>
+      </div>
+      <div class="msg-body">
+        <p class="msg-subj"><b>Subject:</b> quick one</p>
+        <p>[Name] —</p>
+        <p>After 23 years carrying a bag I've gone out on my own, doing one thing: I take companies stuck in founder-led sales and build the whole engine — ICP, the story, process, CRM, cadences — then hire the VP of Sales who runs it. Six months, then I'm gone.</p>
+        <p>Not pitching you. Two things I'd value:</p>
+        <p>1. If a founder comes to mind who's still the best salesperson in their own company and knows that's a problem — I'd like the intro.<br>
+        2. If you've got 20 minutes, I'd genuinely like your read on how I'm positioning this.</p>
+        <p>Either way, good to be back in touch.</p>
+      </div>
+      <p class="msg-note">Asking for a read on positioning outperforms asking for referrals — and the referral tends to come out of the advice conversation anyway. One follow-up at 10 days, then stop.</p>
+    </div>
+
+    <div class="msg">
+      <div class="msg-head">
+        <span class="msg-to">VC / PE platform partner</span>
+        <span class="msg-mode">LinkedIn DM or email &middot; goal is a 20-min call</span>
+      </div>
+      <div class="msg-body">
+        <p class="msg-subj"><b>Subject:</b> for the portfolio companies stuck in founder-led sales</p>
+        <p>[Name] —</p>
+        <p>You probably field some version of this monthly: a founder at $2–5M still closing every deal personally, knows they need a team, not ready to commit to a $250K VP.</p>
+        <p>That's the only thing I do. Six months — I build the ICP, the narrative, the process, the CRM and the cadences, then run the search for their VP of Sales and hand the whole thing over. 23 years operating, quotas up to $12M, deepest in [health tech / construction].</p>
+        <p>Worth 20 minutes so you know what I do before you need it? Happy to be a resource either way.</p>
+      </div>
+      <p class="msg-note">"Before you need it" is doing the work — it removes the ask and positions you as inventory they're stocking. Follow with a quarterly note that contains something useful, never a check-in.</p>
+    </div>
+
+    <div class="msg">
+      <div class="msg-head">
+        <span class="msg-to">Cold founder &mdash; signal 1</span>
+        <span class="msg-mode">Email &middot; touch 1 of 4 over 18 days</span>
+      </div>
+      <div class="msg-body">
+        <p class="msg-subj"><b>Subject:</b> your AE search</p>
+        <p>[Name] —</p>
+        <p>Saw you're hiring account executives. Also noticed there's no sales leader in place yet — which usually means the reps are about to inherit a process that currently only exists in your head.</p>
+        <p>That's the failure mode I get called for. I spend six months building what the reps actually need — ICP, the story, cadences, CRM, stage definitions — then hire the VP who takes it over. 23 years selling, quotas to $12M, [vertical] specifically.</p>
+        <p>Worth 20 minutes? If the timing's wrong I'll get out of your way.</p>
+      </div>
+      <p class="msg-note">The observation in line one has to be true and specific — that's the entire reason it gets read. Never send this untriggered. "I'll get out of your way" materially lifts reply rate with founders.</p>
+    </div>
+
+    <div class="msg">
+      <div class="msg-head">
+        <span class="msg-to">Sales recruiter &mdash; referral swap</span>
+        <span class="msg-mode">DM or email &middot; goal is a call, not a deal</span>
+      </div>
+      <div class="msg-body">
+        <p class="msg-subj"><b>Subject:</b> the founders you turn away</p>
+        <p>[Name] —</p>
+        <p>You almost certainly pass on founders who want a VP of Sales but aren't ready for one — no process, no comp plan, no scorecard, nothing for a VP to inherit. Placing into that is how you get a fall-off at month five.</p>
+        <p>I'm the pre-work. Six months building the engine, and then the search you run is a real search against a real scorecard.</p>
+        <p>Two clean ways this works: I refer the search to you and waive my placement fee, or we split it. Your preference. Worth 20 minutes?</p>
+      </div>
+      <p class="msg-note">Name the fee overlap in the first conversation. Left ambiguous, this partner becomes a competitor around month four.</p>
+    </div>
+
+    <div class="msg">
+      <div class="msg-head">
+        <span class="msg-to">Any channel &mdash; final touch</span>
+        <span class="msg-mode">Email &middot; the close-out</span>
+      </div>
+      <div class="msg-body">
+        <p class="msg-subj"><b>Subject:</b> closing the loop</p>
+        <p>[Name] —</p>
+        <p>Closing the loop on this one. If founder-led sales is still where your week goes six months from now, I'm easy to find. If it isn't, that's the better outcome.</p>
+      </div>
+      <p class="msg-note">No guilt, no final-attempt framing. This gets a reply roughly one time in six, and it leaves the door open for the moment the signal is real.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07</span>
+      <h2>The weekly rhythm</h2>
+    </div>
+
+    <div class="col">
+      <p>Built for the overlap period — bridge work plus building plus origination. The principle is that <strong>origination happens Monday morning before anything else touches the calendar.</strong> If it can move, it will move, and then it will vanish.</p>
+    </div>
+
+    <div class="days">
+      <div class="day">
+        <div class="day-tag">Monday<span class="day-sub">AM &mdash; 3 hrs</span></div>
+        <div class="day-body">
+          <h4>Origination block. Immovable.</h4>
+          <p>Run the signal-1 search across both verticals. Add 15 new companies to the sequence. Send 20 network reactivations (first 12 weeks) and 3&ndash;5 VC platform outreaches. Clear all pending follow-ups. Nothing else goes in this block, ever.</p>
+        </div>
+      </div>
+      <div class="day">
+        <div class="day-tag">Mon&ndash;Thu<span class="day-sub">the bulk</span></div>
+        <div class="day-body">
+          <h4>Bridge delivery and asset library</h4>
+          <p>Current 1099 obligations, roughly 10&ndash;20 hours. Everything left over in months 1&ndash;2 goes to the reusable asset library — ICP workbook, cadence templates, CRM build checklists, VP scorecard, comp plan templates. This is the only stretch of the year with unbooked hours; the library is what makes three concurrent clients survivable later.</p>
+        </div>
+      </div>
+      <div class="day">
+        <div class="day-tag">Wednesday<span class="day-sub">AM &mdash; held open</span></div>
+        <div class="day-body">
+          <h4>Discovery calls</h4>
+          <p>Hold this slot open permanently and offer it first when someone says yes. Having a real time to give beats "let me check my calendar" — it's a small thing that measurably shortens the gap between reply and meeting.</p>
+        </div>
+      </div>
+      <div class="day">
+        <div class="day-tag">Friday<span class="day-sub">AM &mdash; 2 hrs</span></div>
+        <div class="day-body">
+          <h4>Pipeline review and follow-through</h4>
+          <p>Update your own CRM — you are your first client and it should be visibly excellent. Second-touch follow-ups. Referral asks to anyone who's had a good week with you. Log what channel each conversation actually came from; by month four that attribution data should be reallocating your Monday block.</p>
+        </div>
+      </div>
+      <div class="day">
+        <div class="day-tag">Friday<span class="day-sub">PM &mdash; 1 hr</span></div>
+        <div class="day-body">
+          <h4>Content and community</h4>
+          <p>Write the week's two LinkedIn posts. Community engagement, event scheduling. Low-stakes, done tired, still compounds.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>The four numbers to track weekly</h3>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th class="n">Weekly target</th>
+            <th>What a miss means</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="who">New outbound actions</td>
+            <td class="n">25</td>
+            <td>Pure activity. If this misses, nothing downstream is diagnosable — fix it first.</td>
+          </tr>
+          <tr>
+            <td class="who">Conversations held</td>
+            <td class="n">3</td>
+            <td>Actions fine but conversations low means targeting or message, not volume.</td>
+          </tr>
+          <tr>
+            <td class="who">Qualified calls</td>
+            <td class="n">1</td>
+            <td>Conversations fine but nothing qualifies means you're reaching the wrong stage of company.</td>
+          </tr>
+          <tr>
+            <td class="who">Proposals out</td>
+            <td class="n">1 per 3 wks</td>
+            <td>Qualified calls that don't become proposals means the offer or the price framing needs work, not the pipeline.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">08</span>
+      <h2>This week</h2>
+    </div>
+
+    <div class="col">
+      <p>Five days. The goal is not a signed client — it's that by Friday the engine is running and the first 60 touches are out.</p>
+    </div>
+
+    <div class="days">
+      <div class="day">
+        <div class="day-tag">Monday</div>
+        <div class="day-body">
+          <h4>Decide the two things that can't be undone later</h4>
+          <ul class="checklist">
+            <li>Write down the price — $72K / $96K / $120K — and the rule: discount scope, never rate.</li>
+            <li>Write down the exit trigger: notice on both 1099 engagements the week client two signs.</li>
+            <li>Pick the two verticals in writing and stop hedging on the other two.</li>
+            <li>Buy LinkedIn Sales Navigator. It's the one tool that makes the weekly search a 20-minute job.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="day">
+        <div class="day-tag">Tuesday</div>
+        <div class="day-body">
+          <h4>Build the proof</h4>
+          <ul class="checklist">
+            <li>Write three case studies from your operating history — quota carried, pipeline built, ramp achieved, team scaled. Anonymize logos if you must, never the numbers.</li>
+            <li>Ask both current 1099 clients for documented metrics and a written quote. Do this now, well before you give notice.</li>
+            <li>Rewrite the LinkedIn headline and About section on the wedge: <em>"I'm hired to make myself unnecessary in six months."</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="day">
+        <div class="day-tag">Wednesday</div>
+        <div class="day-body">
+          <h4>Build the lists</h4>
+          <ul class="checklist">
+            <li>250-name network list, tiered T1/T2/T3, with a specific reason-to-reach-out on every T1.</li>
+            <li>40-name VC and PE platform partner list — named humans with titles, not firms.</li>
+            <li>First 40 target companies from the list in section five plus your first signal-1 search.</li>
+            <li>Set up your own CRM. You are client zero and it should be the demo.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="day">
+        <div class="day-tag">Thursday</div>
+        <div class="day-body">
+          <h4>Build the machine</h4>
+          <ul class="checklist">
+            <li>One-page offer document — three tiers, deliverable set, sendable same-day after a call.</li>
+            <li>MSA and SOW template: 40/30/30, terminal trigger with a date ceiling, IP transfer clause, placement fee disclosed.</li>
+            <li>Load the five message templates into your sequencer with the four-touch, 18-day cadence.</li>
+            <li>Create profiles on Vendux, Go Fractional, Bolster, Continuum, Fractional Jobs. One sitting, then forget them.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="day">
+        <div class="day-tag">Friday</div>
+        <div class="day-body">
+          <h4>Send</h4>
+          <ul class="checklist">
+            <li>40 network reactivations out — individual, specific, no broadcast post.</li>
+            <li>10 VC platform partner outreaches out.</li>
+            <li>First 15 signal-qualified cold targets entered into sequence.</li>
+            <li>Book two calls with T1 contacts for next week. Phone, not email.</li>
+            <li>Join Pavilion. Put the first vertical event on the calendar.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="tag">What good looks like by Friday</span>
+      <p><strong>65 touches out, two calls booked, the engine built.</strong> Not a client — a client this week would be luck, and the plan doesn't need luck until month three. What it needs is that the Monday block exists, the lists exist, and the templates are loaded, so that week two costs you three hours instead of three days.</p>
+    </div>
+  </section>
+
+  <footer>
+    <h3>Sources and references</h3>
+    <ul>
+      <li><a href="https://www.blog.technyc.org/news/seed-funding-analysis-h1-2026">Tech:NYC — H1 2026 Seed Funding Analysis</a> and <a href="https://www.blog.technyc.org/news/series-a-july-2026">Series A: A Series</a></li>
+      <li><a href="https://tracxn.com/d/explore/construction-tech-startups-in-new-york-city-united-states/__ZRO6oRAmH-obyKLTTI5Sqxmy-5ByHjY62fNTc7Nn9j8">Tracxn — Construction Tech Startups in New York City</a></li>
+      <li><a href="https://www.constructiondive.com/news/contech-funding-fyld-sensera-xbuild-moab-payra/814452/">Construction Dive — contech funding rounds</a> and <a href="https://bricks-bytes.com/funding-ma/latest-construction-technology-funding-rounds-27th-jul-2026/">Bricks &amp; Bytes funding tracker</a></li>
+      <li><a href="https://tracxn.com/d/venture-capital/brick-mortar-ventures/__ZiNDuGSjA93EY0uuYdzmyJWhQfnr5nkSfSoZfM4Ham0">Brick &amp; Mortar Ventures profile</a> and <a href="https://techcrunch.com/2024/02/27/zacua-ventures-construction-tech/">TechCrunch on Zacua Ventures</a></li>
+      <li><a href="https://growthlist.co/nyc-healthcare-startups-2/">Growth List — NYC healthcare startups</a> and <a href="https://seedtable.com/best-health-tech-startups-in-new-york">Seedtable — health tech in New York</a></li>
+      <li><a href="https://visible.vc/blog/venture-capital-firms-in-nyc/">Visible.vc — NYC venture capital firms</a> and <a href="https://www.bonfirevc.com/news/nyc-early-stage-seed-investors-b2b-saas-software">Bonfire — NYC early-stage B2B SaaS seed investors</a></li>
+      <li><a href="https://accelerateli.org/accelerate-li-lift-and-listnet-form-alliance-to-build-long-islands-entrepreneurial-ecosystem/">Accelerate Long Island / LIFT / LISTnet alliance</a> and <a href="https://www.cewit.org/incubator/resources">Stony Brook CEWIT incubator</a></li>
+      <li><a href="https://bettsrecruiting.com/blog/top-10-sales-recruiting-agencies-in-nyc/">Betts — sales recruiting agencies in NYC</a></li>
+    </ul>
+    <p>Company stage reads are inferred from public funding data and are not verified against actual revenue, headcount, or sales-team structure. Qualify every target against the buying signals in section four before spending a personalized touch. Funding figures reflect the most recent public reporting found and may lag.</p>
+  </footer>
+
+</div>
