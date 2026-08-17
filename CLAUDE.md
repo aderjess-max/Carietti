@@ -185,6 +185,26 @@ The construction correction cascades. Still built on the wrong premise:
    and vertical definitions
 5. `fractional-vp-sales-plan.html` §07 — the two-vertical positioning section
 
+## LinkedIn and content
+
+Profile rebuild lives in `linkedin-rebuild.html`. Brand assets in `assets/`:
+`linkedin-banner-B-unnecessary.png` (recommended banner, 1584×396) plus A and C variants;
+`launch-post-image-A.png` / `-B.png` (1200×1200 post cards). HTML sources and `shoot.py`
+render script sit alongside them — edit copy and re-render rather than starting over.
+
+**What her audience data says** (Aug 2026): 5,106 followers, ~345 profile views/wk, ~106 search
+appearances/wk. Her image post did **2,267 impressions / 28 comments**; her link-share post did
+**619**. So: native posts with a typographic image work; link shares suppress reach. No hashtags
+on personal posts. Put any URL in the first comment, never the body.
+
+**Posting rhythm**: Tue–Thu, 7:30–9:00am ET. Clear two hours after posting and reply to every
+comment inside 90 minutes — early comment velocity drives distribution. Never edit after posting;
+it resets distribution.
+
+**Visual system**: dark ground #0F1319, accent green #37B98A, off-white #F2F5F8, Liberation Sans
+bold display + DejaVu Sans Mono for eyebrows. Flat blocks only — LinkedIn's recompression mangles
+gradients and fine detail.
+
 ## The prospecting agent
 
 A Claude Code skill at `.claude/skills/prospect/` that sources targets, scores them against
