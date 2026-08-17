@@ -205,6 +205,11 @@ it resets distribution.
 bold display + DejaVu Sans Mono for eyebrows. Flat blocks only — LinkedIn's recompression mangles
 gradients and fine detail.
 
+**Copy rule — the hypothetical founder is "they."** Decided 2026-08-17. Prospecting copy has to
+let every founder read themselves into it; a gendered composite quietly excludes half the market.
+When "they" gets ambiguous against the reps, say "the founder" rather than reaching for a pronoun.
+(Jess's own pronouns are she/her — that's separate and unaffected.)
+
 ## The prospecting agent
 
 A Claude Code skill at `.claude/skills/prospect/` that sources targets, scores them against
