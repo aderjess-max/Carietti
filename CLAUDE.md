@@ -41,10 +41,12 @@ fragments (a pre-2012 Ferrandino & Son role) that do not appear on the profile. 
 stale and unevidenced. Automotive (Dealer Product Services, 5.5 yrs) is real but 8 years stale —
 third card at most, do not lead with it.
 
-**Open question:** is the fractional practice a service line *inside* Carietti Group, or separate?
-Carietti is positioned as a multidisciplinary collective with several principals, which is a
-different business than a solo 3-slot practice. Currently assumed: inside Carietti, as her
-named practice.
+**The Carietti Group is the operating entity** — the company she runs the business under, not a
+multi-principal firm. Resolved 2026-08-17. The practice *is* Carietti; there is no separate brand.
+Her LinkedIn description of it still reads as a collective ("the team you assemble," "every
+principal") and should be replaced — that framing competes with the actual offer, which is one
+senior operator, three slots, six months, gone at the end. Keep only the "you work directly with
+me, no junior associates" line; it's a real edge against agencies.
 
 ## Financial parameters
 
