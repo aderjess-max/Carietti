@@ -36,10 +36,21 @@ Bridge engagements = Sobrynth + Carietti Group. Consistent with the ~$12.5K/mo b
 and providers. Four consecutive companies (Spring → Koa → You Are Accountable → Sobrynth) plus
 BI WORLDWIDE selling to the *same* employer/HR buyer — eight continuous years.
 
-**Commercial construction was an error on my part** and is removed. It came from public search
-fragments (a pre-2012 Ferrandino & Son role) that do not appear on the profile. Real but ~14 years
-stale and unevidenced. Automotive (Dealer Product Services, 5.5 yrs) is real but 8 years stale —
-third card at most, do not lead with it.
+**Commercial construction was an error on my part** as a *co-vertical* and is removed from the
+positioning. It came from public search fragments (a pre-2012 Ferrandino & Son role) that do not
+appear on the profile. Real but ~14 years stale and unevidenced. Automotive (Dealer Product
+Services, 5.5 yrs) is real but 8 years stale — third card at most, do not lead with it.
+
+**But construction is a wedge *inside* behavioral health — decided 2026-08-17.** Construction has
+the highest drug overdose mortality rate of any US occupation (162.6 per 100k, ~3× the average
+worker), 12% alcohol use disorder vs. a 7.5% national rate, and 150% higher SUD diagnosis rates
+than other full-time workers. Sobrynth sells a workplace SUD benefit to employers; construction is
+the highest-need and most underserved employer segment in the country, and Jess has relationships
+in it that nobody else selling behavioral health has.
+
+So: **not in the headline, not a second vertical — the sharpest employer segment in the pipeline.**
+This applies both to Sobrynth's own GTM and to any future behavioral health client selling to
+employers. Sources: CDC/NCHS overdose-by-occupation data, CPWR, Construction Dive.
 
 **The Carietti Group is the operating entity** — the company she runs the business under, not a
 multi-principal firm. Resolved 2026-08-17. The practice *is* Carietti; there is no separate brand.
