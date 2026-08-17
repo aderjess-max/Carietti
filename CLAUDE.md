@@ -210,12 +210,12 @@ open-ended, x-hrs/week contracts. The productized 6-month offer is what's *new*,
 distinction is the honest answer to "why announce now." Name them as current work; describe the
 six-month engagement as the offer. Both clients are on LinkedIn and will read the copy.
 
-**Copy rule — never count slots in public.** Decided 2026-08-17. "I have one spot left" reads as
-desperate and invites the reader to wonder why the others are empty. Create urgency *structurally*
-instead: six-month engagements have to book a quarter ahead, which is a fact about the format, not
-a claim about demand. Frame selectivity as a quality standard ("hands-on work doesn't survive being
-spread thin"), never as remaining inventory. The three-slot ceiling stays internal — it's a capacity
-model, not a marketing line.
+**Copy rule — direct, not coy, and never count slots.** Decided 2026-08-17, her call. Ask plainly
+for what she wants ("actively looking for the next founder to build with") rather than manufacturing
+scarcity. Her register is honest and personal; hedging about availability is the one thing that
+would ring false. What keeps directness from reading as need is naming the work in flight
+immediately before the ask. Never write "one spot left" or any inventory count — the three-slot
+ceiling is an internal capacity model, not a marketing line.
 
 **Copy rule — the hypothetical founder is "they."** Decided 2026-08-17. Prospecting copy has to
 let every founder read themselves into it; a gendered composite quietly excludes half the market.
