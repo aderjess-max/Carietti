@@ -205,6 +205,11 @@ it resets distribution.
 bold display + DejaVu Sans Mono for eyebrows. Flat blocks only — LinkedIn's recompression mangles
 gradients and fine detail.
 
+**Copy rule — never imply the current engagements are 6-month deals.** Sobrynth and VIVIO are
+open-ended, x-hrs/week contracts. The productized 6-month offer is what's *new*, and that
+distinction is the honest answer to "why announce now." Name them as current work; describe the
+six-month engagement as the offer. Both clients are on LinkedIn and will read the copy.
+
 **Copy rule — never count slots in public.** Decided 2026-08-17. "I have one spot left" reads as
 desperate and invites the reader to wonder why the others are empty. Create urgency *structurally*
 instead: six-month engagements have to book a quarter ahead, which is a fact about the format, not
