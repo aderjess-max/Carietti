@@ -8,11 +8,43 @@ Persistent context for building and iterating on this practice. Update as facts 
 
 ## Operator profile
 
+**Jess Ferretti** (she/her) · ader.jess@gmail.com · linkedin.com/in/jess-ferretti-324611b
+NYC metro / Long Island. Works **fully remote** — national reach, NY metro is the beachhead not the boundary.
+
 - 23 years sales experience; quotas carried up to **$12M**
-- Verticals: digital healthcare, B2B SaaS, automotive, commercial construction
-- Based on **Long Island, NY**. Works **fully remote** — national reach, NY metro is the beachhead not the boundary
-- Currently holds **two 1099 fractional engagements** (open-ended, full-time-ish framing)
-- Starting the new practice model **week of 2026-08-16**
+- **Publicly sober, in recovery.** Certified in Behavioral Economics, Trauma-Informed Leadership, LGBTQIA+ Leadership. In behavioral health this is a commercial credential, not a personal detail — it is the least fakeable thing in the category.
+- **5,106 LinkedIn followers**, ~345 profile views/wk, ~106 search appearances/wk, posts landing 600–2,300 impressions. **Not starting cold on content** — this is a live channel, not a six-month build.
+- Also Creator & Host of *Shit Moms Won't Say* (@shitmomswontsay), Aug 2020–present
+
+### Career (verified from profile, Aug 2026)
+
+| Role | When | Vertical |
+|---|---|---|
+| Co-Founder & Principal, Sales & BD — **The Carietti Group** | Mar 2026– | own vehicle |
+| VP of Sales, Fractional — **Sobrynth** (contract) | May 2026– | workplace SUD benefit → employers |
+| VP, BD & Provider Relations — **You Are Accountable** | Mar 2025–Mar 2026 | SUD recovery, seed stage |
+| Head of Enterprise Sales — **Koa Health** | Apr 2024–Feb 2025 | mental health → employers |
+| Sr. Director, Strategic Accounts — **Spring Health** | Jun 2023–Apr 2024 | mental health → employers/plans |
+| Sr. Director, Strategy & Innovation — **BI WORLDWIDE** | Mar 2018–Jun 2023 | employee engagement → enterprise HR |
+| Sr. Director, New York — **Dealer Product Services** | Oct 2012–Mar 2018 | automotive F&I |
+
+Bridge engagements = Sobrynth + Carietti Group. Consistent with the ~$12.5K/mo bridge modeled below.
+
+### Vertical — CORRECTED 2026-08-17
+
+**Behavioral health: mental health, substance use, recovery.** Sold to employers, health plans,
+and providers. Four consecutive companies (Spring → Koa → You Are Accountable → Sobrynth) plus
+BI WORLDWIDE selling to the *same* employer/HR buyer — eight continuous years.
+
+**Commercial construction was an error on my part** and is removed. It came from public search
+fragments (a pre-2012 Ferrandino & Son role) that do not appear on the profile. Real but ~14 years
+stale and unevidenced. Automotive (Dealer Product Services, 5.5 yrs) is real but 8 years stale —
+third card at most, do not lead with it.
+
+**Open question:** is the fractional practice a service line *inside* Carietti Group, or separate?
+Carietti is positioned as a multidisciplinary collective with several principals, which is a
+different business than a solo 3-slot practice. Currently assumed: inside Carietti, as her
+named practice.
 
 ## Financial parameters
 
@@ -60,7 +92,7 @@ on the final trigger: "VP hired, or month 7, whichever comes first."
 2. **Do not discount the first client.** The bridge income removes the cash pressure that normally forces it. Buy proof with *scope* (sell Foundation at $72K) — never with rate.
 3. **Bridge exit is a condition, not a date: give notice the week client two signs.** Two engagements ≈ 1.8× floor and capacity is spent. Holding longer trades a $96K slot for $12.5K/mo.
 4. **Build the reusable asset library in months 1–2**, while the bridge covers the floor and the calendar is open. It is the load-bearing element that makes 3 concurrent engagements survivable.
-5. **Lead with two verticals: digital health + commercial construction / contech.** Not four. ~9,000 fractional sales leaders in US/Canada, overwhelmingly SaaS-generalist — generic positioning gets rate-compared to $10K/mo marketplace operators. Remote work makes vertical depth *more* important, not less.
+5. **Lead with behavioral health, narrowly.** ~9,000 fractional sales leaders in US/Canada, overwhelmingly SaaS-generalist — generic positioning gets rate-compared to $10K/mo marketplace operators. Remote work makes vertical depth *more* important, not less. The combination of four consecutive behavioral health roles, the employer/HR buyer across eight years, and lived experience of the condition the market treats is a category of one. (Superseded the earlier digital-health-plus-construction call — see the corrected vertical section above.)
 6. **The wedge**: *"I'm hired to make myself unnecessary in six months. The last thing I deliver is the person who replaces me."* Market average engagement is 9.7 months and drifts; a defined exit is the differentiator.
 
 ## Revenue model (year one)
@@ -93,6 +125,19 @@ Channel targets: VC/PE platform partners 2–3 deals · warm network 1–2 · re
 
 - **Strategy, research and pricing**: https://claude.ai/code/artifact/7985cfd3-122f-446a-af21-4bae3f71694c
 - **Launch playbook, plays and target list**: https://claude.ai/code/artifact/5cbaaef2-2819-4942-bb24-1626ba17de2a (`launch-playbook.html`)
+- **LinkedIn rebuild**: https://claude.ai/code/artifact/e0b79491-087e-4218-9104-fe6df228d389 (`linkedin-rebuild.html`)
+
+## Outstanding — needs re-cutting for the corrected vertical
+
+The construction correction cascades. Still built on the wrong premise:
+
+1. `launch-playbook.html` §07 — all five plays have construction variants that should become
+   behavioral health sub-variants (employer buyer vs. health plan vs. provider)
+2. `launch-playbook.html` §05 — the target list is ~half contech companies
+3. `pipeline/targets.csv` — 7 of 13 seeded companies are construction
+4. `.claude/skills/prospect/references/plays.md` and `signals.md` — same construction variants
+   and vertical definitions
+5. `fractional-vp-sales-plan.html` §07 — the two-vertical positioning section
 
 ## The prospecting agent
 
