@@ -14,7 +14,8 @@ NYC metro / Long Island. Works **fully remote** — national reach, NY metro is 
 - 23 years sales experience; quotas carried up to **$12M**
 - **Publicly sober, in recovery.** Certified in Behavioral Economics, Trauma-Informed Leadership, LGBTQIA+ Leadership. In behavioral health this is a commercial credential, not a personal detail — it is the least fakeable thing in the category.
 - **5,106 LinkedIn followers**, ~345 profile views/wk, ~106 search appearances/wk, posts landing 600–2,300 impressions. **Not starting cold on content** — this is a live channel, not a six-month build.
-- Also Creator & Host of *Shit Moms Won't Say* (@shitmomswontsay), Aug 2020–present
+- Previously Creator & Host of *Shit Moms Won't Say* (2020–2025ish). No longer active; removed from
+  the profile 2026-08-17. Much of the follower base came from it. Don't reference it as current.
 
 ### Career (verified from profile, Aug 2026)
 
@@ -27,6 +28,9 @@ NYC metro / Long Island. Works **fully remote** — national reach, NY metro is 
 | Sr. Director, Strategic Accounts — **Spring Health** | Jun 2023–Apr 2024 | mental health → employers/plans |
 | Sr. Director, Strategy & Innovation — **BI WORLDWIDE** | Mar 2018–Jun 2023 | employee engagement → enterprise HR |
 | Sr. Director, New York — **Dealer Product Services** | Oct 2012–Mar 2018 | automotive F&I |
+
+Pre-2012 (off-profile): Ferrandino & Son, Director of Regional Sales (~2008, facilities and
+commercial construction) · Prudential Douglas Elliman (~2005).
 
 Bridge engagements = Sobrynth + Carietti Group. Consistent with the ~$12.5K/mo bridge modeled below.
 
