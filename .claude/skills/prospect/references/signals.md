@@ -44,8 +44,13 @@ Sum the points for every signal that hits, then apply modifiers:
 ## Verticals
 
 **Digital health** — provider-facing, payer-facing, or employer-facing software and services.
-Care coordination, clinical ops, RCM, patient access, behavioral health, clinical research
-infrastructure. The tell for fit: a long committee sale with a compliance gate.
+Care coordination, clinical ops, RCM, patient access, mental health and substance use, specialty
+pharmacy and benefits, clinical research infrastructure. The tell for fit: a long committee sale
+with a compliance gate.
+
+Always call the category **digital health** in any drafted copy. Never write "behavioral health"
+as the label — where depth needs showing, name the specifics (mental health, substance use,
+recovery) instead.
 
 **Construction tech** — software and services sold to GCs, subs, owners, developers,
 suppliers. Preconstruction, project management, field ops, permitting, materials, equipment,

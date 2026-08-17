@@ -12,7 +12,7 @@ Persistent context for building and iterating on this practice. Update as facts 
 NYC metro / Long Island. Works **fully remote** — national reach, NY metro is the beachhead not the boundary.
 
 - 23 years sales experience; quotas carried up to **$12M**
-- **Publicly sober, in recovery.** Certified in Behavioral Economics, Trauma-Informed Leadership, LGBTQIA+ Leadership. In behavioral health this is a commercial credential, not a personal detail — it is the least fakeable thing in the category.
+- **Publicly sober, in recovery.** Certified in Behavioral Economics, Trauma-Informed Leadership, LGBTQIA+ Leadership. Selling into mental health and substance use, this is a commercial credential, not a personal detail — it is the least fakeable thing in the category.
 - **5,106 LinkedIn followers**, ~345 profile views/wk, ~106 search appearances/wk, posts landing 600–2,300 impressions. **Not starting cold on content** — this is a live channel, not a six-month build.
 - Previously Creator & Host of *Shit Moms Won't Say* (2020–2025ish). No longer active; removed from
   the profile 2026-08-17. Much of the follower base came from it. Don't reference it as current.
@@ -42,32 +42,38 @@ See the conversion play below.
 
 ### Vertical — CORRECTED 2026-08-17, widened 2026-08-17
 
-Two rings:
+**Always call the category "digital health."** Her instruction, 2026-08-17. Never write
+"behavioral health" as the label in any market-facing copy or internal note — it reads narrower
+than she wants and it excludes VIVIO. Where depth needs showing, name the specifics instead:
+mental health, substance use, recovery.
 
-- **Inner — behavioral health.** Mental health, substance use, recovery. Four consecutive companies
-  (Spring → Koa → You Are Accountable → Sobrynth) plus lived experience of the condition the market
-  treats. Sharpest, most differentiated, lead with this.
-- **Outer — the self-insured employer and health plan buyer.** BI WORLDWIDE, Spring, Koa, Sobrynth,
-  VIVIO all sell to the same buyer: benefits leaders, CHROs, health plan decision-makers. Six roles,
-  eight-plus years, fully evidenced. This sets the boundary of what she'll take, and roughly triples
-  the addressable market without making her a generalist.
+The vertical is **digital health**, and it holds together on two axes:
 
-Behavioral health alone may be too thin to keep three slots full; the outer ring is the release valve.
+- **Depth — mental health, substance use, recovery.** Four consecutive companies (Spring → Koa →
+  You Are Accountable → Sobrynth) plus lived experience of the condition those companies treat.
+  This is the sharpest, least fakeable part of the story. Prove with it; don't label with it.
+- **Breadth — the self-insured employer and health plan buyer.** BI WORLDWIDE, Spring, Koa,
+  Sobrynth, VIVIO all sell to the same buyer: benefits leaders, CHROs, health plan decision-makers.
+  Six roles, eight-plus years, fully evidenced.
+
+Label wide, prove narrow. "Digital health" keeps the addressable market big enough to fill three
+slots and covers VIVIO; the mental health and SUD specifics are what make her non-generic once a
+conversation starts.
 
 **Commercial construction was an error on my part** as a *co-vertical* and is removed from the
 positioning. It came from public search fragments (a pre-2012 Ferrandino & Son role) that do not
 appear on the profile. Real but ~14 years stale and unevidenced. Automotive (Dealer Product
 Services, 5.5 yrs) is real but 8 years stale — third card at most, do not lead with it.
 
-**But construction is a wedge *inside* behavioral health — decided 2026-08-17.** Construction has
+**But construction is a wedge *inside* digital health — decided 2026-08-17.** Construction has
 the highest drug overdose mortality rate of any US occupation (162.6 per 100k, ~3× the average
 worker), 12% alcohol use disorder vs. a 7.5% national rate, and 150% higher SUD diagnosis rates
 than other full-time workers. Sobrynth sells a workplace SUD benefit to employers; construction is
 the highest-need and most underserved employer segment in the country, and Jess has relationships
-in it that nobody else selling behavioral health has.
+in it that nobody else selling digital health has.
 
 So: **not in the headline, not a second vertical — the sharpest employer segment in the pipeline.**
-This applies both to Sobrynth's own GTM and to any future behavioral health client selling to
+This applies both to Sobrynth's own GTM and to any future digital health client selling to
 employers. Sources: CDC/NCHS overdose-by-occupation data, CPWR, Construction Dive.
 
 **The Carietti Group is the operating entity** — the company she runs the business under, not a
@@ -132,7 +138,7 @@ on the final trigger: "VP hired, or month 7, whichever comes first."
    **Convert one, never both, and not before losing it would be survivable.** A failed renegotiation
    costs the bridge income too.
 4. **Build the reusable asset library in months 1–2**, while the bridge covers the floor and the calendar is open. It is the load-bearing element that makes 3 concurrent engagements survivable.
-5. **Lead with behavioral health, narrowly.** ~9,000 fractional sales leaders in US/Canada, overwhelmingly SaaS-generalist — generic positioning gets rate-compared to $10K/mo marketplace operators. Remote work makes vertical depth *more* important, not less. The combination of four consecutive behavioral health roles, the employer/HR buyer across eight years, and lived experience of the condition the market treats is a category of one. (Superseded the earlier digital-health-plus-construction call — see the corrected vertical section above.)
+5. **Lead with digital health, narrowly.** ~9,000 fractional sales leaders in US/Canada, overwhelmingly SaaS-generalist — generic positioning gets rate-compared to $10K/mo marketplace operators. Remote work makes vertical depth *more* important, not less. The combination of four consecutive digital health roles, the employer/HR buyer across eight years, and lived experience of the condition the market treats is a category of one. (Superseded the earlier digital-health-plus-construction call — see the corrected vertical section above.)
 6. **The wedge**: *"I'm hired to make myself unnecessary in six months. The last thing I deliver is the person who replaces me."* Market average engagement is 9.7 months and drifts; a defined exit is the differentiator.
 
 ## Revenue model (year one)
@@ -172,7 +178,7 @@ Channel targets: VC/PE platform partners 2–3 deals · warm network 1–2 · re
 The construction correction cascades. Still built on the wrong premise:
 
 1. `launch-playbook.html` §07 — all five plays have construction variants that should become
-   behavioral health sub-variants (employer buyer vs. health plan vs. provider)
+   digital health sub-variants (employer buyer vs. health plan vs. provider)
 2. `launch-playbook.html` §05 — the target list is ~half contech companies
 3. `pipeline/targets.csv` — 7 of 13 seeded companies are construction
 4. `.claude/skills/prospect/references/plays.md` and `signals.md` — same construction variants
