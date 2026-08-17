@@ -23,6 +23,7 @@ NYC metro / Long Island. Works **fully remote** — national reach, NY metro is 
 |---|---|---|
 | Co-Founder & Principal, Sales & BD — **The Carietti Group** | Mar 2026– | own vehicle |
 | VP of Sales, Fractional — **Sobrynth** (contract) | May 2026– | workplace SUD benefit → employers |
+| Sr. Director of Sales — **VIVIO Health** (contract) | current | specialty drug mgmt → large self-insured employers + health plans |
 | VP, BD & Provider Relations — **You Are Accountable** | Mar 2025–Mar 2026 | SUD recovery, seed stage |
 | Head of Enterprise Sales — **Koa Health** | Apr 2024–Feb 2025 | mental health → employers |
 | Sr. Director, Strategic Accounts — **Spring Health** | Jun 2023–Apr 2024 | mental health → employers/plans |
@@ -32,13 +33,26 @@ NYC metro / Long Island. Works **fully remote** — national reach, NY metro is 
 Pre-2012 (off-profile): Ferrandino & Son, Director of Regional Sales (~2008, facilities and
 commercial construction) · Prudential Douglas Elliman (~2005).
 
-Bridge engagements = Sobrynth + Carietti Group. Consistent with the ~$12.5K/mo bridge modeled below.
+Bridge engagements = **Sobrynth + VIVIO Health**, both contract, both "x hours/week, no end date",
+together ~$12.5K/mo. Carietti Group is the entity she bills through, not a third client.
 
-### Vertical — CORRECTED 2026-08-17
+**She is already running the practice at ~40% of target rate**, with no defined scope and no
+terminal deliverable. The year-one problem is *repricing and restructuring*, not launching.
+See the conversion play below.
 
-**Behavioral health: mental health, substance use, recovery.** Sold to employers, health plans,
-and providers. Four consecutive companies (Spring → Koa → You Are Accountable → Sobrynth) plus
-BI WORLDWIDE selling to the *same* employer/HR buyer — eight continuous years.
+### Vertical — CORRECTED 2026-08-17, widened 2026-08-17
+
+Two rings:
+
+- **Inner — behavioral health.** Mental health, substance use, recovery. Four consecutive companies
+  (Spring → Koa → You Are Accountable → Sobrynth) plus lived experience of the condition the market
+  treats. Sharpest, most differentiated, lead with this.
+- **Outer — the self-insured employer and health plan buyer.** BI WORLDWIDE, Spring, Koa, Sobrynth,
+  VIVIO all sell to the same buyer: benefits leaders, CHROs, health plan decision-makers. Six roles,
+  eight-plus years, fully evidenced. This sets the boundary of what she'll take, and roughly triples
+  the addressable market without making her a generalist.
+
+Behavioral health alone may be too thin to keep three slots full; the outer ring is the release valve.
 
 **Commercial construction was an error on my part** as a *co-vertical* and is removed from the
 positioning. It came from public search fragments (a pre-2012 Ferrandino & Son role) that do not
@@ -108,6 +122,15 @@ on the final trigger: "VP hired, or month 7, whichever comes first."
 1. **Price is not the constraint — pipeline is.** $400K ÷ 3 slots ÷ 12 mo = $11,111/slot/mo, below the $11,732 market average. At a realistic 70% year-one utilization the required rate is $16K/mo.
 2. **Do not discount the first client.** The bridge income removes the cash pressure that normally forces it. Buy proof with *scope* (sell Foundation at $72K) — never with rate.
 3. **Bridge exit is a condition, not a date: give notice the week client two signs.** Two engagements ≈ 1.8× floor and capacity is spent. Holding longer trades a $96K slot for $12.5K/mo.
+3a. **The conversion play — added 2026-08-17.** Client one may not need to be sourced cold. Sobrynth
+   is the strongest candidate: launched 2024, workplace SUD benefit sold to employers, almost
+   certainly inside the founder-led-sales window, and the relationship and context already exist.
+   Propose converting the open-ended arrangement into the productized 6-month engagement at $16K/mo
+   with a defined terminal deliverable. VIVIO is a weaker candidate — more mature (Mark Cuban Cost
+   Plus partnership, Validation Institute credentialed, large self-insured employers), so she is
+   likely carrying a number there rather than building an engine.
+   **Convert one, never both, and not before losing it would be survivable.** A failed renegotiation
+   costs the bridge income too.
 4. **Build the reusable asset library in months 1–2**, while the bridge covers the floor and the calendar is open. It is the load-bearing element that makes 3 concurrent engagements survivable.
 5. **Lead with behavioral health, narrowly.** ~9,000 fractional sales leaders in US/Canada, overwhelmingly SaaS-generalist — generic positioning gets rate-compared to $10K/mo marketplace operators. Remote work makes vertical depth *more* important, not less. The combination of four consecutive behavioral health roles, the employer/HR buyer across eight years, and lived experience of the condition the market treats is a category of one. (Superseded the earlier digital-health-plus-construction call — see the corrected vertical section above.)
 6. **The wedge**: *"I'm hired to make myself unnecessary in six months. The last thing I deliver is the person who replaces me."* Market average engagement is 9.7 months and drifts; a defined exit is the differentiator.
