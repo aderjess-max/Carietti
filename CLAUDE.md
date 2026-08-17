@@ -205,6 +205,13 @@ it resets distribution.
 bold display + DejaVu Sans Mono for eyebrows. Flat blocks only — LinkedIn's recompression mangles
 gradients and fine detail.
 
+**Copy rule — never count slots in public.** Decided 2026-08-17. "I have one spot left" reads as
+desperate and invites the reader to wonder why the others are empty. Create urgency *structurally*
+instead: six-month engagements have to book a quarter ahead, which is a fact about the format, not
+a claim about demand. Frame selectivity as a quality standard ("hands-on work doesn't survive being
+spread thin"), never as remaining inventory. The three-slot ceiling stays internal — it's a capacity
+model, not a marketing line.
+
 **Copy rule — the hypothetical founder is "they."** Decided 2026-08-17. Prospecting copy has to
 let every founder read themselves into it; a gendered composite quietly excludes half the market.
 When "they" gets ambiguous against the reps, say "the founder" rather than reaching for a pronoun.
