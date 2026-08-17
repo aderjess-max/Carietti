@@ -1,0 +1,5 @@
+# Only needed for Gmail draft staging. Without these the agent still runs and
+# writes reviewable .eml / .md files to pipeline/drafts/ instead.
+google-api-python-client>=2.120.0
+google-auth-oauthlib>=1.2.0
+google-auth>=2.28.0

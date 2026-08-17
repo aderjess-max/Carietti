@@ -1,0 +1,17 @@
+# Gmail OAuth — never commit these
+.gmail/
+*.token.json
+credentials.json
+token.json
+
+# Staged drafts may contain contact details
+pipeline/drafts/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store

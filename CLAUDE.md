@@ -92,7 +92,22 @@ Channel targets: VC/PE platform partners 2–3 deals · warm network 1–2 · re
 ## Artifacts
 
 - **Strategy, research and pricing**: https://claude.ai/code/artifact/7985cfd3-122f-446a-af21-4bae3f71694c
-- **Launch playbook and target list**: `launch-playbook.html` in this repo
+- **Launch playbook, plays and target list**: https://claude.ai/code/artifact/5cbaaef2-2819-4942-bb24-1626ba17de2a (`launch-playbook.html`)
+
+## The prospecting agent
+
+A Claude Code skill at `.claude/skills/prospect/` that sources targets, scores them against
+buying signals, drafts outreach from the plays, and stages Gmail drafts for human review.
+**It never sends.** Setup and usage in `SETUP.md`.
+
+- `/prospect monday` — the full weekly origination block
+- `/prospect source` · `/prospect research <company>` · `/prospect draft` · `/prospect due` · `/prospect status`
+
+State lives in `pipeline/targets.csv` and `pipeline/touches.csv` (plain CSV, Excel-friendly).
+Run it on a local machine, not a web session — the Gmail token and pipeline need to persist.
+
+Keep `references/plays.md` fresh: the domain-specific observations are what make the messages
+land, and they should be refreshed quarterly from live engagements.
 
 ## Working agreement
 
