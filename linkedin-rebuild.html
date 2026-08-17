@@ -1,0 +1,552 @@
+<title>The LinkedIn Rebuild</title>
+<style>
+  :root {
+    --ground: #FBFBFC; --surface: #F3F5F7; --surface-2: #EAEEF2;
+    --ink: #13171E; --ink-2: #2E3742; --muted: #59626F;
+    --rule: #DCE1E7; --rule-strong: #BCC5CF;
+    --accent: #1B6B51; --accent-soft: #E4EFE9;
+    --flag: #9C5218; --flag-soft: #F7EDE3;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --measure: 74ch;
+    --gutter: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0D1015; --surface: #151A21; --surface-2: #1C232C;
+      --ink: #E4E9F0; --ink-2: #C3CBD6; --muted: #8A94A2;
+      --rule: #232B35; --rule-strong: #333D4A;
+      --accent: #4CBE93; --accent-soft: #11291F;
+      --flag: #D08A4A; --flag-soft: #2A1E12;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0D1015; --surface: #151A21; --surface-2: #1C232C;
+    --ink: #E4E9F0; --ink-2: #C3CBD6; --muted: #8A94A2;
+    --rule: #232B35; --rule-strong: #333D4A;
+    --accent: #4CBE93; --accent-soft: #11291F;
+    --flag: #D08A4A; --flag-soft: #2A1E12;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground); color: var(--ink); font-family: var(--sans);
+    font-size: 16.5px; line-height: 1.62; -webkit-font-smoothing: antialiased;
+    margin: 0; padding: 0 var(--gutter) 6rem;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  .col { max-width: var(--measure); }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .masthead { padding: clamp(3rem, 8vw, 5.5rem) 0 2.25rem; border-bottom: 2px solid var(--ink); }
+  .kicker {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted); margin: 0 0 1.5rem;
+  }
+  h1 {
+    font-size: clamp(2.3rem, 6.5vw, 4rem); line-height: 1.02; letter-spacing: -0.033em;
+    font-weight: 800; margin: 0 0 1.25rem; max-width: 18ch; text-wrap: balance;
+  }
+  .standfirst {
+    font-size: clamp(1.05rem, 2.2vw, 1.3rem); line-height: 1.5; color: var(--ink-2);
+    max-width: 60ch; margin: 0; text-wrap: pretty;
+  }
+
+  section { padding-top: 4rem; }
+  .sec-head {
+    display: flex; align-items: baseline; gap: 1rem;
+    border-top: 1px solid var(--rule-strong); padding-top: 0.7rem; margin-bottom: 2rem;
+  }
+  .sec-num {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em;
+    color: var(--accent); font-weight: 600; flex: none;
+  }
+  .sec-head h2 {
+    font-size: clamp(1.4rem, 3.2vw, 1.95rem); letter-spacing: -0.022em;
+    font-weight: 750; margin: 0; line-height: 1.15; text-wrap: balance;
+  }
+
+  h3 { font-size: 1.08rem; font-weight: 700; letter-spacing: -0.01em; margin: 2.5rem 0 0.75rem; }
+  p { margin: 0 0 1.1rem; text-wrap: pretty; }
+  .lede { font-size: 1.08rem; color: var(--ink-2); }
+  strong { font-weight: 680; color: var(--ink); }
+
+  .callout {
+    background: var(--accent-soft); border-left: 3px solid var(--accent);
+    padding: 1.35rem 1.5rem; margin: 2rem 0; max-width: var(--measure);
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout .tag {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.13em;
+    text-transform: uppercase; color: var(--accent); font-weight: 700;
+    display: block; margin-bottom: 0.6rem;
+  }
+  .callout.warn { background: var(--flag-soft); border-left-color: var(--flag); }
+  .callout.warn .tag { color: var(--flag); }
+
+  /* Copy blocks */
+  .copy {
+    border: 1px solid var(--rule-strong); background: var(--surface);
+    margin: 1.5rem 0 2rem; max-width: var(--measure);
+  }
+  .copy-head {
+    display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; align-items: baseline;
+    justify-content: space-between;
+    padding: 0.7rem 1.15rem; border-bottom: 1px solid var(--rule-strong);
+    background: var(--surface-2);
+  }
+  .copy-label {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 700; color: var(--accent);
+  }
+  .copy-meta { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+  .copy-body { padding: 1.2rem 1.15rem 1.3rem; font-size: 0.95rem; line-height: 1.65; }
+  .copy-body p { margin: 0 0 0.85rem; }
+  .copy-body p:last-child { margin-bottom: 0; }
+  .copy-body .spacer { height: 0.2rem; }
+  .copy-note {
+    font-size: 0.82rem; color: var(--muted); padding: 0.8rem 1.15rem;
+    border-top: 1px solid var(--rule); line-height: 1.5;
+  }
+  .copy.pick { border-color: var(--accent); border-width: 2px; }
+
+  .scroller { overflow-x: auto; margin: 1.75rem 0 2rem; border-bottom: 1px solid var(--rule-strong); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.87rem; min-width: 600px; }
+  thead th {
+    text-align: left; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--muted); font-weight: 600;
+    padding: 0 0.9rem 0.6rem 0; border-bottom: 1px solid var(--ink); vertical-align: bottom;
+  }
+  tbody td {
+    padding: 0.7rem 0.9rem 0.7rem 0; border-bottom: 1px solid var(--rule);
+    vertical-align: top; line-height: 1.45;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  .who { font-weight: 650; color: var(--ink); }
+  tr.hi td { background: var(--accent-soft); }
+
+  ul.plain { padding-left: 1.15rem; margin: 0 0 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  ul.plain li { line-height: 1.55; }
+  ul.plain li::marker { color: var(--accent); }
+
+  .checklist { list-style: none; padding: 0; margin: 1.25rem 0 0; display: flex; flex-direction: column; }
+  .checklist li {
+    display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.7rem; padding: 0.7rem 0;
+    border-bottom: 1px solid var(--rule); font-size: 0.94rem; line-height: 1.5; align-items: start;
+  }
+  .checklist li::before {
+    content: ""; width: 1rem; height: 1rem; border: 1.5px solid var(--rule-strong); margin-top: 0.28rem;
+  }
+
+  .verify {
+    border: 1px solid var(--flag); background: var(--flag-soft);
+    padding: 1.35rem 1.5rem; margin: 2rem 0; max-width: var(--measure);
+  }
+  .verify .tag {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.13em;
+    text-transform: uppercase; color: var(--flag); font-weight: 700;
+    display: block; margin-bottom: 0.6rem;
+  }
+  .verify p:last-child { margin-bottom: 0; }
+
+  footer {
+    margin-top: 5rem; border-top: 2px solid var(--ink); padding-top: 1.5rem;
+    font-size: 0.82rem; color: var(--muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">Fractional VP of Sales &middot; Profile, Launch Post, Outreach &middot; August 2026</p>
+    <h1>The LinkedIn Rebuild</h1>
+    <p class="standfirst">Your career arc is unusually well-suited to the positioning we built — the two verticals we chose are literally the bookends of your résumé. This leans on that hard.</p>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">00</span>
+      <h2>What I could and couldn't see</h2>
+    </div>
+
+    <div class="verify">
+      <span class="tag">Verify before you publish</span>
+      <p><strong>LinkedIn is blocked from this environment — I could not read your profile.</strong> What follows is built from public search fragments and third-party company data, so treat every factual claim below as a draft for your correction, not as something I confirmed.</p>
+      <p>What I pieced together, in rough order of confidence: <strong>You Are Accountable</strong> (current or recent — NYC, seed-stage, ~$1.9M raised early 2025, peer recovery support for substance use disorder, sold both direct-to-consumer and through treatment-provider partnerships) · <strong>HiringThing</strong> (Head of Strategic Partnerships &amp; Business Development) · <strong>Ferrandino &amp; Son</strong> (Director of Regional Sales, from ~2008 — Farmingdale NY, family-owned, roughly $92M revenue and 253 employees, national facilities maintenance and general contracting) · <strong>Prudential Douglas Elliman</strong> (from ~2005) · <strong>Hofstra University</strong>.</p>
+      <p>Titles, dates, and current status are the least reliable parts. <strong>Automotive didn't surface at all</strong> — tell me where that sits and I'll work it in. Send me corrections and I'll re-cut this in one pass.</p>
+    </div>
+
+    <div class="col">
+      <p class="lede">Assuming that arc is roughly right, here's why it matters more than you may think.</p>
+      <p>We picked digital health and commercial construction as your two verticals on market logic — they're underserved, they reward operator depth, and they keep you out of the generic-SaaS bracket where you'd get rate-compared to a $10K/month marketplace operator.</p>
+      <p>It turns out those are the two ends of your actual career. <strong>Ferrandino &amp; Son is a $92M family-owned facilities and construction firm on Long Island</strong> — which is not just construction credibility, it is precisely the owner-operator target class we identified as your least contested audience. You worked inside one. And <strong>You Are Accountable is a seed-stage digital health company selling into treatment providers</strong> — which means you have personally lived founder-led sales at exactly the stage and in exactly the vertical your ICP occupies.</p>
+      <p>That's not a positioning you have to argue for. It's one you can just state.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2>Headline</h2>
+    </div>
+
+    <div class="col">
+      <p>220 characters. It's the single most search-weighted field on your profile, so "Fractional VP of Sales" has to appear early and verbatim — that's the phrase people actually search. Everything after it earns the click.</p>
+    </div>
+
+    <div class="copy pick">
+      <div class="copy-head">
+        <span class="copy-label">Headline &mdash; use this one</span>
+        <span class="copy-meta">156 chars</span>
+      </div>
+      <div class="copy-body">
+        <p>Fractional VP of Sales | Founder-led sales → a real sales team in 6 months, ending with the VP who replaces me | Digital health + construction | Quotas to $12M</p>
+      </div>
+      <p class="copy-note">Search term first, the wedge second, verticals third, proof last. The arrow renders fine on LinkedIn and breaks up the pipe-heavy rhythm everyone else uses.</p>
+    </div>
+
+    <div class="copy">
+      <div class="copy-head">
+        <span class="copy-label">Alternate &mdash; bolder</span>
+        <span class="copy-meta">148 chars</span>
+      </div>
+      <div class="copy-body">
+        <p>I'm hired to make myself unnecessary in 6 months | Fractional VP of Sales | Digital health + commercial construction | 23 years selling, quotas to $12M</p>
+      </div>
+      <p class="copy-note">Leads with the hook instead of the search term. More memorable in a feed, slightly worse in search. Use it once you have inbound flow and don't need discovery as much.</p>
+    </div>
+
+    <div class="copy">
+      <div class="copy-head">
+        <span class="copy-label">Alternate &mdash; problem-first</span>
+        <span class="copy-meta">151 chars</span>
+      </div>
+      <div class="copy-body">
+        <p>Still the best salesperson in your own company? That's the problem I solve | Fractional VP of Sales | Digital health + construction | Quotas to $12M</p>
+      </div>
+      <p class="copy-note">Highest engagement of the three, weakest for search. Strong if content becomes your main channel.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2>About</h2>
+    </div>
+
+    <div class="col">
+      <p>2,600 characters available; this uses about 1,900. Only the first three lines show before "see more" — so the hook has to land in roughly 200 characters. <strong>LinkedIn strips bold and markdown</strong>, so this is written to work as plain text with line breaks doing the structural work.</p>
+    </div>
+
+    <div class="copy pick">
+      <div class="copy-head">
+        <span class="copy-label">About section</span>
+        <span class="copy-meta">~1,900 chars &middot; paste as plain text</span>
+      </div>
+      <div class="copy-body">
+        <p>I've spent 23 years selling, and carried quotas up to $12M. In that time I've watched the same thing happen in every industry I've worked in.</p>
+        <p>A founder builds something good. They sell it brilliantly, because nobody believes in it the way they do. And then they hit a ceiling somewhere between $2M and $10M that they cannot sell their way through.</p>
+        <p>So they hire reps.</p>
+        <p>The reps inherit a process that exists nowhere except the founder's head. No defined ICP. No qualification framework. A CRM that's a graveyard. A year later two people are gone, and the founder quietly concludes the market requires them personally.</p>
+        <p>It doesn't. Nobody ever built the system.</p>
+        <p>That's the only thing I do now. Six months, and I build the whole engine: ICP and segmentation, the sales narrative, email templates and outreach cadences, the process and stage definitions, the tech stack, the CRM stood up and actually live.</p>
+        <p>Then I hire your VP of Sales, hand them a company that runs without me, and I leave.</p>
+        <p>That last part is the point. The average fractional sales engagement runs almost ten months and drifts, because nobody in the seat is paid to end it. I'd rather be measured on whether you still needed me in month seven.</p>
+        <p>Where I'm deepest:</p>
+        <p>DIGITAL HEALTH — I've sold in it. I know what a twelve-month committee sale actually looks like: the clinical champion who can't sign anything, the security review that kills momentum, the pilot that never converts to an enterprise agreement. Reps hired out of transactional SaaS run that cycle like a 60-day deal, and companies lose a year finding out.</p>
+        <p>COMMERCIAL CONSTRUCTION — I spent years at a $90M national facilities and construction services company. I know what happens when somebody who has never stood on a jobsite walks into a meeting with a GC's ops team. And I know how contractors actually buy: one project, one champion, then an enterprise rollout.</p>
+        <p>I also know B2B SaaS and automotive. I'm on Long Island and work fully remote, with clients nationally.</p>
+        <p>If you're the best salesperson in your own company and you know that's a problem — that's the conversation I want to have.</p>
+      </div>
+      <p class="copy-note">Uses caps rather than bold for the vertical headers since LinkedIn strips formatting. The two vertical paragraphs are the highest-value text on your whole profile — they're what a generalist cannot write, and they're what a founder screenshots and sends to a co-founder.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>Experience</h2>
+    </div>
+
+    <div class="col">
+      <p>Don't rewrite history — reframe emphasis. Every prior role should quietly answer "why should I believe you about my industry." Add the new role at the top, then rework the descriptions beneath it so each one carries a vertical proof point.</p>
+    </div>
+
+    <div class="copy pick">
+      <div class="copy-head">
+        <span class="copy-label">New role &mdash; add this first</span>
+        <span class="copy-meta">Aug 2026 – Present &middot; Self-employed &middot; Remote</span>
+      </div>
+      <div class="copy-body">
+        <p><strong>Fractional VP of Sales</strong></p>
+        <p>I take companies out of founder-led sales and leave them with a sales organization that runs without the founder — in six months, ending with the VP of Sales I hire to replace me.</p>
+        <p>Every engagement delivers: ICP and segmentation · the full sales narrative and pitch · email templates and multi-channel outreach cadences · sales process, stages and qualification criteria · tech stack selection and implementation · CRM configured and live · onboarding and ramp plan for the reps who come next · and the search, scorecard and hire for your VP of Sales.</p>
+        <p>Everything built during the engagement transfers to you on completion.</p>
+        <p>Deepest in digital health and commercial construction. Also work in B2B SaaS and automotive. Based on Long Island, working with companies nationally.</p>
+        <p>Three concurrent engagements maximum. If you're at $2M–$10M and still closing every deal yourself, that's the conversation.</p>
+      </div>
+      <p class="copy-note">Name the practice entity here if you've formed one. "Three concurrent engagements maximum" is doing real work — scarcity you actually have is the cheapest pricing power available to a solo practice.</p>
+    </div>
+
+    <div class="copy">
+      <div class="copy-head">
+        <span class="copy-label">You Are Accountable &mdash; reframe</span>
+        <span class="copy-meta">confirm your title and dates</span>
+      </div>
+      <div class="copy-body">
+        <p>Built and ran revenue at a seed-stage digital health company delivering peer recovery support and monitoring for substance use disorder — selling both direct-to-consumer and through partnerships with SUD treatment providers.</p>
+        <p>Lived the founder-led-sales transition from the inside: building the commercial motion at the exact stage where the founder is still the best salesperson in the company and the process hasn't been written down yet.</p>
+        <p>[Add two or three real numbers — revenue built, partnerships signed, pipeline created, growth rate. This is the single most valuable place on your profile for a hard metric.]</p>
+      </div>
+      <p class="copy-note">This role is your digital health credential and your proof that you've lived the exact problem you now sell against. Worth more words than anything else in the Experience section.</p>
+    </div>
+
+    <div class="copy">
+      <div class="copy-head">
+        <span class="copy-label">HiringThing &mdash; reframe</span>
+        <span class="copy-meta">Head of Strategic Partnerships &amp; Business Development</span>
+      </div>
+      <div class="copy-body">
+        <p>Owned partnerships and business development for a B2B SaaS platform — building the channel and partner motion that carries recurring revenue rather than one-off deals.</p>
+        <p>Partner-led growth is a different engine than direct sales, and most founders discover too late that they need both. [Add numbers: partners signed, channel revenue, share of pipeline sourced through partnerships.]</p>
+      </div>
+      <p class="copy-note">Your B2B SaaS credential, and it covers a motion most fractional sales leaders can't speak to credibly. Keep it tighter than the two vertical roles.</p>
+    </div>
+
+    <div class="copy">
+      <div class="copy-head">
+        <span class="copy-label">Ferrandino &amp; Son &mdash; reframe</span>
+        <span class="copy-meta">Director of Regional Sales</span>
+      </div>
+      <div class="copy-body">
+        <p>Regional sales leadership at a family-owned national provider of facilities maintenance and construction services — roughly $90M in revenue, headquartered on Long Island, selling general contracting, facility maintenance, HVAC, electrical, paving and exterior services to multi-site commercial clients nationally.</p>
+        <p>Sold into the construction and facilities world the way it actually buys: relationship-first, project-by-project, with enterprise rollouts earned one site at a time. [Add numbers: territory revenue, growth, accounts landed, quota performance.]</p>
+      </div>
+      <p class="copy-note">This is your construction credential and it's stronger than you probably give it credit for. A $92M family-owned contractor is exactly the owner-operator profile in your target list — you've been inside that company, which is something no SaaS-generalist fractional operator can say.</p>
+    </div>
+
+    <div class="copy">
+      <div class="copy-head">
+        <span class="copy-label">Prudential Douglas Elliman &amp; earlier</span>
+        <span class="copy-meta">keep brief</span>
+      </div>
+      <div class="copy-body">
+        <p>Two lines maximum. Early-career roles establish tenure and nothing else at this point — the 23 years is the asset, the detail isn't. Don't delete them; the unbroken arc is part of the credential.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2>The rest of the profile</h2>
+    </div>
+
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr><th>Section</th><th>What to do</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td class="who">Banner image</td>
+            <td>Most-neglected high-value real estate on the profile. Plain background, one line of text: <em>"Founder-led sales → a real sales team. Six months."</em> Nothing else. It's the first thing loaded and almost nobody uses it.</td>
+          </tr>
+          <tr>
+            <td class="who">Photo</td>
+            <td>If it's more than three years old, replace it. Plain background, shoulders up, looking at camera. No suit unless you'd wear one to a first meeting — and for construction and seed-stage health, you wouldn't.</td>
+          </tr>
+          <tr class="hi">
+            <td class="who">Featured</td>
+            <td>Three items: the launch post below (pin it), a one-page PDF of the offer and the three tiers, and your first case study once you have one. Featured sits directly under About and converts profile views into conversations better than anything else on the page.</td>
+          </tr>
+          <tr>
+            <td class="who">Open to work</td>
+            <td>Turn it <strong>off</strong>. You're not looking for a job. Use "Providing services" instead and list Sales Consulting, Business Consulting, and Leadership Development — it surfaces you in LinkedIn's services search, which almost nobody in your category has switched on.</td>
+          </tr>
+          <tr>
+            <td class="who">Skills</td>
+            <td>Reorder so the top three are <strong>Sales Management</strong>, <strong>Go-to-Market Strategy</strong>, <strong>Sales Operations</strong>. LinkedIn weights the first three heavily in search. Push older, off-thesis skills down.</td>
+          </tr>
+          <tr>
+            <td class="who">Recommendations</td>
+            <td>Ask three people this week — one founder, one former manager, one peer. Ask for something specific: "would you write two lines about what changed after we built the process?" Vague requests get vague recommendations.</td>
+          </tr>
+          <tr>
+            <td class="who">Custom URL</td>
+            <td>Your current one ends in <code>-324611b</code>. Claim <code>linkedin.com/in/jessferretti</code> or the closest available. Free, takes ten seconds, and it goes on every proposal you send.</td>
+          </tr>
+          <tr>
+            <td class="who">Creator mode</td>
+            <td>On. Add "founder-led sales," "sales leadership," "go-to-market" as your topics. It changes Connect to Follow on your profile, which is what you want when content is a channel.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn">
+      <span class="tag">Sequence matters</span>
+      <p>Update the profile <strong>before</strong> you post. The launch post will drive a spike of profile views — that's most of its value — and there is no second first impression. Get the headline, About, banner and Featured live first, then post.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2>The launch post</h2>
+    </div>
+
+    <div class="col">
+      <p>Launch posts usually fail because they announce rather than argue. "Excited to share that I'm starting…" gives a reader nothing to react to, so nobody does.</p>
+      <p>This one opens on a claim strange enough to earn the next line, spends its middle on a problem your audience recognizes in themselves, and closes with two asks — one for people who have the problem, one for people who know somebody who does. The second ask is what generates comments, because it's easy to answer.</p>
+    </div>
+
+    <div class="copy pick">
+      <div class="copy-head">
+        <span class="copy-label">Launch post &mdash; post today</span>
+        <span class="copy-meta">~1,800 chars &middot; no hashtags, no link</span>
+      </div>
+      <div class="copy-body">
+        <p>The last thing I deliver is the person who replaces me.</p>
+        <p>That's not a tagline. It's the scope of work.</p>
+        <p>After 23 years in sales — carrying numbers up to $12M — I'm starting something of my own. Here's the problem I'm building it around.</p>
+        <p>A founder builds something good. They sell it brilliantly, because nobody believes in it the way they do. Then they hit a ceiling somewhere between $2M and $10M that they can't sell their way through.</p>
+        <p>So they hire reps.</p>
+        <p>And the reps inherit a process that exists nowhere except the founder's head. No ICP. No qualification framework. A CRM that's a graveyard. Twelve months later two people are gone, and the founder quietly concludes the market requires them personally.</p>
+        <p>It doesn't. Nobody ever built the system.</p>
+        <p>That's the six months I do. ICP, the narrative, the cadences, the process, the tech stack, the CRM actually live and actually used.</p>
+        <p>And then — this is the part people find strange — I run the search for their VP of Sales, hand that person a company that runs without me, and I leave.</p>
+        <p>The average fractional sales engagement runs 9.7 months and drifts. Of course it does. Nobody sitting in that seat is paid to end it.</p>
+        <p>I'd rather be measured on whether you still needed me in month seven.</p>
+        <p>Two places I'm deepest. Digital health, where I've watched good reps run a twelve-month committee sale like a sixty-day deal. And commercial construction, where I've watched someone who's never stood on a jobsite lose the room in ten minutes.</p>
+        <p>If you're the best salesperson in your own company and you know that's a problem — I'd like to talk.</p>
+        <p>And if someone came to mind while you were reading this: that's the intro I'd be grateful for.</p>
+      </div>
+      <p class="copy-note">No hashtags — they read as marketing and don't help reach on a personal post. No external link in the body; LinkedIn suppresses those. If you want to point somewhere, put it in the first comment.</p>
+    </div>
+
+    <h3>How to work the post</h3>
+    <div class="col">
+      <ul class="plain">
+        <li><strong>Post Tuesday–Thursday, 7:30–9:00am Eastern.</strong> Not Monday, not Friday.</li>
+        <li><strong>Clear two hours after posting.</strong> Reply to every comment within the first ninety minutes — early comment velocity is most of what drives distribution, and a reply counts as engagement.</li>
+        <li><strong>Reply with substance, not thanks.</strong> Every response should add a sentence someone else would want to read. "Thanks Dave!" is a wasted slot.</li>
+        <li><strong>Send it to 20 people directly</strong> before you post publicly, with one line: <em>"Going out tomorrow — wanted you to see it first."</em> That's a network reactivation touch and a distribution mechanism in the same message.</li>
+        <li><strong>Don't edit it after posting.</strong> Edits reset distribution.</li>
+        <li><strong>Pin it to Featured</strong> once it's up.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <h2>Cold LinkedIn outreach</h2>
+    </div>
+
+    <div class="col">
+      <p>LinkedIn DMs work on completely different physics than email. The connection note caps at <strong>300 characters</strong>, everyone can see you looked at their profile, and the medium is far less formal. Long messages read as automation and get ignored.</p>
+      <p>So the note doesn't pitch. It earns the connection. The pitch waits until they've accepted — which is a yes, and yes is worth waiting for.</p>
+    </div>
+
+    <div class="copy pick">
+      <div class="copy-head">
+        <span class="copy-label">Connection note &mdash; construction</span>
+        <span class="copy-meta">212 chars &middot; 300 limit</span>
+      </div>
+      <div class="copy-body">
+        <p>[Name] — saw you're hiring AEs with no sales leader in place yet. That gap is the thing I get called for. 23 years selling, a lot of it in construction and facilities. Not pitching you — happy to just connect.</p>
+      </div>
+      <p class="copy-note">"Not pitching you" is load-bearing. It's true at this stage, and it roughly doubles accept rate versus a note that opens with what you do.</p>
+    </div>
+
+    <div class="copy pick">
+      <div class="copy-head">
+        <span class="copy-label">Connection note &mdash; digital health</span>
+        <span class="copy-meta">227 chars &middot; 300 limit</span>
+      </div>
+      <div class="copy-body">
+        <p>[Name] — saw the AE opening, and that there's no sales leader above it yet. That's the moment I usually get called. 23 years selling, most recently in digital health. Not pitching — happy to just be connected.</p>
+      </div>
+      <p class="copy-note">Swap the opening line to whatever signal is actually true: a recent raise, a new segment, a stale VP req. Never send a signal line you haven't verified.</p>
+    </div>
+
+    <div class="copy">
+      <div class="copy-head">
+        <span class="copy-label">No signal? Use this instead</span>
+        <span class="copy-meta">198 chars</span>
+      </div>
+      <div class="copy-body">
+        <p>[Name] — I work with [digital health / contech] founders making the move out of founder-led sales. Yours is one of the companies I've been watching. Would like to be connected either way.</p>
+      </div>
+      <p class="copy-note">Weaker, and that's fine — it's honest. Far better than inventing a signal, which is the one mistake that permanently costs you a future buyer.</p>
+    </div>
+
+    <div class="copy pick">
+      <div class="copy-head">
+        <span class="copy-label">After they accept &mdash; wait 2 days</span>
+        <span class="copy-meta">the actual message</span>
+      </div>
+      <div class="copy-body">
+        <p>Thanks for connecting, [Name].</p>
+        <p>Since I've got you — the reason your AE search caught my eye is that hiring reps before there's a sales leader is usually the moment a company loses a year. The reps inherit a process that only exists in the founder's head, most of them wash out, and it reads as a hiring problem when it's a system problem.</p>
+        <p>That's the six months I do. ICP, the story, cadences, process, CRM — then I hire the VP of Sales who takes it over and I'm gone.</p>
+        <p>Worth 20 minutes? And if the timing's wrong, genuinely no problem — I'll leave you alone.</p>
+      </div>
+      <p class="copy-note">Under 120 words. Two days after the accept, not the same minute — an instant follow-up is the signature of automation and everyone recognizes it.</p>
+    </div>
+
+    <div class="copy">
+      <div class="copy-head">
+        <span class="copy-label">Close-out &mdash; 10 days later</span>
+        <span class="copy-meta">then stop</span>
+      </div>
+      <div class="copy-body">
+        <p>[Name] — closing the loop so I'm not cluttering your inbox. If founder-led sales is still where your week goes six months from now, I'm easy to find. If it isn't, that's the better outcome.</p>
+      </div>
+      <p class="copy-note">Two messages after the accept, then stop. An unanswered founder is a future buyer, not a target to wear down.</p>
+    </div>
+
+    <div class="callout">
+      <span class="tag">Volume ceiling</span>
+      <p>Keep connection requests under <strong>20 per day</strong> and personalize every one. LinkedIn restricts accounts that run high-volume generic invites, and a restricted account costs you the channel entirely. Twenty personalized notes a day is 100 a week — well past the playbook's 15 new companies.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07</span>
+      <h2>Today</h2>
+    </div>
+
+    <div class="col">
+      <ul class="checklist">
+        <li>Send me corrections on the career facts in section 00 — especially titles, dates, and where automotive fits.</li>
+        <li>Headline first. It's one field and it changes how you appear in every search from that moment.</li>
+        <li>Paste the About section. Check it reads right as plain text — LinkedIn will strip anything else.</li>
+        <li>Add the new Fractional VP of Sales role, then rework the four role descriptions beneath it.</li>
+        <li>Fill in the bracketed metrics. A number you actually hit beats any sentence I can write.</li>
+        <li>Banner image with the one line. Claim the custom URL.</li>
+        <li>Turn off Open to Work. Turn on Providing Services and Creator mode.</li>
+        <li>Reorder skills so the top three are Sales Management, Go-to-Market Strategy, Sales Operations.</li>
+        <li>Send the post to 20 people directly: "Going out tomorrow — wanted you to see it first."</li>
+        <li>Post tomorrow morning, 7:30–9:00am Eastern. Then clear two hours and work the comments.</li>
+        <li>Request three recommendations with a specific question, not a generic ask.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p>Career details assembled from public search results and third-party company data — <a href="https://theorg.com/org/hiringthing/org-chart/jess-ader-ferretti">The Org</a>, <a href="https://bhbusiness.com/2025/02/26/peer-sud-support-company-you-are-accountable-raises-1-9m/">Behavioral Health Business</a>, <a href="https://ferrandinoandson.com/">Ferrandino &amp; Son</a> — because LinkedIn could not be reached from this environment. Titles, dates, and current employment are unverified and should be corrected before anything here is published. Company figures reflect the most recent public reporting found and may be out of date.</p>
+  </footer>
+
+</div>
