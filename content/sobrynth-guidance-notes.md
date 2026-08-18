@@ -63,18 +63,38 @@ The current title is the thesis, so it earns its place. If you want to test a sh
 
 ## Companion feed post
 
-Article links suppress reach — her link-share post did 619 impressions against 2,267 for a native image post. So don't share the article as a link. Post this natively with cover image B (`assets/cover-sobrynth-B.png`), and put the article URL in the first comment.
+Article links suppress reach — her link-share post did 619 impressions against 2,267 for a native
+image post. So don't share the article as a link. Post this natively with cover image B
+(`assets/cover-sobrynth-B.png`), and put the article URL in the first comment.
 
 > A high-performing employee took FMLA leave last year.
 >
-> Not because she was sick. Because her college-aged son was.
+> Not because she was sick. Because her son was.
 >
-> Overnight she became a care navigator, an insurance expert, a treatment researcher, and a crisis manager — none of which she was trained for, all of which she did on hold with a call center.
+> He had started struggling with substance use, and overnight she became a care navigator, an insurance expert, a treatment researcher, and a crisis manager — none of which she was trained for, all of which she did on hold with a call center.
 >
 > She had the leave. What she didn't have was a plan.
 >
-> Here's what I keep seeing: benefits are built around the person with the diagnosis. But 46% of American adults have a family member or close friend who's been addicted to drugs. In any workforce, the people carrying someone else's crisis outnumber the people currently in treatment — and they never show up in a benefits report. They show up in leave requests and resignations coded "personal reasons."
+> Here is the part employers miss. Benefits get built around the person with the diagnosis. But 46% of American adults have a family member or close friend who has been addicted to drugs. In any workforce, the people carrying someone else's crisis outnumber the people currently in treatment — and they never show up in a benefits report. They show up as leave requests, missed deadlines, and resignations coded "personal reasons."
 >
-> I wrote about what it costs employers when a family has to guess, and what changes when they don't.
+> Meanwhile the family, navigating alone, defaults to the most visible level of care rather than the most appropriate one. The health plan absorbs that decision.
+>
+> At Sobrynth, our peer recovery coaches walk with both of them — the employee and the person they love. 24/7, no session limits, and it extends to family.
+>
+> I wrote about what it costs when a family has to guess, and what changes when they don't. Link in the comments.
 
-Post Tue–Thu, 7:30–9:00am ET. No hashtags. Clear two hours after and reply to every comment inside 90 minutes.
+First comment, posted immediately after:
+
+> Guidance Instead of Guesswork — the full piece: [article URL]
+
+**Mechanics.** Tue–Thu, 7:30–9:00am ET. No hashtags. Never edit after posting — it resets
+distribution. Clear two hours afterward and reply to every comment inside 90 minutes; early
+comment velocity is what drives reach.
+
+**Don't attach a fractional-VP ask to this one.** It's client content, and the practice benefit is
+indirect: it demonstrates category depth to exactly the buyer she sells to. Bolting a pitch onto
+the end would cost more credibility than it earns.
+
+**Why the hook works.** LinkedIn truncates at roughly 200 characters. The first three lines land
+inside that window and end on "Because her son was" — the reader has to expand to find out what
+happened.
