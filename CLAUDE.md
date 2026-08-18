@@ -243,3 +243,11 @@ land, and they should be refreshed quarterly from live engagements.
 - Keep artifacts updated in place (same URLs) rather than publishing new ones
 - Update this file whenever pricing, positioning, capacity, or financial parameters change
 - Log signed clients, prices actually achieved, and channel attribution as they happen — the model above should be re-cut against real data, not left as forecast
+
+## Channel log
+
+Re-cut the revenue model against this as real data accumulates, rather than leaving it forecast.
+
+| Date | Channel | Action | Result |
+|---|---|---|---|
+| 2026-08-17 | LinkedIn content | Launch post ("Willpower doesn't scale"), Mon ~11am ET, image A, no hashtags | ~4 hrs: 5 reposts, 16 likes, 8 comments incl. replies. Reposts unusually high vs. likes — copy is vouching-grade. Monday afternoon slot cost early velocity. Next post Thu 7:30–9am. |
