@@ -46,6 +46,7 @@ Do not send anything containing these. Rewrite instead.
 | "at your earliest convenience" | Formal register that doesn't match the rest |
 | Any stat without a source | Erodes the credential |
 | Exclamation points | One is too many here |
+| "worth a conversation" / "worth a chat" / "worth exploring" / any "worth a ___" | Reads as AI-generated on sight. Her call, 2026-08-18. Ask plainly instead: "Any chance you have 20 minutes?" |
 
 ## Subject lines
 

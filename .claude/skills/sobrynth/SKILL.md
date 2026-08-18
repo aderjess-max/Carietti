@@ -115,6 +115,17 @@ most underserved employer segment in the country.
 | Review or edit existing content | Apply the language rules table. Check for stigmatizing language. Flag anything implying a single right path to recovery. |
 | Uncertain about direction | Lean toward the version that is more human, more specific, and more likely to make someone feel less alone. |
 
+## Banned phrasing
+
+Applies to every Sobrynth email, post, and article.
+
+- **"worth a conversation" / "worth a chat" / "worth exploring" / any "worth a ___" construction.**
+  Reads as AI-generated on sight and undoes the voice. Her call, 2026-08-18. Make the ask plainly
+  instead: "Any chance you have twenty minutes?"
+
+The full outreach kill list lives in `.claude/skills/prospect/references/voice.md` and applies to
+Sobrynth email as well.
+
 ## Quality check — run before every output
 
 1. Does this feel compassionate, confident, and clear?
