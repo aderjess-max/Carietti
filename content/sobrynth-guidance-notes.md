@@ -61,11 +61,26 @@ The current title is the thesis, so it earns its place. If you want to test a sh
 - *Her Son Was Struggling. She Was the One Who Left Work.*
 - *The Employee Your Benefits Plan Can't See*
 
-## Companion feed post
+## Publishing plan — two accounts
 
-Article links suppress reach — her link-share post did 619 impressions against 2,267 for a native
-image post. So don't share the article as a link. Post this natively with cover image B
-(`assets/cover-sobrynth-B.png`), and put the article URL in the first comment.
+The article goes out under both names, and the order matters.
+
+**Publish the article from her personal profile, not the Sobrynth page.** Her profile has 5,106
+followers, ~345 views/week, and a live engagement history; a 2024-founded company page has none of
+that, and LinkedIn throttles page reach besides. The Sobrynth byline is already in the article's
+sign-off, so authorship is clear either way. Then the Sobrynth page shares it with its own
+commentary — the page gets the asset in its feed without paying the page-reach penalty.
+
+Sequence: personal post first, in the Tue–Thu 7:30–9:00am ET window. Sobrynth's page shares 60–90
+minutes later, once the first wave of comments has landed. Any Sobrynth colleagues who reshare
+should do it the same day with their own line of commentary — a bare repost carries far less than
+a repost with a sentence attached.
+
+## Her personal post
+
+Post natively with cover image B (`assets/cover-sobrynth-B.png`) and put the article URL in the
+first comment. Article links suppress reach — her link-share post did 619 impressions against
+2,267 for a native image post — so the link never goes in the body.
 
 > A high-performing employee took FMLA leave last year.
 >
@@ -79,21 +94,57 @@ image post. So don't share the article as a link. Post this natively with cover 
 >
 > Meanwhile the family, navigating alone, defaults to the most visible level of care rather than the most appropriate one. The health plan absorbs that decision.
 >
-> At Sobrynth, our peer recovery coaches walk with both of them — the employee and the person they love. 24/7, no session limits, and it extends to family.
+> I wrote this for Sobrynth, where our peer recovery coaches walk with both people — the employee and the person they love. 24/7, no session limits, and it extends to family.
 >
-> I wrote about what it costs when a family has to guess, and what changes when they don't. Link in the comments.
+> Link in the comments.
 
 First comment, posted immediately after:
 
 > Guidance Instead of Guesswork — the full piece: [article URL]
 
-**Mechanics.** Tue–Thu, 7:30–9:00am ET. No hashtags. Never edit after posting — it resets
-distribution. Clear two hours afterward and reply to every comment inside 90 minutes; early
-comment velocity is what drives reach.
+## Sobrynth's page post
 
-**Don't attach a fractional-VP ask to this one.** It's client content, and the practice benefit is
-indirect: it demonstrates category depth to exactly the buyer she sells to. Bolting a pitch onto
-the end would cost more credibility than it earns.
+Same story, institutional voice, no "I." Use cover image A (`assets/cover-sobrynth-A.png`) so the
+two posts don't look like duplicates in anyone's feed.
+
+> An employee took FMLA leave last year. Not because she was sick — because her son was.
+>
+> He had started struggling with substance use. Overnight she became a care navigator, an insurance expert, a treatment researcher, and a crisis manager. She did most of it on hold with a call center.
+>
+> She had the leave. What she didn't have was a plan.
+>
+> Most benefits are built around the person with the diagnosis. But 46% of American adults have a family member or close friend who has been addicted to drugs. In any workforce, the people carrying someone else's crisis outnumber the people currently in treatment — and they don't show up in a benefits report. They show up as leave requests, missed deadlines, and resignations coded "personal reasons."
+>
+> Meanwhile the family, navigating alone, defaults to the most visible level of care rather than the most appropriate one. The health plan absorbs that decision.
+>
+> Sobrynth's certified peer recovery coaches walk with both — the employee and the person they love. 24/7, confidential, no session limits, and support that extends to family.
+>
+> Jess Ferretti wrote about what it costs employers when a family has to guess, and what changes when they don't. Link in the comments.
+
+## If the article gets published from the Sobrynth page instead
+
+Then her personal post becomes a reshare with commentary — never a bare repost. Use this:
+
+> I wrote this one for Sobrynth, but I have been carrying the story around a lot longer than that.
+>
+> The employee in it never had a substance use problem. Her son did. She still ended up as the one who left work, because nothing in her benefits package was built for the person standing next to the person who is struggling.
+>
+> I have spent the last three years selling mental health and substance use benefits to employers. This is the gap I hear about most and see addressed least. We count the employee in treatment. We don't count the three people rearranging their lives around them.
+>
+> That is the part Sobrynth actually fills, and it is why I am working with them.
+
+Optional, and entirely her call: one line naming her own recovery would make this the least
+fakeable post in the category. It also changes the register from professional to personal, which
+is a bigger decision than a single post. Leaving it out costs nothing.
+
+## Mechanics
+
+Tue–Thu, 7:30–9:00am ET. No hashtags. Never edit after posting — it resets distribution. Clear two
+hours afterward and reply to every comment inside 90 minutes; early comment velocity drives reach.
+
+**Don't attach a fractional-VP ask to any of these.** It's client content, and the practice
+benefit is indirect: it demonstrates category depth to exactly the buyer she sells to. Bolting a
+pitch onto the end would cost more credibility than it earns.
 
 **Why the hook works.** LinkedIn truncates at roughly 200 characters. The first three lines land
 inside that window and end on "Because her son was" — the reader has to expand to find out what
