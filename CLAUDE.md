@@ -237,6 +237,27 @@ Run it on a local machine, not a web session — the Gmail token and pipeline ne
 Keep `references/plays.md` fresh: the domain-specific observations are what make the messages
 land, and they should be refreshed quarterly from live engagements.
 
+## The Sobrynth content engine
+
+Sobrynth is a client (VP of Sales, Fractional, contract, May 2026–), and Jess also owns its
+content. The brand guidelines live as a skill at `.claude/skills/sobrynth/` — voice, the
+non-negotiable person-first language rules, both channels, the pillars, and the SAMHSA stat set.
+It loads automatically whenever Sobrynth content comes up. Read it before writing anything
+market-facing for Sobrynth.
+
+Two channels: **LinkedIn** (HR and benefits leaders, 1 post/week Tue or Wed AM, 150–300 words,
+hook → body → pivot → close) and the **content library** (employees and families, 3–4 pieces/month,
+title / 3 subheadings / P1–P3).
+
+**Two voices, one operator.** Sobrynth's voice is a trusted informed friend; Jess's practice voice
+is a 23-year operator. When she posts about Sobrynth from her *own* profile, her format rules win
+(native post, no hashtags, URL in the first comment) and Sobrynth's language rules win
+(person-first, full spectrum, no stigmatizing terms). Never write "addict," "substance abuse,"
+"clean," or "rock bottom" in any Sobrynth-adjacent copy.
+
+The **65% of construction workplace injuries linked to SUD** stat is the bridge between Sobrynth's
+content and the construction wedge above — same argument, two audiences.
+
 ## Working agreement
 
 - Branch: `claude/fractional-vp-sales-plan-bgy5xs`
