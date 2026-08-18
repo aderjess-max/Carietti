@@ -1,0 +1,41 @@
+/* Sobrynth brand tokens — lifted from Sobrynth_Overview_Deck.pptx.
+   Flat blocks only; LinkedIn's recompression mangles gradients and fine detail. */
+:root {
+  --purple-deep:  #3A2C73;
+  --purple:       #4F3E93;
+  --purple-mid:   #58488C;
+  --lilac:        #E0DAEA;
+  --lilac-light:  #AFA9EC;
+  --ink:          #1F1A2E;
+  --orange:       #EC8B3E;
+  --orange-light: #FAA95F;
+  --paper:        #F4F2EF;
+  --white:        #FFFFFF;
+  --grey:         #6B6B76;
+
+  /* Roboto Serif / Roboto Light are the deck's faces; DejaVu stands in when
+     they are not installed on the rendering machine. */
+  --display: "Roboto Serif", "DejaVu Serif", Georgia, serif;
+  --body:    "Roboto Light", "Roboto", "DejaVu Sans", Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1200px; height: 644px; overflow: hidden; }
+body { position: relative; font-family: var(--body); }
+
+.logo { position: absolute; left: 76px; top: 56px; height: 46px; }
+
+.eyebrow {
+  font-size: 17px; letter-spacing: 2.6px; text-transform: uppercase;
+  font-weight: 700; margin-bottom: 26px;
+}
+h1 { font-family: var(--display); font-weight: 700; }
+h1 em { font-style: normal; }
+
+.sub { font-size: 26px; line-height: 1.35; }
+.sub b { font-weight: 700; }
+
+.foot {
+  position: absolute; left: 76px; bottom: 52px;
+  font-size: 16px; letter-spacing: 2.4px; text-transform: uppercase; font-weight: 700;
+}

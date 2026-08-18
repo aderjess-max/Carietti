@@ -197,6 +197,14 @@ appearances/wk. Her image post did **2,267 impressions / 28 comments**; her link
 **619**. So: native posts with a typographic image work; link shares suppress reach. No hashtags
 on personal posts. Put any URL in the first comment, never the body.
 
+**Sobrynth's brand** (extracted from their overview deck, Aug 2026 — sobrynth.com is unreachable
+from web sessions, so use these rather than guessing). Deep purple `#3A2C73` / `#4F3E93` /
+`#58488C`, orange accent `#EC8B3E` (light `#FAA95F`), warm paper `#F4F2EF`, lilac `#E0DAEA`,
+ink `#1F1A2E`, secondary text `#6B6B76`. Display face Roboto Serif, body Roboto Light. Logo art in
+`assets/sobrynth/`; tokens in `assets/cover-sobrynth.css`. The labyrinth mark is the identity —
+"Sobrynth" is sober + labyrinth, and their platform is called Soberpath. Client-branded work uses
+this palette, not Jess's dark/green system.
+
 **Posting rhythm**: Tue–Thu, 7:30–9:00am ET. Clear two hours after posting and reply to every
 comment inside 90 minutes — early comment velocity drives distribution. Never edit after posting;
 it resets distribution.

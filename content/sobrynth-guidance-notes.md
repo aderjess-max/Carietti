@@ -1,8 +1,41 @@
 # Editor's notes — "Guidance Instead of Guesswork"
 
 Article: `content/sobrynth-guidance-instead-of-guesswork.md`
-Cover images: `assets/cover-guesswork-A.png` (recommended) and `assets/cover-guesswork-B.png`, both 1200×644.
-Sources: `assets/cover-guesswork-*.html`, rendered with `python3 assets/shoot-cover.py`.
+Cover images: `assets/cover-sobrynth-A.png` (recommended) and `assets/cover-sobrynth-B.png`, both 1200×644.
+Sources: `assets/cover-sobrynth-*.html` + `assets/cover-sobrynth.css`, rendered with `python3 assets/shoot-cover.py`.
+
+## Sobrynth brand, pulled from the overview deck
+
+sobrynth.com is unreachable from this environment, so the covers are built from the branding
+inside `Sobrynth_Overview_Deck.pptx` — theme colors counted across all 25 slides, plus the logo
+art lifted straight out of the deck. Everything lives in `assets/cover-sobrynth.css` as tokens,
+so a brand change is a one-line edit.
+
+| Token | Hex | Where it comes from |
+|---|---|---|
+| `--purple-deep` | `#3A2C73` | deck headline purple |
+| `--purple` | `#4F3E93` | primary purple |
+| `--purple-mid` | `#58488C` | most-used color in the deck after white |
+| `--lilac` | `#E0DAEA` | panel tint |
+| `--lilac-light` | `#AFA9EC` | eyebrows on dark |
+| `--ink` | `#1F1A2E` | body text |
+| `--orange` | `#EC8B3E` | the accent — second most-used color in the deck |
+| `--orange-light` | `#FAA95F` | accent on dark |
+| `--paper` | `#F4F2EF` | warm off-white ground |
+| `--grey` | `#6B6B76` | secondary text |
+
+Logos extracted to `assets/sobrynth/`: `logo-full-color.png` (white background knocked out to
+transparent so it sits on the warm paper), `logo-reversed.png` for dark grounds, and
+`mark-maze.png`, the standalone labyrinth mark.
+
+Type: the deck uses **Roboto Serif** for display and **Roboto Light** for body. Neither is
+installed here, so the renders substitute DejaVu Serif and DejaVu Sans. The CSS names the Roboto
+faces first — re-render on a machine with Roboto installed and the covers pick them up with no
+other change. They will get slightly narrower, so glance at the line breaks if you do.
+
+The maze mark carries the article: a family navigating treatment is literally in a labyrinth, and
+that is already Sobrynth's own metaphor. It's why cover A puts it in its own panel rather than
+tucking it in a corner.
 
 ## What changed and why
 
@@ -30,7 +63,7 @@ The current title is the thesis, so it earns its place. If you want to test a sh
 
 ## Companion feed post
 
-Article links suppress reach — her link-share post did 619 impressions against 2,267 for a native image post. So don't share the article as a link. Post this natively with cover image B, and put the article URL in the first comment.
+Article links suppress reach — her link-share post did 619 impressions against 2,267 for a native image post. So don't share the article as a link. Post this natively with cover image B (`assets/cover-sobrynth-B.png`), and put the article URL in the first comment.
 
 > A high-performing employee took FMLA leave last year.
 >

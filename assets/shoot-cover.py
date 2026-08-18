@@ -8,7 +8,7 @@ HERE = Path(__file__).parent
 W, H = 1200, 644
 CHROME = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
 
-names = sys.argv[1:] or ["cover-guesswork-A", "cover-guesswork-B"]
+names = sys.argv[1:] or ["cover-sobrynth-A", "cover-sobrynth-B"]
 
 with sync_playwright() as p:
     browser = p.chromium.launch(executable_path=CHROME, args=["--no-sandbox"])
