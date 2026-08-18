@@ -104,6 +104,30 @@ Open questions for that meeting are in the artifact and below.
    whether the ~$17.5K/mo floor already includes it; if not, the floor is higher than modeled and
    the bridge-exit trigger moves.
 
+## Capability inventory — as of 2026-08-17
+
+**VP search: has not run one end to end.** She has been the VP of Sales *candidate* several times,
+so she knows the role, the interview loop, comp expectations, and what good looks like from the
+inside — but she has never run a structured search as the searcher. This matters because the
+terminal deliverable and the $40–50K placement fee both hang on it.
+
+Handling, decided direction:
+- **Keep the promise** — "I hire your VP of Sales" is honest, because she is the decision-maker.
+- **Partner the sourcing** with a sales recruiter. This doubles the value of the recruiter
+  referral-swap channel already in the playbook (lead source *and* delivery capability) and likely
+  resolves the placement-fee licensing question at the same time. Move it up the priority list.
+- **Build the capability in parallel** — scorecard and comp-plan templates, a defined interview
+  loop, reference-check structure. She has until roughly month 7 of client one.
+- **Never overclaim.** If asked how many VPs she has placed: none as a recruiter — she has *been*
+  the VP three times and will have built the system the hire inherits, which is why she is the right
+  person to choose them. That is a stronger answer than a placement count.
+
+**CRM: Salesforce and HubSpot** to implementation depth, plus confidence to pick up others with
+research. Covers most of the seed-through-Series-A digital health market.
+
+**Existing assets:** email templates from prior roles, multiple client/role decks. The month 1–2
+asset library is therefore partly a *curation and productization* job, not a build from zero.
+
 ## Financial parameters
 
 | | |
