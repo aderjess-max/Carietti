@@ -83,6 +83,27 @@ principal") and should be replaced — that framing competes with the actual off
 senior operator, three slots, six months, gone at the end. Keep only the "you work directly with
 me, no junior associates" line; it's a real edge against agencies.
 
+## Operating setup — as of 2026-08-17
+
+**No restrictions on new clients.** Neither Sobrynth nor VIVIO has a non-compete, exclusivity, or
+conflict clause, and **both know she is actively looking for further contract work.** The target
+list is unconstrained, she can talk openly about looking, and raising the conversion conversation
+with Sobrynth carries no relationship risk.
+
+**Legal entity not yet formed.** Accountant meeting **2026-08-20**. Until then there is no LLC/
+S-corp, no EIN, no business bank account, no MSA/SOW template, and no E&O insurance. This is the
+binding constraint on signing client one — some clients require proof of insurance before an SOW.
+Open questions for that meeting are in the artifact and below.
+
+**Two items to resolve that are easy to miss:**
+1. **Placement-fee licensing.** Charging 20% of first-year base to place a VP may implicate NY
+   employment-agency licensing rules. Confirm with the accountant or an attorney before the fee is
+   written into an MSA. If it is a problem, restructure as a "search and selection" advisory fee or
+   refer the placement to a licensed recruiter and take a referral share.
+2. **Health insurance in the income floor.** Going fully 1099 means buying her own coverage. Confirm
+   whether the ~$17.5K/mo floor already includes it; if not, the floor is higher than modeled and
+   the bridge-exit trigger moves.
+
 ## Financial parameters
 
 | | |
