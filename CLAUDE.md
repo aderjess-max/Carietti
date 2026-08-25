@@ -194,8 +194,11 @@ render script sit alongside them — edit copy and re-render rather than startin
 
 **What her audience data says** (Aug 2026): 5,106 followers, ~345 profile views/wk, ~106 search
 appearances/wk. Her image post did **2,267 impressions / 28 comments**; her link-share post did
-**619**. So: native posts with a typographic image work; link shares suppress reach. No hashtags
-on personal posts. Put any URL in the first comment, never the body.
+**619**. So: native posts with a typographic image work; link shares suppress reach. **No hashtags on her personal posts** — they no longer drive reach (LinkedIn retired
+hashtag-following) and they push her register toward marketing, which is the one thing that would
+ring false. **Three to four specific ones on Sobrynth page posts**, at the very bottom, never
+mid-sentence: page content has no personal network effect and leans harder on topical discovery,
+and the institutional voice absorbs them at no cost. Decided 2026-08-25. Put any URL in the first comment, never the body.
 
 **Sobrynth's brand** (extracted from their overview deck, Aug 2026 — sobrynth.com is unreachable
 from web sessions, so use these rather than guessing). Deep purple `#3A2C73` / `#4F3E93` /

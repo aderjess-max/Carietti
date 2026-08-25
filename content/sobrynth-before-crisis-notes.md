@@ -50,27 +50,74 @@ carries the whole thesis at thumbnail size. Cover B is for the feed: "Every six-
 decision made at midnight." Both keep the labyrinth panel from the first article's covers, so the
 two pieces read as a series rather than one-offs.
 
-## Companion feed post
+## Her personal post
 
-Native, cover B, link in the first comment.
+Native, cover B (`assets/cover-claim-B.png`), link in the first comment, no hashtags.
 
 > A $100,000 claim landed on an HR leader's desk.
 >
 > It wasn't for an employee. It was for their spouse.
 >
-> Here is what the claim doesn't show: that number was decided months earlier, at a kitchen table, near midnight, by someone with no training in any of this. A few hours online, a recommendation from a friend, and a family lands on the most visible option — usually residential care — without ever learning what else exists or what actually fits.
+> Here is what the claim doesn't show: that number was decided months earlier. At a kitchen table, near midnight, by someone with no training in any of this.
+>
+> A few hours online. A recommendation from a friend. And a family lands on the most visible option — usually residential care — without ever learning what else exists or what actually fits.
 >
 > That is not a failure of judgment. It is a failure of navigation. Nobody handed them a map.
 >
-> Two in three American families are directly affected by someone's substance use. Your benefits data can see almost none of it until it arrives as a claim.
+> Two in three American families are directly affected by someone's substance use. Your benefits data can see almost none of it until it shows up as a claim.
 >
-> Every benefits strategy has an answer for the six-figure claim. Almost none has an answer for the ninety days before it — which is where the cost actually gets decided, and where the family is most alone.
+> Every benefits strategy has an answer for the six-figure claim. Almost none has an answer for the ninety days before it — which is exactly where the cost gets decided, and exactly where the family is most alone.
 >
-> I wrote about what changes when someone is walking beside them in that window. Link in the comments.
+> I wrote about what changes when someone is walking beside them in that window.
+>
+> Link in the comments.
 
-Sobrynth page version: same copy in institutional voice — drop "I wrote about" for "Jess Ferretti
-wrote about," and use cover A so the two posts don't read as duplicates.
+First comment, immediately after:
 
-**Stagger them this time.** The first article went out from both accounts simultaneously; whatever
-those numbers say, there is no upside to running the experiment twice. Personal post first in the
-Tue–Thu 7:30–9:00am ET window, page post 60–90 minutes behind it.
+> Before Crisis Becomes a Claim — the full piece: [article URL]
+
+## Sobrynth's page post
+
+Cover A (`assets/cover-claim-A.png`), link in the first comment, hashtags at the bottom.
+
+Deliberately a different entry point from her post — this one opens on the customer, hers opens
+on the claim. Their audiences overlap heavily, and two posts that open on the same sentence read
+as one post duplicated.
+
+> Olympia Hospitality noticed something most employers miss.
+>
+> When an employee's family member is struggling with substance use, that employee doesn't need another phone number to call. They need someone to walk beside them.
+>
+> So that is what they gave them.
+>
+> Through Sobrynth, their employees and families get confidential, one-on-one support from peer specialists — people in recovery themselves — who help them understand the treatment landscape, navigate insurance, and find the level of care that is clinically appropriate for their situation.
+>
+> No claim is filed to reach us. No diagnosis is shared. No employee data goes back to the employer.
+>
+> Sometimes the right answer is inpatient treatment, and the family gets there faster and better prepared. Sometimes it is outpatient or IOP — the right level of support while someone stays connected to work, family, and community, at a fraction of the cost of residential care.
+>
+> We don't authorize, deny, or gatekeep anything. We are who a family talks to before they have to choose.
+>
+> Because the alternative is what happens by default: a few hours online, a recommendation from a friend, and a six-figure claim that arrives months later — long after the decision that produced it was made alone, at a kitchen table, near midnight.
+>
+> Two in three American families are directly affected by someone's substance use. Most benefits plans cannot see any of it until it becomes a claim.
+>
+> Jess Ferretti wrote about the ninety days where that cost actually gets decided. Link in the comments.
+>
+> #EmployeeBenefits #SubstanceUseDisorder #BenefitsStrategy #SelfInsured
+
+Four tags, all specific to the buyer, all at the very bottom — never mid-sentence, which
+hyperlinks words and pulls readers out of the copy. Nothing broad like #Leadership.
+
+**The page post leads with Olympia Hospitality**, so their written sign-off matters more here than
+it does in the article. Without it, open on "One of our employer partners in hospitality noticed
+something most employers miss" and the post works unchanged.
+
+## Mechanics
+
+**Stagger them.** The first article went out from both accounts simultaneously; there is no upside
+to running that experiment twice. Personal post first in the Tue–Thu 7:30–9:00am ET window, page
+post 60–90 minutes behind. Comment on the page post from her personal profile inside the first
+hour — substantive, and not the same text used anywhere else.
+
+Never edit after posting. Reply to every comment inside 90 minutes on both.
