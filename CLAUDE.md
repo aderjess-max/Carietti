@@ -212,6 +212,19 @@ Channel targets: VC/PE platform partners 2–3 deals · warm network 1–2 · re
 5. Placement fee read as a conflict (mitigate: disclose in MSA)
 6. Slow client hiring holding the final 30% (mitigate: date ceiling)
 
+## Client accounts
+
+Reference files for the current contract engagements live in `clients/`. They hold the
+sales-pertinent picture of what she is actually selling there — product, buyer, proof
+points, competitive set, objections.
+
+- `clients/vivio-health.md` — VIVIO, a Public Benefit Corporation. Specialty drug
+  carve-out (Precision Care) and full PBM replacement (PrecisionCare One) sold to
+  self-insured employers and health plans. Compiled 2026-08-25 from public sources only;
+  the file carries an explicit list of numbers to verify internally before they go into
+  live selling. Same buyer as BI WORLDWIDE / Spring / Koa / Sobrynth — a fifth reference
+  point on the employer and health plan buyer, not a detour.
+
 ## Artifacts
 
 - **Strategy, research and pricing**: https://claude.ai/code/artifact/7985cfd3-122f-446a-af21-4bae3f71694c
