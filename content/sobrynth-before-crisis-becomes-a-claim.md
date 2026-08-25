@@ -26,9 +26,9 @@ What comes before it is a search. A few hours online, a recommendation from a fr
 
 That isn't a failure of judgment. It's a failure of navigation. Nobody handed them a map.
 
-## What changed at Olympia Hospitality
+## What one employer did differently
 
-One of our employer partners, Olympia Hospitality, saw it plainly: their employees and families didn't need another phone number to call. They needed someone to walk beside them.
+One of our employer partners saw it plainly: their employees and families didn't need another phone number to call. They needed someone to walk beside them.
 
 Through Sobrynth, families get confidential, one-on-one support from peer specialists — people in recovery themselves — who help them understand the treatment landscape, navigate insurance, and find the level of care that's clinically appropriate for their situation.
 

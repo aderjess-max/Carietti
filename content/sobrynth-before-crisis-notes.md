@@ -5,12 +5,12 @@ Covers: `assets/cover-claim-A.png` (article cover) and `assets/cover-claim-B.png
 Sources: `assets/cover-claim-*.html` on the shared `assets/cover-sobrynth.css` tokens.
 Render: `python3 assets/shoot-cover.py` — it now picks up every `cover-*.html` in the folder.
 
-## Check this before publishing
+## Customer reference
 
-**Olympia Hospitality is named.** Naming a customer publicly needs their sign-off in writing, and
-a LinkedIn article is durable and indexable. Confirm with them before this goes live. If the
-approval isn't in hand, "one of our employer partners in hospitality" costs the piece almost
-nothing and can be swapped back later.
+The named customer came out at her direction (2026-08-25). Both the article and the page post now
+say "one of our employer partners" — no industry, no size, nothing that narrows it. If a written
+reference approval lands later, the name drops straight back into two places: the article's
+"What one employer did differently" section and the page post's third line.
 
 ## What changed and why
 
@@ -80,15 +80,13 @@ First comment, immediately after:
 
 Cover A (`assets/cover-claim-A.png`), link in the first comment, hashtags at the bottom.
 
-Deliberately a different entry point from her post — this one opens on the customer, hers opens
-on the claim. Their audiences overlap heavily, and two posts that open on the same sentence read
+Deliberately a different entry point from her post — this one opens on what the employee needs,
+hers opens on the claim. Their audiences overlap heavily, and two posts that open on the same sentence read
 as one post duplicated.
 
-> Olympia Hospitality noticed something most employers miss.
+> An employee doesn't need another phone number to call.
 >
-> When an employee's family member is struggling with substance use, that employee doesn't need another phone number to call. They need someone to walk beside them.
->
-> So that is what they gave them.
+> When someone in their family is struggling with substance use, they need someone to walk beside them. One of our employer partners recognized that, and changed what they offered.
 >
 > Through Sobrynth, their employees and families get confidential, one-on-one support from peer specialists — people in recovery themselves — who help them understand the treatment landscape, navigate insurance, and find the level of care that is clinically appropriate for their situation.
 >
@@ -109,9 +107,10 @@ as one post duplicated.
 Four tags, all specific to the buyer, all at the very bottom — never mid-sentence, which
 hyperlinks words and pulls readers out of the copy. Nothing broad like #Leadership.
 
-**The page post leads with Olympia Hospitality**, so their written sign-off matters more here than
-it does in the article. Without it, open on "One of our employer partners in hospitality noticed
-something most employers miss" and the post works unchanged.
+**The page post no longer opens on the customer**, since an anonymous partner is a weak cold open.
+It leads on the idea instead — "An employee doesn't need another phone number to call" — and the
+partner arrives in the third line as evidence rather than as the hook. That ordering is stronger
+even if the name comes back.
 
 ## Mechanics
 
