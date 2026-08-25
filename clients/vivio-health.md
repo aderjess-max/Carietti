@@ -70,12 +70,17 @@ against individual patient data from EMRs, plus market prices *including cash pr
    Out Specialty Pharmacy"). This is the reference account: named, awarded, third-party
    documented, and the zero-OOP detail kills the "you're saving money on my employees'
    backs" objection.
-3. **2019 Health Value Award**, Specialty Drug Managers category (National Alliance of
+3. **7-Eleven: $34M saved in pharmacy spend last year.** From Jess, from inside the
+   account — not in any public VIVIO material found in this research. Large, nationally
+   recognized self-insured employer. Currently in use in live outbound to both CFOs and
+   pharmacy consultants (`clients/outreach/vivio-emails.md`). **Confirm reference
+   clearance for naming the customer alongside the figure.**
+4. **2019 Health Value Award**, Specialty Drug Managers category (National Alliance of
    Healthcare Purchaser Coalitions ecosystem).
-4. **2021 book of business: specialty drug spend 65% below national benchmarks.**
-5. **Biosimilars case study** (Aug 2020) — carving out specialty pharmacy and using
+5. **2021 book of business: specialty drug spend 65% below national benchmarks.**
+6. **Biosimilars case study** (Aug 2020) — carving out specialty pharmacy and using
    biosimilars to control spend.
-6. **Mark Cuban Cost Plus Drugs partnership** (announced Oct 2022) — see below.
+7. **Mark Cuban Cost Plus Drugs partnership** (announced Oct 2022) — see below.
 
 ## The Cuban partnership — how to actually use it
 
