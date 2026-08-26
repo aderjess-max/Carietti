@@ -262,6 +262,15 @@ would ring false. What keeps directness from reading as need is naming the work 
 immediately before the ask. Never write "one spot left" or any inventory count — the three-slot
 ceiling is an internal capacity model, not a marketing line.
 
+**Formatting rule — always use numerals, never spelled-out numbers.** Her instruction, 2026-08-26.
+Write "70%" not "seventy percent", "4 in 5" not "four in five", "$8,817" not "eight thousand".
+This applies everywhere: talk tracks, slide copy, notes, chat replies. She has ADHD and cannot
+process spelled-out numbers — numerals are a legibility requirement, not a style preference.
+
+**Working rule — keep deliverables scoped and simple.** When she asks for one slide, one section,
+or one answer, give exactly that. No adjacent rebuilds, no bundled extras, no long preamble.
+Short paragraphs, one idea each. Ask before expanding scope.
+
 **Copy rule — the hypothetical founder is "they."** Decided 2026-08-17. Prospecting copy has to
 let every founder read themselves into it; a gendered composite quietly excludes half the market.
 When "they" gets ambiguous against the reps, say "the founder" rather than reaching for a pronoun.
