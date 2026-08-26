@@ -91,13 +91,17 @@ for people who are fully abstinent.
 
 ## Key statistics
 
-Source: SAMHSA. Cite the stat, not a link, in LinkedIn body copy.
+Sources: SAMHSA, except the three cost figures, which are **NSC / NORC at the University of Chicago** (Substance Use Cost Calculator). Cite the stat, not a link, in LinkedIn body copy.
+
+**The $8,817 denominator is per employee *with* an untreated SUD — never "per capita."** Verified against NSC/NORC 2026-08-20. The per-capita phrasing that was previously in these guidelines was wrong and is roughly 10x off.
 
 - **48.5 million** Americans have substance use disorder
 - **70%** of people with SUD are employed
 - **1 in 10** employees is actively struggling with untreated SUD
 - **2 in 3** families are impacted by SUD
-- **$8,817** cost to employers per capita annually for untreated SUD — a **30% increase** over the past 3 years
+- **$8,817** — what employers spend annually on **each employee with an untreated** substance use disorder
+- **$8,500+** saved per employee who reaches recovery
+- **Employer-initiated treatment succeeds more often** than treatment initiated by friends or family
 - **65%** of workplace injuries in construction are linked to SUD
 - **21 million** Americans are in recovery
 

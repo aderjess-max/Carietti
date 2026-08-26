@@ -70,17 +70,15 @@ knows their work: `downstream of a FibroScan` · `what's inside your large claim
 
 ## Stat discipline
 
-**Unresolved as of 2026-08-18 — pin this down before the next send.** The $8,817 figure appears two
-ways across her materials:
+**Resolved 2026-08-20.** The $8,817 figure is **NSC / NORC at the University of Chicago**, and the
+denominator is **each employee with an untreated substance use disorder** — not per capita. Her
+outreach phrasing was correct; the earlier "per capita" wording in the brand guidelines was wrong
+by roughly an order of magnitude and has been fixed. Never reintroduce it.
 
-- `SKILL.md` (from the brand guidelines): "$8,817 cost to employers **per capita** annually"
-- Her outreach draft: "$8,817 **per affected employee** each year"
+Companion figures from the same research: **$8,500+ saved per employee who reaches recovery**, and
+**employer-initiated treatment succeeds more often than treatment initiated by friends or family** —
+the second is the strongest single argument for why the employer is the right point of intervention.
 
-These differ by roughly an order of magnitude, and the self-insured audience does exactly this math
-for a living. Commonly circulated versions of the figure describe cost per employee *with* an
-untreated substance use disorder, which supports the outreach phrasing — but that has not been
-verified against the primary SAMHSA/NSC source. **Verify once, then standardize the wording
-everywhere.** Do not let the two phrasings coexist.
-
-Same check on "1 in 10": the brand stat set says 1 in 10 *employees* is actively struggling with
-untreated SUD. "1 in 10 people in the US are affected by SUD" is a broader and different claim.
+Still worth tightening: the brand stat set says 1 in 10 *employees* is struggling with untreated
+SUD, while outreach copy has said "1 in 10 people in the US are affected by SUD." Different claims.
+Pick one and hold it.
