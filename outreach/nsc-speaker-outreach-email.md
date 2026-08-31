@@ -2,49 +2,35 @@
 
 **Audience:** Speakers / session presenters at the National Safety Council conference
 **From:** Jess Ferretti, Sobrynth
-**Ask:** 15–20 min onsite with Marin Nelson (CEO), plus an invite to the Sept 30 webinar
+**Ask:** A few minutes onsite, intro to Marin Nelson (CEO)
 **Attach:** `NSC_Conference_Webinar_Flyer.pdf`
 
-## Subject line (pick one)
+## Subject line
 
-- Quick meet-up at NSC?
-- 15 minutes at NSC — our CEO will be onsite
-- Saw you're speaking at NSC
+A few minutes at NSC?
 
 ## Body
 
-Hi [First name],
+Hi [First Name],
 
-I saw you're speaking at NSC on [session topic] — planning to be in the room for it.
+I saw you're speaking at NSC and was wondering if you might have a few minutes to
+connect before or after your session?
 
-I'm with Sobrynth. We help safety-focused employers build recovery-friendly workplaces —
-substance use support designed for safety-sensitive roles rather than retrofitted from a
-general EAP. Our CEO, Marin Nelson, will be onsite for the conference and would like to
-meet you while you're both there. Would you be open to 15–20 minutes? Happy to work
-around your session schedule.
+Given what we do with workforce safety and substance use support and your incredible
+work in the space, I think there could be a great potential partnership and would love
+to introduce you to our CEO, Marin, who will also be onsite. Can we set aside a few
+minutes to chat? I know schedules fill up so fast at these things.
 
-Either way, one thing you might find useful: Marin is hosting a free webinar with
-Kathryn Wegler and Brett Smith of Gardner Builders — *Building a Recovery-Friendly
-Workplace for Safety-Focused Employers*, September 30, 9:00 AM CST. It's open to all NSC
-attendees and the flyer is attached. Registration here: [REGISTRATION LINK]
+We're also hosting a webinar that I think might be of interest to you. I've attached the
+info for reference.
 
-Thanks,
+Looking forward to hearing from you!
 
-Jess Ferretti
-VP of Sales, Sobrynth
-ader.jess@gmail.com
-
-## Merge fields to fill before sending
-
-- `[First name]`
-- `[session topic]` — one specific detail from their NSC session; the email is worth
-  little without it
-- `[REGISTRATION LINK]` — the flyer only carries a QR code, no URL. Get the destination
-  link from Marin before this goes out.
+Jess
 
 ## Notes
 
-- Time zone is written as it appears on the flyer ("9:00 AM CST"). Confirm it isn't
-  meant to be CDT for a September 30 date.
-- If a recipient replies interested but can't meet onsite, the webinar is the fallback
-  ask — don't push a second onsite time.
+- Attach the flyer; don't paste the webinar details into the body. The flyer carries the
+  date (Sept 30, 9:00 AM CST) and the QR code.
+- Flyer says "9:00 AM CST" for September 30, which would be CDT. Worth fixing on the
+  flyer if it's wrong, rather than correcting it in the email.
