@@ -1,147 +1,108 @@
-# Initial outreach — ready to send
+# Initial outreach — introductions, not pitches
 
-Three opening emails matched to what's actually true about the company, plus the LinkedIn note
-and the follow-up sequence. Pick the opener by signal, not by preference.
-
-| What's true about them | Use |
-|---|---|
-| Hiring AEs/SDRs, no VP Sales or Head of Sales in place | **A** |
-| VP/Head of Sales req open 60+ days, or first sales hire left inside 18 months | **B** |
-| No hiring signal — Series A 9–24 months ago, founder still selling | **C** |
+The goal of the first email is a conversation. Nothing else. No diagnosis of their business, no
+assumptions about their team, no scope, no six months, no price. Those belong on the call, once
+they've decided they like you.
 
 ---
 
-## A · The AE search
+## The email
 
-**Requires a live posting and no sales leader. Verify both before sending.**
-
-> **Subject:** your AE search
+> **Subject:** an introduction
 >
 > [Name] —
 >
-> Saw the AE opening. Also that there's no sales leader above it yet.
+> [One true, specific line about them — see the openers below.]
 >
-> The pattern I'd watch for: reps who come from transactional SaaS run a health system deal like
-> a 60-day cycle. They get a clinical champion excited, then stall in security review with no plan
-> for procurement, for legal, or for the fact that their champion can't sign anything. A year later
-> it reads as a rep problem. It's almost always a process problem.
+> Quick introduction. I've spent 23 years in sales, the last eight in digital health — Spring
+> Health, Koa Health, You Are Accountable, and currently Sobrynth and VIVIO. I've carried quotas
+> up to $12M, and I've built and run sales at companies around the stage you're at now.
 >
-> 23 years selling, quotas to $12M, the last eight in digital health — Spring Health, Koa Health,
-> You Are Accountable, VIVIO, Sobrynth. I spend six months building what a rep needs to survive
-> that cycle, then hire the VP of Sales who runs it.
+> I work as a fractional VP of Sales, and I'm being deliberate about who I work with.
 >
-> Worth 20 minutes? If the timing's off I'll get out of your way.
+> I'd like to meet you. Not to pitch anything — just to hear what you're building and where sales
+> sits for you at the moment. If there's a way I can be useful we'll both know quickly, and if
+> there isn't I'll have enjoyed the conversation.
 >
-> Jess
-
----
-
-## B · The stale search
-
-**Only when the req is genuinely old, or someone visibly left.**
-
-> **Subject:** the VP Sales search
->
-> [Name] —
->
-> Your VP of Sales role has been open a while. That's usually one of three things: comp doesn't
-> clear what a health-tech VP gets elsewhere, the job description is asking one person to be both
-> the first rep and the first leader, or there's nothing built yet for a VP to inherit.
->
-> The third is worth naming, because it's also why your best candidates are passing. A strong VP
-> asks what the process is, what the ICP is, what's actually in the CRM — and when the honest
-> answer is "the founders," they take the other offer.
->
-> I do the six months before that search. Build the engine, then run the search against a real
-> scorecard and a real system for someone to walk into. 23 years selling, quotas to $12M, eight
-> years in digital health.
->
-> Worth 20 minutes?
+> Any chance you're open to 20 minutes in the next couple of weeks?
 >
 > Jess
 
----
+Roughly 140 words. Don't lengthen it.
 
-## C · No signal — the diagnostic
+## Openers — pick one that's verifiably true
 
-**Leads on domain insight alone. Give them a clean way to say no.**
+Never assert anything about their team, their process, or what's going wrong. You don't know yet,
+and guessing wrong ends the conversation before it starts.
 
-> **Subject:** pilot to enterprise
->
-> [Name] —
->
-> No pitch in this one. I'm building a short list of digital health companies I'd want to work
-> with and yours is on it.
->
-> The question I'd ask if we spoke: what share of your pilots have converted to enterprise
-> agreements, and how long did the ones that converted actually take?
->
-> That ratio tends to be the honest measure of whether a company has a sales process or a founder
-> with very good relationships. Nearly every digital health company I've worked with hit a wall
-> there somewhere between $2M and $6M — the pilots keep coming, the conversions don't, and it takes
-> a year to see it in the numbers.
->
-> 23 years selling, quotas to $12M. Spring Health, Koa Health, You Are Accountable, VIVIO,
-> Sobrynth. I spend six months building the engine — ICP, narrative, cadences, process, CRM — then
-> hire the VP of Sales who takes it over.
->
-> If that ratio is already where you want it, ignore me entirely. If it isn't, worth 20 minutes.
->
-> Jess
+- **What they do:** "I've been watching what you're building at [Company] — [specific thing about
+  the product or the population they serve]."
+- **A raise:** "Saw you closed your Series A earlier this year. Congratulations."
+- **Something they wrote:** "Your post on [topic] stuck with me — particularly the point about [x]."
+- **A shared world:** "We've both spent time selling into [health plans / self-insured employers /
+  treatment providers], and I don't come across many people who have."
+- **A mutual connection:** "[Name] and I worked together at [Company] — your name came up."
+- **Genuinely nothing:** "I don't think we've crossed paths, but we work in the same corner of
+  digital health and I wanted to introduce myself properly."
+
+That last one is honest and works. It's better than a manufactured observation.
 
 ---
 
-## The sequence — four touches over 18 days, then stop
+## The follow-ups — same register throughout
 
 ### Touch 2 · day 4 · LinkedIn connection request
 
-Under 300 characters. Reference the same observation; don't re-pitch.
+Under 300 characters.
 
-> [Name] — sent you a note earlier this week about the AE search. Either way, worth being
-> connected: I've spent eight years selling digital health and I write about the founder-led
-> sales transition. No agenda.
+> [Name] — sent you a note earlier this week. I'm a fractional VP of Sales, spent the last eight
+> years in digital health. Would like to be connected either way.
 
-### Touch 3 · day 11 · email, and this one gives something away
+### Touch 3 · day 10 · email
 
-> **Subject:** one more thing on this
+> **Subject:** following up once
 >
 > [Name] —
 >
-> Following my note last week — one thought that might be useful either way.
+> Following up once on my note from last week, then I'll leave you alone.
 >
-> The cheapest fix I see at your stage is writing down qualification criteria before the next rep
-> starts. Not a full playbook. Just: what has to be true for a deal to move from discovery to
-> proposal, in writing, so it isn't living in your head.
+> Still would enjoy a conversation whenever the timing works — no agenda beyond getting to know
+> what you're building.
 >
-> Takes an afternoon. Saves a year of forecast being a feeling.
->
-> Happy to send the template I use — no strings, no call required. Just say the word.
+> And if sales isn't where your head is right now, that's completely fine. I'll keep watching
+> [Company] either way.
 >
 > Jess
 
-### Touch 4 · day 18 · close out and mean it
+### Touch 4 · day 18 · close out
 
 > **Subject:** closing the loop
 >
 > [Name] —
 >
-> Closing the loop on this one. If founder-led sales is still where your week goes six months from
-> now, I'm easy to find. If it isn't, that's the better outcome.
+> I'll stop here so I'm not cluttering your inbox. If it's ever useful to talk sales, I'm easy to
+> find. Genuinely wishing you well with [Company].
 >
 > Jess
 
 ---
 
-## Rules for today
+## Rules
 
-1. **Verify the signal before you send.** If A says you saw the AE opening, that posting must
-   exist and you must have seen it. A false opening line is the one mistake that permanently costs
-   a future buyer.
-2. **Personalize the first two lines** for anything scoring 70+. The rest of the template can hold.
-3. **15 companies is a full day.** Quality over volume — a thin list worked hard beats a fat list
-   worked never.
-4. **Log every send** in `pipeline/touches.csv`, or via
-   `python3 scripts/pipeline.py touched --company "X" --play 1 --touch 1`.
-5. **Four touches, then stop.** An unanswered founder is a future buyer, not a target to wear down.
-6. **Check your own profile first.** Anyone who replies will look. Headline, About, Sobrynth and
-   VIVIO descriptions should all be live before the first send goes out.
+1. **Assert nothing you haven't verified.** Not their team, not their process, not their problem.
+   The opener says something true about *them*; everything else is about you.
+2. **No scope, no timeline, no price** in writing. First conversation is a conversation.
+3. **Four touches over 18 days, then stop.** An unanswered founder is a future buyer.
+4. **Keep it under 150 words.** Length reads as a pitch regardless of what it says.
+5. **Log every send** — `python3 scripts/pipeline.py touched --company "X" --play 1 --touch 1`.
+6. **Your profile is the proof.** Anyone who's interested will look before they reply, so the
+   headline, About and current-role descriptions need to be live before the first send.
+
+## When they reply
+
+They'll usually ask what you do or what it costs. Don't answer in email — that's how a
+conversation becomes a comparison. Something like:
+
+> Happy to get into it properly — easier live. Does Tuesday or Thursday morning work?
+
+Save scope and price for the call, where you can ask questions first.
