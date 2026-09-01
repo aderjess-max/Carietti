@@ -1,8 +1,8 @@
-# Editor's notes — "The Crisis That Never Happened"
+# Editor's notes — "They're Not on Leave. They're in the Meeting."
 
-Article: `content/sobrynth-crisis-that-never-happened.md`
-Covers: `assets/cover-crisis-A.png` (article) and `assets/cover-crisis-B.png` (feed post).
-Sources: `assets/cover-crisis-*.html` on the shared `assets/cover-sobrynth.css` tokens.
+Article: `content/sobrynth-not-on-leave.md`
+Covers: `assets/cover-not-on-leave-A.png` (article) and `assets/cover-not-on-leave-B.png` (feed post).
+Sources: `assets/cover-not-on-leave-*.html` on the shared `assets/cover-sobrynth.css` tokens.
 
 ## What changed and why
 
@@ -29,16 +29,26 @@ Sources: `assets/cover-crisis-*.html` on the shared `assets/cover-sobrynth.css` 
    a benefit does is make sure nothing happens at all."
 8. Six headers, and a CTA the original didn't have.
 
+## Title
+
+Retitled from "The Crisis That Never Happened" (2026-08-25). The original was good, but the
+previous article is "Before Crisis Becomes a Claim" — two consecutive pieces built on "crisis"
+read as a sequel rather than a second idea. The new title is a line lifted from the article, and
+it does something the old one couldn't: it corrects a belief the reader is holding right now.
+Benefits leaders picture substance use as an absence event; this says it is sitting in the room.
+
+The old title survives as the eyebrow on cover A, so the phrase isn't lost.
+
 ## Covers
 
-Cover A heroes the time the way the claim article heroes the dollar figure — same layout, same
-labyrinth panel, so the three pieces now read as a series with a consistent anchor. Cover B is the
-feed card: "No claim was filed. No record exists. That's the point." That line is the whole article
-at thumbnail size.
+Cover A now heroes **1 in 10** — the prevalence figure the title is built on — the way the claim
+article heroes $100,000. Same layout, same labyrinth panel, so the pieces read as a series with a
+consistent numeric anchor. Cover B is the feed card: "No claim was filed. No record exists. That's
+the point." That line is the whole article at thumbnail size.
 
 ## Her personal post
 
-Native, cover B, link in the first comment, no hashtags.
+Native, cover B (`assets/cover-not-on-leave-B.png`), link in the first comment, no hashtags.
 
 > It was just after 2:00 p.m.
 >
@@ -62,11 +72,11 @@ Native, cover B, link in the first comment, no hashtags.
 
 First comment:
 
-> The Crisis That Never Happened — the full piece: [article URL]
+> They're Not on Leave. They're in the Meeting. — the full piece: [article URL]
 
 ## Sobrynth's page post
 
-Cover A, link in the first comment, hashtags at the bottom. Opens on the measurement problem
+Cover A (`assets/cover-not-on-leave-A.png`), link in the first comment, hashtags at the bottom. Opens on the measurement problem
 rather than the scene, so it isn't her post duplicated.
 
 > Most benefits are measured by what shows up: claims filed, leaves taken, episodes of care.
