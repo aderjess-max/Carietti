@@ -49,6 +49,7 @@ the point." That line is the whole article at thumbnail size.
 ## Her personal post
 
 Native, cover B (`assets/cover-not-on-leave-B.png`), link in the first comment, no hashtags.
+Opens on the scene and builds to the reframe the title is named for.
 
 > It was just after 2:00 p.m.
 >
@@ -58,40 +59,43 @@ Native, cover B (`assets/cover-not-on-leave-B.png`), link in the first comment, 
 >
 > Their manager didn't notice. Their coworkers couldn't tell. To everyone in the room it looked like an ordinary workday.
 >
-> They picked up their phone and called Sobrynth. Within minutes they were talking with a peer coach — someone who has sat in that exact chair. They talked it through. Then they went back to work. The deadline was met.
+> They picked up their phone and called Sobrynth. Within minutes they were talking with a peer coach — someone who had sat in that exact chair. They talked it through, went back to work, and met the deadline. Nobody else ever knew.
 >
-> Here is the part that stays with me. Roughly 1 in 10 employees is living with an untreated substance use disorder right now, and 70% of adults with one hold jobs. They are not on leave. They are in the meeting, hitting their numbers, and on the hardest days most of them have no one to call.
+> Here is the part I keep coming back to.
 >
-> And the best outcome in this whole story is invisible. No claim. No leave. No line item labeled "relapse avoided." The most valuable thing that happened in that office at 2 p.m. was nothing.
+> Roughly 1 in 10 employees is living with an untreated substance use disorder right now, and 70% of adults with one are working. We picture substance use as an absence — a leave, a claim, an episode. It isn't. They're not on leave. They're in the meeting, hitting their numbers, and on the hardest days most of them have no one to call.
 >
-> Which is exactly why it is so easy to under-invest in. The costs of substance use are loud and countable. The saves are silent.
+> And the best outcome in that whole story is invisible. No claim. No leave. No line item labeled "relapse avoided." The most valuable thing that happened in that office at 2 p.m. was nothing at all.
 >
-> I wrote about the ones you'll never see in your data.
+> Which is exactly why it is so easy to under-fund. The costs of substance use are loud and countable. The saves are silent.
+>
+> I wrote about the ones your data will never show you.
 >
 > Link in the comments.
 
-First comment:
+First comment, immediately after:
 
 > They're Not on Leave. They're in the Meeting. — the full piece: [article URL]
 
 ## Sobrynth's page post
 
-Cover A (`assets/cover-not-on-leave-A.png`), link in the first comment, hashtags at the bottom. Opens on the measurement problem
-rather than the scene, so it isn't her post duplicated.
+Cover A (`assets/cover-not-on-leave-A.png`), link in the first comment, hashtags at the bottom.
+Opens on the reframe and puts the data first, so it isn't her post duplicated — hers opens on the
+scene and arrives at the same idea from the other direction.
 
-> Most benefits are measured by what shows up: claims filed, leaves taken, episodes of care.
+> The employees you should be worried about aren't the ones you're picturing.
 >
-> Here is what that misses.
+> We tend to think of substance use at work as an absence — a leave, a claim, an episode of care. Something that shows up in a report.
 >
-> Just after 2:00 p.m., an employee five years into recovery sat down to a deadline and could think about nothing but having a drink. Their manager didn't notice. Their coworkers couldn't tell.
+> Roughly 1 in 10 employees is living with an untreated substance use disorder, and 70% of adults with one are working. They're not on leave. They're in the meeting.
 >
-> They called Sobrynth. Within minutes they were talking with a peer coach who had sat in that exact chair. They talked it through, went back to work, and met the deadline. No one else ever knew.
+> Just after 2:00 p.m. one afternoon, an employee five years into recovery sat down to a deadline and could think about nothing but having a drink. Their manager didn't notice. Their coworkers couldn't tell.
+>
+> They called Sobrynth. Within minutes they were talking with a peer coach who had sat in that exact chair. They talked it through, went back to work, and met the deadline.
 >
 > No claim was filed. No diagnosis was shared. No data went back to their employer. That is the design, not an accident — removing the fear is the entire reason the benefit gets used.
 >
-> Roughly 1 in 10 employees is living with an untreated substance use disorder, and 70% of adults with one are working. They are not on leave. They are in the meeting.
->
-> The costs of substance use are loud and countable. The saves are silent. Both are happening in your workforce right now.
+> It also means the best thing we do leaves no trace. The costs of substance use are loud and countable. The saves are silent. Both are happening in your workforce right now.
 >
 > Jess Ferretti wrote about the outcomes your data will never show you. Link in the comments.
 >
