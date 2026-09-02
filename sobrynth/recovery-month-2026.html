@@ -9,186 +9,176 @@
   }
   *{box-sizing:border-box}
   body{background:var(--ground);color:var(--ink);font-family:var(--sans);
-       font-size:16px;line-height:1.62;margin:0;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:680px;margin:0 auto;background:var(--surface);
-        border-left:1px solid var(--rule);border-right:1px solid var(--rule)}
-  .pad{padding-left:44px;padding-right:44px}
-  h1,h2,h3,.stat-n,.amt{font-family:var(--serif);text-wrap:balance}
-  a{color:var(--purple)}
+       font-size:14px;line-height:1.52;margin:0;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:740px;margin:0 auto;background:var(--surface)}
+  .pad{padding-left:36px;padding-right:36px}
+  h1,h2,h3,h4,.stat-n,.amt,.kicker,.script{font-family:var(--serif);text-wrap:balance}
+  p{margin:0 0 9px} p:last-child{margin-bottom:0}
 
-  /* masthead */
-  .mast{background:var(--purple);color:#fff;padding:30px 44px 26px}
-  .brand{font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-         color:#CFC7E4;margin:0 0 auto;display:flex;justify-content:space-between;gap:16px}
-  .mast h1{font-size:37px;line-height:1.1;margin:16px 0 10px;font-weight:700;letter-spacing:-.01em}
-  .mast p{margin:0;color:#DDD6EC;font-size:15px;max-width:52ch}
+  .mast{background:var(--purple);color:#fff;padding:22px 36px 20px}
+  .brand{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#CFC7E4;
+         display:flex;justify-content:space-between}
+  .mast h1{font-size:31px;line-height:1.08;margin:12px 0 8px;font-weight:700;letter-spacing:-.01em}
+  .mast p{margin:0;color:#DDD6EC;font-size:13.5px;max-width:62ch}
 
-  .eyebrow{font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--purple);
-           font-weight:700;margin:0 0 10px}
-  section{padding-top:34px;padding-bottom:34px;border-bottom:1px solid var(--rule)}
-  section:last-of-type{border-bottom:0}
-  h2{font-size:26px;line-height:1.22;margin:0 0 12px;font-weight:700}
-  h3{font-size:19px;line-height:1.3;margin:0 0 6px;font-weight:700}
-  p{margin:0 0 14px;max-width:60ch}
-  p:last-child{margin-bottom:0}
-  .lede{font-size:17.5px;color:#332C47}
-  strong{font-weight:700}
+  .eyebrow{font-size:9.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--purple);
+           font-weight:700;margin:0 0 8px}
+  section{padding-top:22px;padding-bottom:22px;border-bottom:1px solid var(--rule)}
+  h2{font-size:20px;line-height:1.2;margin:0 0 9px;font-weight:700}
 
-  /* pull stat */
-  .pull{background:var(--purple-soft);border-left:4px solid var(--purple);
-        padding:20px 24px;margin:22px 0}
-  .pull .stat-n{font-size:31px;font-weight:700;color:var(--purple);line-height:1.15;display:block;margin-bottom:4px}
-  .pull p{margin:0;font-size:15px;color:#463E5C}
+  /* hook: stat beside prose */
+  .hook{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:start}
+  .statbox{background:var(--purple-soft);border-left:4px solid var(--purple);padding:14px 16px}
+  .stat-n{font-size:27px;font-weight:700;color:var(--purple);line-height:1.1;display:block;margin-bottom:5px}
+  .statbox p{font-size:12px;color:#463E5C;line-height:1.45}
+  .statbox .src2{color:#6A6480;font-size:11px;margin-top:6px}
+  .hook .prose p{font-size:14px}
+  .hook strong{font-weight:700}
 
-  /* actions */
-  .action{display:grid;grid-template-columns:34px 1fr;gap:0 18px;padding:22px 0;border-top:1px solid var(--rule)}
-  .action:first-of-type{border-top:0}
-  .marker{font-family:var(--serif);font-size:23px;font-weight:700;color:var(--purple);
-          line-height:1.25;text-align:right}
-  .cost{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
-        font-weight:700;margin:0 0 8px}
-  .script{border-left:3px solid var(--s2);background:#FFF8EF;padding:14px 18px;margin:12px 0 12px;
-          font-family:var(--serif);font-size:16.5px;font-style:italic;color:#3D3450}
-  .doit{font-size:14px;color:var(--muted);margin:10px 0 0}
-  .doit b{color:var(--ink)}
+  /* three actions across */
+  .acts{display:grid;grid-template-columns:repeat(3,1fr);gap:0 22px;margin-top:4px}
+  .act{border-top:3px solid var(--purple);padding-top:11px}
+  .act p.cost{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+        font-weight:700;margin:0 0 5px}
+  .act h3{font-size:15.5px;line-height:1.22;margin:0 0 6px;font-weight:700}
+  .act p{font-size:12.8px;line-height:1.48;color:#3A3350}
+  .act p.doit{font-size:11.5px;color:var(--muted);margin-top:8px;padding-top:7px;border-top:1px solid var(--rule)}
+  .act p.doit b{color:var(--ink)}
+  .script{background:#FFF8EF;border-left:3px solid var(--s2);padding:9px 11px;margin:7px 0;
+          font-size:12.6px;font-style:italic;color:#3D3450;line-height:1.45}
 
-  /* chain */
-  .chain{margin:22px 0 6px}
-  .stage{display:grid;grid-template-columns:96px 1fr;gap:0 16px;position:relative;padding:0 0 20px}
-  .rail{position:relative}
-  .rail::before{content:"";position:absolute;left:11px;top:26px;bottom:-6px;width:2px;background:currentColor;opacity:.32}
-  .stage:last-child .rail::before{display:none}
-  .dot{width:24px;height:24px;border-radius:50%;display:block;margin-top:2px}
-  .amt{font-size:21px;font-weight:700;line-height:1.15;margin-top:6px;display:block;
-       font-variant-numeric:tabular-nums}
-  .stage-l{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)!important;font-weight:700}
-  .stage h4{color:var(--ink);font-family:var(--serif);font-size:18px;margin:2px 0 3px;font-weight:700;line-height:1.28}
-  .stage .u{font-size:13.5px;color:var(--muted)!important;line-height:1.5;margin:0}
-  .s1{color:var(--s1)} .s1 .dot{background:var(--s1)} .s1 .amt{color:var(--s1)}
-  .s2{color:#C77A22} .s2 .dot{background:var(--s2)} .s2 .amt{color:#C77A22}
-  .s3{color:var(--s3)} .s3 .dot{background:var(--s3)} .s3 .amt{color:var(--s3)}
-  .s4{color:var(--s4)} .s4 .dot{background:var(--s4)} .s4 .amt{color:var(--s4)}
-  .s5{color:var(--s5)} .s5 .dot{background:var(--s5)} .s5 .amt{color:var(--s5)}
-  .kicker{font-family:var(--serif);font-size:27px;font-weight:700;color:var(--purple);
-          line-height:1.2;margin:18px 0 8px}
-  .src{font-size:11.5px;color:#8A85A0;line-height:1.5;margin:14px 0 0;max-width:none}
+  /* chain as horizontal escalation bar */
+  .chain{margin-top:12px}
+  .bar{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin-bottom:9px}
+  .seg{height:9px;border-radius:1px}
+  .cols{display:grid;grid-template-columns:repeat(5,1fr);gap:0 12px}
+  .c .amt{font-size:16.5px;font-weight:700;line-height:1.1;display:block;
+          font-variant-numeric:tabular-nums;margin-bottom:3px}
+  .c .stage-l{font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+              font-weight:700;display:block;margin-bottom:2px}
+  .c h4{font-size:13px;margin:0 0 3px;font-weight:700;line-height:1.22;color:var(--ink)}
+  .c .u{font-size:10.5px;color:var(--muted);line-height:1.4;margin:0}
+  .c1 .amt{color:var(--s1)} .c1 .seg{background:var(--s1)}
+  .c2 .amt{color:#C77A22} .c2 .seg{background:var(--s2)}
+  .c3 .amt{color:var(--s3)} .c3 .seg{background:var(--s3)}
+  .c4 .amt{color:var(--s4)} .c4 .seg{background:var(--s4)}
+  .c5 .amt{color:var(--s5)} .c5 .seg{background:var(--s5)}
+  .kicker{font-size:21px;font-weight:700;color:var(--purple);line-height:1.18;margin:14px 0 5px}
+  .kicker + p{font-size:13.5px;max-width:70ch}
 
-  /* split */
-  .split{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:18px 0 0}
-  .col{border-top:3px solid var(--purple);padding-top:14px}
-  .col h3{font-size:16px;margin-bottom:6px}
-  .col p{font-size:14.5px;margin:0}
-  .both{border-top:1px solid var(--rule);margin-top:22px;padding-top:18px}
+  /* consultants */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .col{border-top:2px solid var(--purple);padding-top:10px}
+  .col h3{font-size:14px;margin:0 0 5px;font-weight:700;font-family:var(--serif)}
+  .col p{font-size:12.6px;line-height:1.48;color:#3A3350}
+  .both{margin-top:14px;padding-top:11px;border-top:1px solid var(--rule)}
+  .both p{font-size:13px}
 
-  /* close */
-  .close{background:var(--purple);color:#fff;padding:34px 44px}
-  .close h2{color:#fff;font-size:23px}
-  .close p{color:#DDD6EC;font-size:15.5px}
-  .close .core{color:#fff;font-family:var(--serif);font-size:18px;font-style:italic;
-               border-left:3px solid #FFAD5B;padding-left:18px;margin:18px 0}
-  .sig{font-size:14px;color:#CFC7E4;margin-top:20px}
-  .sig b{color:#fff;font-style:normal}
-  .foot{padding:18px 44px 26px;font-size:11.5px;color:#8A85A0;text-align:center;background:var(--ground)}
+  .close{background:var(--purple);color:#fff;padding:22px 36px;
+         display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
+  .close h2{color:#fff;font-size:18px;margin-bottom:7px}
+  .close p{color:#DDD6EC;font-size:12.8px;line-height:1.5}
+  .core{color:#fff;font-family:var(--serif);font-size:14.5px;font-style:italic;
+        border-left:3px solid #FFAD5B;padding-left:14px;margin:0 0 10px;line-height:1.42}
+  .sig{font-size:12px;color:#CFC7E4;margin-top:9px}
+  .sig b{color:#fff}
+  .foot{padding:11px 36px 14px;font-size:10px;color:#8A85A0;background:var(--ground);
+        display:flex;justify-content:space-between;gap:16px}
+  .src{font-size:9.5px;color:#8A85A0;line-height:1.45;margin-top:11px}
 
-  @media (max-width:640px){
-    .pad,.mast,.close,.foot{padding-left:24px;padding-right:24px}
-    .mast h1{font-size:29px} .split{grid-template-columns:1fr}
-    .stage{grid-template-columns:70px 1fr}
+  @media (max-width:700px){
+    .hook,.acts,.cols,.split,.close{grid-template-columns:1fr;gap:16px}
+    .bar{grid-template-columns:repeat(5,1fr)}
+    .act,.col{margin-top:8px}
   }
+  @page{size:letter;margin:0.42in}
   @media print{
     body{background:#fff}
-    .wrap{max-width:none;border:0}
-    section,.action,.stage,.pull,.split{break-inside:avoid}
-    .close{break-inside:avoid}
+    .wrap{max-width:none}
+    .pad,.mast,.close,.foot{padding-left:0;padding-right:0}
+    .mast,.close{padding-left:22px;padding-right:22px}
+    section,.act,.split,.close,.chain,.hook{break-inside:avoid}
+    .pagebreak{break-before:page}
   }
 </style>
 
 <div class="wrap">
 
   <div class="mast">
-    <div class="brand"><span>Sobrynth</span><span>September 2026</span></div>
-    <h1>56% would help.<br>31% don't know how.</h1>
-    <p>National Recovery Month, and three things you can actually do before the month ends.</p>
+    <div class="brand"><span>Sobrynth</span><span>National Recovery Month · September 2026</span></div>
+    <h1>56% would help. 31% don't know how.</h1>
+    <p>Most of what lands in your inbox this month is a ribbon and an encouragement to start the conversation. This is three things you can actually do before September ends — no budget, no vendor, no meeting.</p>
   </div>
 
   <section class="pad">
-    <p class="eyebrow">Why this isn't awareness content</p>
-    <p class="lede">Most of what lands in your inbox this month will be a ribbon, a statistic, and an encouragement to start the conversation. This is not that. The three things below require no budget, no vendor, and no meeting.</p>
-    <div class="pull">
-      <span class="stat-n">56% &nbsp;/&nbsp; 31%</span>
-      <p>More than half of Americans would help a colleague who was struggling with substance use. Nearly a third simply don't know what to do.<br><span style="color:#6A6480">Addiction Policy Forum &amp; Gallup, May 2026</span></p>
+    <div class="hook">
+      <div class="statbox">
+        <span class="stat-n">56% / 31%</span>
+        <p>More than half of Americans would help a colleague struggling with substance use. Nearly a third don't know what to do.</p>
+        <p class="src2">Addiction Policy Forum &amp; Gallup, May 2026</p>
+      </div>
+      <div class="prose">
+        <p>That gap is the whole problem, and it isn't indifference. It's the absence of a script.</p>
+        <p>Meanwhile <strong>1 in 10 employees</strong> is living with an untreated substance use disorder and <strong>4 in 5 of the people affected are never treated</strong> — not because treatment doesn't exist, but because the path to it runs straight through the thing people fear most, which is being seen.</p>
+        <p>All three actions below aim at the same target. <strong>Lower the cost of being seen.</strong></p>
+      </div>
     </div>
-    <p>That gap is the whole problem, and it isn't indifference. It's the absence of a script.</p>
-    <p>Meanwhile <strong>1 in 10 employees</strong> is living with an untreated substance use disorder, and <strong>4 in 5 of the people affected are never treated</strong> — not because treatment doesn't exist, but because the path to it runs straight through the thing people fear most, which is being seen.</p>
-    <p>All three actions below aim at the same target. Lower the cost of being seen.</p>
   </section>
 
   <section class="pad">
     <p class="eyebrow">Three things you can do this month</p>
-
-    <div class="action">
-      <div class="marker">1</div>
-      <div>
+    <div class="acts">
+      <div class="act">
         <p class="cost">Cost — one email</p>
         <h3>Fix the bar before you fix the policy</h3>
         <p>If the alcohol is at a staffed bar and the alternative is a warm can of soda on a side table, you've already told the room which choice is the real one.</p>
-        <p>Stock two or three genuinely good non-alcoholic options. Same bar, same menu, same eye level. Ask the bartender to offer them first rather than as a consolation, and print them on the list with real names.</p>
-        <p>Nobody discloses anything. Nobody opts out of anything. The signal isn't the drink — it's that somebody thought about it in advance.</p>
-        <p class="doit"><b>This week:</b> find whoever is planning your next company event and send them this paragraph.</p>
+        <p>Stock two or three genuinely good non-alcoholic options. Same bar, same menu, same eye level, offered first rather than as a consolation.</p>
+        <p>Nobody discloses anything. The signal isn't the drink — it's that somebody thought about it in advance.</p>
+        <p class="doit"><b>This week:</b> send this to whoever plans your next company event.</p>
       </div>
-    </div>
-
-    <div class="action">
-      <div class="marker">2</div>
-      <div>
+      <div class="act">
         <p class="cost">Cost — one intranet edit</p>
         <h3>Make help findable without a conversation</h3>
-        <p>Thirty percent of Americans don't know where to find accurate information about substance use disorder, and the people most likely to need it are the least likely to walk into HR and ask.</p>
-        <p>So put it where it can be found silently. The SAMHSA National Helpline (1-800-662-HELP), findtreatment.gov, and 988 for crisis. Add all three to the intranet homepage, the benefits portal landing page, and the back of the break room door — the same places you post the fire exits.</p>
+        <p>30% of Americans don't know where to find accurate information about substance use disorder, and the people most likely to need it are the least likely to walk into HR and ask.</p>
+        <p>So put it where it can be found silently: the SAMHSA National Helpline (1-800-662-HELP), findtreatment.gov, and 988 for crisis — on the intranet home, the benefits portal, the back of the break room door.</p>
         <p>No form, no disclosure, no manager in the loop.</p>
         <p class="doit"><b>This week:</b> one intranet edit and one printed sign.</p>
       </div>
-    </div>
-
-    <div class="action">
-      <div class="marker">3</div>
-      <div>
+      <div class="act">
         <p class="cost">Cost — fifteen minutes</p>
         <h3>Give your managers one sentence</h3>
-        <p>The people who don't know what to do are mostly your people leaders. They notice something, they worry about saying the wrong thing, and so they say nothing until it becomes a performance conversation or an incident.</p>
+        <p>The people who don't know what to do are mostly your people leaders. They notice something, worry about saying the wrong thing, and say nothing until it becomes a performance conversation.</p>
         <div class="script">"I've noticed [specific, observable, work-related thing]. I'm not asking you to explain anything to me. I want to make sure you know what's available, and that using it won't cost you your job."</div>
-        <p>Three rules underneath it: describe behavior, never diagnose. Don't speculate about cause. Don't promise confidentiality you can't deliver.</p>
+        <p>Describe behavior, never diagnose. Don't speculate about cause. Don't promise confidentiality you can't deliver.</p>
         <p class="doit"><b>This week:</b> fifteen minutes on an agenda that already exists.</p>
       </div>
     </div>
   </section>
 
-  <section class="pad">
+  <section class="pad pagebreak">
     <p class="eyebrow">The chain of untreated SUD</p>
     <h2>Every one of those three actions aims at the left end of this chain.</h2>
-
     <div class="chain">
-      <div class="stage s1"><div class="rail"><span class="dot"></span><span class="amt">$15,000+</span></div>
-        <div><span class="stage-l">Stage 1</span><h4>A missed shift</h4>
-        <p class="u">In lost output per year. Roughly 8 hrs/week of reduced output × average U.S. hourly wage, annualized (BLS, 2026).</p></div></div>
-
-      <div class="stage s2"><div class="rail"><span class="dot"></span><span class="amt">$20,000+</span></div>
-        <div><span class="stage-l">Stage 2</span><h4>A relationship, quietly strained</h4>
-        <p class="u">Per leave event. 12-week FMLA leave: continued health premium (KFF, 2025) plus backfill coverage (BLS, 2026).</p></div></div>
-
-      <div class="stage s3"><div class="rail"><span class="dot"></span><span class="amt">$30–45K</span></div>
-        <div><span class="stage-l">Stage 3</span><h4>A screening they didn't pass</h4>
-        <p class="u">To replace one employee. Six to nine months of salary in recruiting, onboarding and ramp to full productivity (SHRM).</p></div></div>
-
-      <div class="stage s4"><div class="rail"><span class="dot"></span><span class="amt">$47,316</span></div>
-        <div><span class="stage-l">Stage 4</span><h4>An accident on the floor</h4>
-        <p class="u">Average lost-time workers' compensation claim (NCCI, via National Safety Council, 2025).</p></div></div>
-
-      <div class="stage s5"><div class="rail"><span class="dot"></span><span class="amt">$485,320</span></div>
-        <div><span class="stage-l">Stage 5</span><h4>A body that's had enough</h4>
-        <p class="u">Average cost of a single cancer diagnosis to a self-funded health plan (Voya Stop-Loss Analysis, 2025).</p></div></div>
+      <div class="bar">
+        <span class="seg c1" style="background:#007788"></span>
+        <span class="seg c2" style="background:#FFAD5B"></span>
+        <span class="seg c3" style="background:#DA7C7A"></span>
+        <span class="seg c4" style="background:#BA625D"></span>
+        <span class="seg c5" style="background:#9E483F"></span>
+      </div>
+      <div class="cols">
+        <div class="c c1"><span class="amt">$15,000+</span><span class="stage-l">Stage 1</span>
+          <h4>A missed shift</h4><p class="u">Lost output per year. ≈8 hrs/week reduced output × avg U.S. hourly wage (BLS, 2026).</p></div>
+        <div class="c c2"><span class="amt">$20,000+</span><span class="stage-l">Stage 2</span>
+          <h4>A relationship, quietly strained</h4><p class="u">Per leave event. 12-week FMLA: continued premium (KFF, 2025) + backfill (BLS, 2026).</p></div>
+        <div class="c c3"><span class="amt">$30–45K</span><span class="stage-l">Stage 3</span>
+          <h4>A screening they didn't pass</h4><p class="u">To replace one employee. 6–9 months of salary in recruiting, onboarding, ramp (SHRM).</p></div>
+        <div class="c c4"><span class="amt">$47,316</span><span class="stage-l">Stage 4</span>
+          <h4>An accident on the floor</h4><p class="u">Average lost-time workers' compensation claim (NCCI, via National Safety Council, 2025).</p></div>
+        <div class="c c5"><span class="amt">$485,320</span><span class="stage-l">Stage 5</span>
+          <h4>A body that's had enough</h4><p class="u">Average cost of one cancer diagnosis to a self-funded plan (Voya Stop-Loss, 2025).</p></div>
+      </div>
     </div>
-
     <p class="kicker">Someone just had to catch stage one.</p>
     <p>Read it right to left and it's a cost problem. Read it left to right and it's a person having a hard year that nobody asked about.</p>
   </section>
@@ -198,7 +188,7 @@
     <div class="split">
       <div class="col">
         <h3>Employee benefits</h3>
-        <p>The EAP is not the answer here, and your clients likely suspect it. At the next renewal ask what EAP utilization was last year for any reason. Then ask what share of it was substance-related. The silence after the second question is the conversation worth having.</p>
+        <p>The EAP is not the answer here and your clients likely suspect it. At the next renewal, ask what EAP utilization was last year for any reason. Then ask what share of it was substance-related. The silence after the second question is the conversation worth having.</p>
       </div>
       <div class="col">
         <h3>Risk and safety</h3>
@@ -206,18 +196,22 @@
       </div>
     </div>
     <div class="both">
-      <p><strong>For both:</strong> the highest-leverage thing you can do this month is read a client's drug and alcohol policy the way an employee would read it. Most describe consequences in detail and support in a single line, or not at all. Adding one sentence about voluntarily seeking help — before an incident, without penalty — costs nothing and changes what the entire document communicates.</p>
+      <p><strong>For both:</strong> the highest-leverage thing you can do this month is read a client's drug and alcohol policy the way an employee would read it. Most describe consequences in detail and support in one line, or not at all. Adding a single sentence about voluntarily seeking help — before an incident, without penalty — costs nothing and changes what the whole document communicates.</p>
     </div>
-    <p class="src">Sources: Addiction Policy Forum &amp; Gallup, <em>Addiction Stigma in America</em>, May 2026 · SAMHSA NSDUH · NSC/NORC Substance Use Cost Calculator · NCADD · U.S. Department of Labor · RAND Corporation · BLS 2026 · KFF 2025 · SHRM · NCCI via National Safety Council 2025 · Voya Stop-Loss Analysis 2025.</p>
+    <p class="src">Sources: Addiction Policy Forum &amp; Gallup, <em>Addiction Stigma in America</em>, May 2026 · SAMHSA NSDUH · NSC/NORC Substance Use Cost Calculator · NCADD · U.S. Dept. of Labor · RAND · BLS 2026 · KFF 2025 · SHRM · NCCI via National Safety Council 2025 · Voya Stop-Loss Analysis 2025.</p>
   </section>
 
   <div class="close">
-    <h2>Most people reading this are not at the finish line</h2>
-    <p>Recovery Month tends to celebrate the people who made it all the way through, and that is worth doing. But most of the people reading this are somewhere else entirely — cutting back, wondering, worrying about someone at home, or three weeks into something they haven't told anyone about.</p>
-    <p class="core">Sobriety is personal. Whatever that looks like — total sobriety, recovery, sober curious, cutting back, or supporting someone you love — the work of a recovery-friendly workplace is making sure none of it has to be a secret.</p>
-    <p>Three things. One month. No budget.</p>
-    <p class="sig"><b>Jess Ferretti</b> · VP of Sales, Sobrynth<br>If you want to talk about what comes after these three, my calendar is open. And if you advise employers, forward this to three clients — the three things work whether or not we ever speak.</p>
+    <div>
+      <h2>Most people reading this are not at the finish line</h2>
+      <p>Recovery Month tends to celebrate the people who made it all the way through, and that's worth doing. But most of the people reading this are somewhere else — cutting back, wondering, worrying about someone at home, or three weeks into something they haven't told anyone about.</p>
+    </div>
+    <div>
+      <p class="core">Sobriety is personal. Whatever that looks like — total sobriety, recovery, sober curious, cutting back, or supporting someone you love — the work of a recovery-friendly workplace is making sure none of it has to be a secret.</p>
+      <p><strong style="color:#fff">Three things. One month. No budget.</strong></p>
+      <p class="sig"><b>Jess Ferretti</b> · VP of Sales, Sobrynth<br>If you advise employers, forward this to three clients. The three things work whether or not we ever speak.</p>
+    </div>
   </div>
 
-  <div class="foot">Sobrynth · Real Support for Substance Use. Built for your Workforce.<br>Substance agnostic. Acuity agnostic.</div>
+  <div class="foot"><span>Sobrynth · Real Support for Substance Use. Built for your Workforce.</span><span>Substance agnostic. Acuity agnostic.</span></div>
 </div>
