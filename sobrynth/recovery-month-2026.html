@@ -1,0 +1,223 @@
+<title>Catch Stage One</title>
+<style>
+  :root{
+    --ground:#F5F5F7; --surface:#FFFFFF; --ink:#211C33; --muted:#6A6480;
+    --rule:#DFDCE6; --purple:#59468D; --purple-soft:#EDEAF4;
+    --s1:#007788; --s2:#FFAD5B; --s3:#DA7C7A; --s4:#BA625D; --s5:#9E483F;
+    --serif:"Charter","Bitstream Charter",Georgia,"Times New Roman",serif;
+    --sans:"Liberation Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);font-family:var(--sans);
+       font-size:16px;line-height:1.62;margin:0;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:680px;margin:0 auto;background:var(--surface);
+        border-left:1px solid var(--rule);border-right:1px solid var(--rule)}
+  .pad{padding-left:44px;padding-right:44px}
+  h1,h2,h3,.stat-n,.amt{font-family:var(--serif);text-wrap:balance}
+  a{color:var(--purple)}
+
+  /* masthead */
+  .mast{background:var(--purple);color:#fff;padding:30px 44px 26px}
+  .brand{font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+         color:#CFC7E4;margin:0 0 auto;display:flex;justify-content:space-between;gap:16px}
+  .mast h1{font-size:37px;line-height:1.1;margin:16px 0 10px;font-weight:700;letter-spacing:-.01em}
+  .mast p{margin:0;color:#DDD6EC;font-size:15px;max-width:52ch}
+
+  .eyebrow{font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--purple);
+           font-weight:700;margin:0 0 10px}
+  section{padding-top:34px;padding-bottom:34px;border-bottom:1px solid var(--rule)}
+  section:last-of-type{border-bottom:0}
+  h2{font-size:26px;line-height:1.22;margin:0 0 12px;font-weight:700}
+  h3{font-size:19px;line-height:1.3;margin:0 0 6px;font-weight:700}
+  p{margin:0 0 14px;max-width:60ch}
+  p:last-child{margin-bottom:0}
+  .lede{font-size:17.5px;color:#332C47}
+  strong{font-weight:700}
+
+  /* pull stat */
+  .pull{background:var(--purple-soft);border-left:4px solid var(--purple);
+        padding:20px 24px;margin:22px 0}
+  .pull .stat-n{font-size:31px;font-weight:700;color:var(--purple);line-height:1.15;display:block;margin-bottom:4px}
+  .pull p{margin:0;font-size:15px;color:#463E5C}
+
+  /* actions */
+  .action{display:grid;grid-template-columns:34px 1fr;gap:0 18px;padding:22px 0;border-top:1px solid var(--rule)}
+  .action:first-of-type{border-top:0}
+  .marker{font-family:var(--serif);font-size:23px;font-weight:700;color:var(--purple);
+          line-height:1.25;text-align:right}
+  .cost{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+        font-weight:700;margin:0 0 8px}
+  .script{border-left:3px solid var(--s2);background:#FFF8EF;padding:14px 18px;margin:12px 0 12px;
+          font-family:var(--serif);font-size:16.5px;font-style:italic;color:#3D3450}
+  .doit{font-size:14px;color:var(--muted);margin:10px 0 0}
+  .doit b{color:var(--ink)}
+
+  /* chain */
+  .chain{margin:22px 0 6px}
+  .stage{display:grid;grid-template-columns:96px 1fr;gap:0 16px;position:relative;padding:0 0 20px}
+  .rail{position:relative}
+  .rail::before{content:"";position:absolute;left:11px;top:26px;bottom:-6px;width:2px;background:currentColor;opacity:.32}
+  .stage:last-child .rail::before{display:none}
+  .dot{width:24px;height:24px;border-radius:50%;display:block;margin-top:2px}
+  .amt{font-size:21px;font-weight:700;line-height:1.15;margin-top:6px;display:block;
+       font-variant-numeric:tabular-nums}
+  .stage-l{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)!important;font-weight:700}
+  .stage h4{color:var(--ink);font-family:var(--serif);font-size:18px;margin:2px 0 3px;font-weight:700;line-height:1.28}
+  .stage .u{font-size:13.5px;color:var(--muted)!important;line-height:1.5;margin:0}
+  .s1{color:var(--s1)} .s1 .dot{background:var(--s1)} .s1 .amt{color:var(--s1)}
+  .s2{color:#C77A22} .s2 .dot{background:var(--s2)} .s2 .amt{color:#C77A22}
+  .s3{color:var(--s3)} .s3 .dot{background:var(--s3)} .s3 .amt{color:var(--s3)}
+  .s4{color:var(--s4)} .s4 .dot{background:var(--s4)} .s4 .amt{color:var(--s4)}
+  .s5{color:var(--s5)} .s5 .dot{background:var(--s5)} .s5 .amt{color:var(--s5)}
+  .kicker{font-family:var(--serif);font-size:27px;font-weight:700;color:var(--purple);
+          line-height:1.2;margin:18px 0 8px}
+  .src{font-size:11.5px;color:#8A85A0;line-height:1.5;margin:14px 0 0;max-width:none}
+
+  /* split */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:18px 0 0}
+  .col{border-top:3px solid var(--purple);padding-top:14px}
+  .col h3{font-size:16px;margin-bottom:6px}
+  .col p{font-size:14.5px;margin:0}
+  .both{border-top:1px solid var(--rule);margin-top:22px;padding-top:18px}
+
+  /* close */
+  .close{background:var(--purple);color:#fff;padding:34px 44px}
+  .close h2{color:#fff;font-size:23px}
+  .close p{color:#DDD6EC;font-size:15.5px}
+  .close .core{color:#fff;font-family:var(--serif);font-size:18px;font-style:italic;
+               border-left:3px solid #FFAD5B;padding-left:18px;margin:18px 0}
+  .sig{font-size:14px;color:#CFC7E4;margin-top:20px}
+  .sig b{color:#fff;font-style:normal}
+  .foot{padding:18px 44px 26px;font-size:11.5px;color:#8A85A0;text-align:center;background:var(--ground)}
+
+  @media (max-width:640px){
+    .pad,.mast,.close,.foot{padding-left:24px;padding-right:24px}
+    .mast h1{font-size:29px} .split{grid-template-columns:1fr}
+    .stage{grid-template-columns:70px 1fr}
+  }
+  @media print{
+    body{background:#fff}
+    .wrap{max-width:none;border:0}
+    section,.action,.stage,.pull,.split{break-inside:avoid}
+    .close{break-inside:avoid}
+  }
+</style>
+
+<div class="wrap">
+
+  <div class="mast">
+    <div class="brand"><span>Sobrynth</span><span>September 2026</span></div>
+    <h1>56% would help.<br>31% don't know how.</h1>
+    <p>National Recovery Month, and three things you can actually do before the month ends.</p>
+  </div>
+
+  <section class="pad">
+    <p class="eyebrow">Why this isn't awareness content</p>
+    <p class="lede">Most of what lands in your inbox this month will be a ribbon, a statistic, and an encouragement to start the conversation. This is not that. The three things below require no budget, no vendor, and no meeting.</p>
+    <div class="pull">
+      <span class="stat-n">56% &nbsp;/&nbsp; 31%</span>
+      <p>More than half of Americans would help a colleague who was struggling with substance use. Nearly a third simply don't know what to do.<br><span style="color:#6A6480">Addiction Policy Forum &amp; Gallup, May 2026</span></p>
+    </div>
+    <p>That gap is the whole problem, and it isn't indifference. It's the absence of a script.</p>
+    <p>Meanwhile <strong>1 in 10 employees</strong> is living with an untreated substance use disorder, and <strong>4 in 5 of the people affected are never treated</strong> — not because treatment doesn't exist, but because the path to it runs straight through the thing people fear most, which is being seen.</p>
+    <p>All three actions below aim at the same target. Lower the cost of being seen.</p>
+  </section>
+
+  <section class="pad">
+    <p class="eyebrow">Three things you can do this month</p>
+
+    <div class="action">
+      <div class="marker">1</div>
+      <div>
+        <p class="cost">Cost — one email</p>
+        <h3>Fix the bar before you fix the policy</h3>
+        <p>If the alcohol is at a staffed bar and the alternative is a warm can of soda on a side table, you've already told the room which choice is the real one.</p>
+        <p>Stock two or three genuinely good non-alcoholic options. Same bar, same menu, same eye level. Ask the bartender to offer them first rather than as a consolation, and print them on the list with real names.</p>
+        <p>Nobody discloses anything. Nobody opts out of anything. The signal isn't the drink — it's that somebody thought about it in advance.</p>
+        <p class="doit"><b>This week:</b> find whoever is planning your next company event and send them this paragraph.</p>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="marker">2</div>
+      <div>
+        <p class="cost">Cost — one intranet edit</p>
+        <h3>Make help findable without a conversation</h3>
+        <p>Thirty percent of Americans don't know where to find accurate information about substance use disorder, and the people most likely to need it are the least likely to walk into HR and ask.</p>
+        <p>So put it where it can be found silently. The SAMHSA National Helpline (1-800-662-HELP), findtreatment.gov, and 988 for crisis. Add all three to the intranet homepage, the benefits portal landing page, and the back of the break room door — the same places you post the fire exits.</p>
+        <p>No form, no disclosure, no manager in the loop.</p>
+        <p class="doit"><b>This week:</b> one intranet edit and one printed sign.</p>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="marker">3</div>
+      <div>
+        <p class="cost">Cost — fifteen minutes</p>
+        <h3>Give your managers one sentence</h3>
+        <p>The people who don't know what to do are mostly your people leaders. They notice something, they worry about saying the wrong thing, and so they say nothing until it becomes a performance conversation or an incident.</p>
+        <div class="script">"I've noticed [specific, observable, work-related thing]. I'm not asking you to explain anything to me. I want to make sure you know what's available, and that using it won't cost you your job."</div>
+        <p>Three rules underneath it: describe behavior, never diagnose. Don't speculate about cause. Don't promise confidentiality you can't deliver.</p>
+        <p class="doit"><b>This week:</b> fifteen minutes on an agenda that already exists.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad">
+    <p class="eyebrow">The chain of untreated SUD</p>
+    <h2>Every one of those three actions aims at the left end of this chain.</h2>
+
+    <div class="chain">
+      <div class="stage s1"><div class="rail"><span class="dot"></span><span class="amt">$15,000+</span></div>
+        <div><span class="stage-l">Stage 1</span><h4>A missed shift</h4>
+        <p class="u">In lost output per year. Roughly 8 hrs/week of reduced output × average U.S. hourly wage, annualized (BLS, 2026).</p></div></div>
+
+      <div class="stage s2"><div class="rail"><span class="dot"></span><span class="amt">$20,000+</span></div>
+        <div><span class="stage-l">Stage 2</span><h4>A relationship, quietly strained</h4>
+        <p class="u">Per leave event. 12-week FMLA leave: continued health premium (KFF, 2025) plus backfill coverage (BLS, 2026).</p></div></div>
+
+      <div class="stage s3"><div class="rail"><span class="dot"></span><span class="amt">$30–45K</span></div>
+        <div><span class="stage-l">Stage 3</span><h4>A screening they didn't pass</h4>
+        <p class="u">To replace one employee. Six to nine months of salary in recruiting, onboarding and ramp to full productivity (SHRM).</p></div></div>
+
+      <div class="stage s4"><div class="rail"><span class="dot"></span><span class="amt">$47,316</span></div>
+        <div><span class="stage-l">Stage 4</span><h4>An accident on the floor</h4>
+        <p class="u">Average lost-time workers' compensation claim (NCCI, via National Safety Council, 2025).</p></div></div>
+
+      <div class="stage s5"><div class="rail"><span class="dot"></span><span class="amt">$485,320</span></div>
+        <div><span class="stage-l">Stage 5</span><h4>A body that's had enough</h4>
+        <p class="u">Average cost of a single cancer diagnosis to a self-funded health plan (Voya Stop-Loss Analysis, 2025).</p></div></div>
+    </div>
+
+    <p class="kicker">Someone just had to catch stage one.</p>
+    <p>Read it right to left and it's a cost problem. Read it left to right and it's a person having a hard year that nobody asked about.</p>
+  </section>
+
+  <section class="pad">
+    <p class="eyebrow">For the people who advise employers</p>
+    <div class="split">
+      <div class="col">
+        <h3>Employee benefits</h3>
+        <p>The EAP is not the answer here, and your clients likely suspect it. At the next renewal ask what EAP utilization was last year for any reason. Then ask what share of it was substance-related. The silence after the second question is the conversation worth having.</p>
+      </div>
+      <div class="col">
+        <h3>Risk and safety</h3>
+        <p>Substance use is tied to 65% of on-the-job accidents, and 10–20% of workplace fatalities involve alcohol or drugs. Heavy drinkers are 30% more likely to file a workers' comp claim. Your clients already pay for this — as incidents rather than as a program.</p>
+      </div>
+    </div>
+    <div class="both">
+      <p><strong>For both:</strong> the highest-leverage thing you can do this month is read a client's drug and alcohol policy the way an employee would read it. Most describe consequences in detail and support in a single line, or not at all. Adding one sentence about voluntarily seeking help — before an incident, without penalty — costs nothing and changes what the entire document communicates.</p>
+    </div>
+    <p class="src">Sources: Addiction Policy Forum &amp; Gallup, <em>Addiction Stigma in America</em>, May 2026 · SAMHSA NSDUH · NSC/NORC Substance Use Cost Calculator · NCADD · U.S. Department of Labor · RAND Corporation · BLS 2026 · KFF 2025 · SHRM · NCCI via National Safety Council 2025 · Voya Stop-Loss Analysis 2025.</p>
+  </section>
+
+  <div class="close">
+    <h2>Most people reading this are not at the finish line</h2>
+    <p>Recovery Month tends to celebrate the people who made it all the way through, and that is worth doing. But most of the people reading this are somewhere else entirely — cutting back, wondering, worrying about someone at home, or three weeks into something they haven't told anyone about.</p>
+    <p class="core">Sobriety is personal. Whatever that looks like — total sobriety, recovery, sober curious, cutting back, or supporting someone you love — the work of a recovery-friendly workplace is making sure none of it has to be a secret.</p>
+    <p>Three things. One month. No budget.</p>
+    <p class="sig"><b>Jess Ferretti</b> · VP of Sales, Sobrynth<br>If you want to talk about what comes after these three, my calendar is open. And if you advise employers, forward this to three clients — the three things work whether or not we ever speak.</p>
+  </div>
+
+  <div class="foot">Sobrynth · Real Support for Substance Use. Built for your Workforce.<br>Substance agnostic. Acuity agnostic.</div>
+</div>
