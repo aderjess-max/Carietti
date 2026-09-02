@@ -185,6 +185,20 @@ The construction correction cascades. Still built on the wrong premise:
    and vertical definitions
 5. `fractional-vp-sales-plan.html` §07 — the two-vertical positioning section
 
+## Resume
+
+Lives in `resume/` — `resume.md` is the copy source of truth, `build_resume.js` renders the
+`.docx`, and the `.pdf` is generated from that. Rebuild steps and design notes in `resume/README.md`.
+
+**The resume does not carry the offer structure — decided 2026-09-02, her call.** The six-month
+fixed term, the three-slot ceiling, the terminal-deliverable gate and the $2–10M ICP band are real
+and stay in this file, in the SOW and in the sales conversation. On the resume they read as a
+product spec a reader can disqualify themselves against before ever replying. She wants to stay
+fluid about what she takes on to start. So the resume describes capability and a range of engagement
+shapes — "a focused project, an ongoing fractional seat, or a full build through to hiring the
+leader who takes it over" — and the structure gets introduced once a conversation exists. Do not
+re-add it there.
+
 ## LinkedIn and content
 
 Profile rebuild lives in `linkedin-rebuild.html`. Brand assets in `assets/`:

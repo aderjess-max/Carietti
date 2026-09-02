@@ -39,3 +39,9 @@ markdown, it holds its own copy of the text.
 - Carietti is the operating entity, not a multi-principal firm. Sobrynth and VIVIO sit
   under it as engagements rather than as three parallel jobs.
 - No pricing on the resume. A resume is not a rate card.
+- **Do not put the productized offer structure on the resume.** The six-month fixed term,
+  the three-slot ceiling, the terminal-deliverable gate and the $2–10M ICP band are real
+  and they stay in `CLAUDE.md`, the SOW and the sales conversation — but on the resume they
+  read as a product spec that lets a reader disqualify themselves before replying. Her call,
+  2026-09-02: be fluid about what she takes on to start. The resume describes capability and
+  a range of engagement shapes; the structure gets introduced once there is a conversation.

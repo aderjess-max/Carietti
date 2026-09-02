@@ -9,13 +9,17 @@ NYC Metro / Long Island · Works fully remote, national reach
 
 ## What I Do
 
-I build the first real sales engine for digital health companies, then hire the person who
-replaces me.
+I help digital health companies build the sales engine they do not have yet.
 
 Twenty-three years in enterprise sales, quotas carried to $12M, and five consecutive companies
 selling mental health, substance use, recovery, and specialty pharmacy products to self-insured
 employers and health plans. I know the buyer — CHROs, Total Rewards leaders, benefits consultants,
 health plan decision-makers — because I have sold to them from six different seats over eight years.
+
+What that looks like depends on the company. Sometimes it is the whole engine — positioning,
+process, CRM, first hires. Sometimes it is the one piece that is stuck: a narrative that is not
+landing, a pipeline that will not forecast, a founder who needs someone in the room on the
+enterprise deals. I would rather start with the real problem than with a package.
 
 I am also publicly sober and in recovery. Selling into a category built to treat that condition,
 it is a commercial credential, not a personal footnote: it is why founders trust the positioning
@@ -27,29 +31,29 @@ work and why buyers take the meeting.
 
 ### The Carietti Group — Co-Founder & Principal, Sales & Business Development
 **March 2026 – Present · Remote**
-*Operating entity for a fractional VP of Sales practice serving digital health companies*
+*Sales and business development practice serving digital health companies*
 
-I work with founders at the transition point where founder-led selling stops scaling and the
-first sales team has to exist — typically $2M–$10M, post-product-market-fit, pre-first-VP. The
-engagement is fixed at six months with a defined terminal deliverable, against a market norm of
-open-ended advisory that drifts past nine months.
+I work with founders and early commercial teams at the point where selling has to become a system
+instead of a set of individual efforts. Engagements are scoped to what the company actually needs —
+a focused project, an ongoing fractional seat, or a full build through to hiring the leader who
+takes it over.
 
-**What a six-month engagement delivers, in order:**
+**What I take on:**
 
 - ICP definition and market segmentation grounded in where the product actually wins
 - Sales narrative, pitch, discovery framework, and objection handling
 - Outbound cadences, email templates, and the messaging library behind them
 - Sales process, stage definitions, qualification criteria, and forecast discipline
 - Sales tech stack selection and a CRM stood up, configured, and live — not a recommendation deck
-- Enablement, ramp plan, and onboarding for the reps who follow
-- **Terminal deliverable: recruiting and hiring their VP of Sales — the successor — then handing off and leaving**
+- Enablement, ramp, and onboarding for the reps who follow
+- Recruiting and hiring the VP of Sales who takes it from there
 
-**How it is built to work:**
+**How I work:**
 
 - Founders work directly with me. No junior associates, no bench, no account manager.
-- Three concurrent engagements maximum, so every client gets a senior operator's actual attention.
-- I carry the number myself during the build. The playbook is written from live pipeline, not from theory.
-- I am hired to make myself unnecessary in six months. The last thing I deliver is the person who replaces me.
+- I carry the number myself during the build. The playbook gets written from live pipeline, not from theory.
+- I would rather scope small and earn the rest than sell a package that does not fit.
+- The goal is always to make myself unnecessary — to build something that outlasts the engagement.
 
 ---
 
@@ -83,8 +87,8 @@ open-ended advisory that drifts past nine months.
 **March 2025 – March 2026 · Remote**
 *Seed-stage substance use disorder recovery platform*
 
-The proof of the Carietti model, run in-house: a sales function built from nothing at a seed-stage
-company.
+The in-house version of what I now do fractionally: a sales function built from nothing at a
+seed-stage company.
 
 - Built the enterprise sales strategy from the ground up, expanding beyond recovery-native buyers
   into new employer verticals
