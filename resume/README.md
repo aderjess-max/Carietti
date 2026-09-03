@@ -29,6 +29,9 @@ which is real history the digital health cut deliberately suppresses.
 | `build_resume.js` | Renders both variants into formatted `.docx` files (docx-js). |
 | `Jess-Ferretti-Resume.docx` / `.pdf` | Digital health cut. |
 | `Jess-Ferretti-Resume-General.docx` / `.pdf` | General cut. |
+| `cover-letter.md` | Copy source for the generic cover letter. |
+| `build_letter.js` | Renders the cover letter. |
+| `Jess-Ferretti-Cover-Letter.docx` / `.pdf` | One-page cover letter, three fields to fill. |
 
 ## Rebuilding
 
@@ -37,6 +40,9 @@ npm install          # first time only
 node build_resume.js # writes both .docx files
 soffice --headless --convert-to pdf --outdir . Jess-Ferretti-Resume.docx
 soffice --headless --convert-to pdf --outdir . Jess-Ferretti-Resume-General.docx
+
+node build_letter.js
+soffice --headless --convert-to pdf --outdir . Jess-Ferretti-Cover-Letter.docx
 ```
 
 Keep `resume.md` and `build_resume.js` in sync by hand — the script does not parse the
