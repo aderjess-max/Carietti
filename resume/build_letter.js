@@ -43,8 +43,7 @@ children.push(new Paragraph({
 }));
 
 // ── Letter ──────────────────────────────────────────────────────────────────
-children.push(para([t('[Date]', { color: GRAY })], { spacing: { after: 240 } }));
-children.push(para('Dear [Name],'));
+children.push(para('Hello,'));
 
 children.push(para('I will keep this short — the resume covers the history.'));
 
@@ -55,22 +54,21 @@ children.push(para(
   'satisfying work I know.'
 ));
 
-children.push(para([
-  t('What pulled me toward '),
-  t('[Company]', { bold: true }),
-  t(' is '),
-  t('[one honest sentence — the specific thing you noticed, not a compliment]', { italics: true, color: GRAY }),
-  t('. I would like to be part of it.'),
-]));
-
 children.push(para(
-  'You will see on the resume that I am publicly sober and in recovery. I mention it here because it is ' +
-  'not a footnote. It is where the directness comes from, and it is why the people I work with tell me the ' +
-  'truth about their pipeline early enough for it to matter.'
+  'That is what I am drawn to — work where the commercial answers are not fully written yet, and people ' +
+  'willing to say so out loud. Whether that means building something from nothing or fixing the one part ' +
+  'of an engine that is stuck, it is the same job to me, and I have never wanted to do anything else.'
 ));
 
 children.push(para(
-  'If it seems like there is something here, I would love to talk. Thank you for reading this.'
+  'You will see on the resume that I am publicly sober and in recovery. I mention it because it is not a ' +
+  'footnote. It is where the directness comes from, and it is why the people I work with tell me the truth ' +
+  'about their pipeline early enough for it to matter.'
+));
+
+children.push(para(
+  'I would love to talk, and I would be glad to get specific about your business the moment there is a ' +
+  'conversation to have. Thank you for reading this.'
 ));
 
 children.push(para('Warmly,', { spacing: { before: 240, after: 40 } }));

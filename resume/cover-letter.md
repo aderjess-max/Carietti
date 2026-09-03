@@ -2,19 +2,11 @@
 
 Generic, heartfelt, one page. `build_letter.js` renders it; this file is the copy source.
 
-Three things to fill per submission — everything else stands as written:
-
-1. `[Date]`
-2. `[Name]` — a real person wherever findable; "Hiring Team" only as a fallback
-3. `[one honest sentence]` — the specific thing you noticed. Not a compliment.
-   Something like *"you are selling into HR buyers who have been burned twice already
-   and you are not pretending otherwise"* — a detail that proves you actually looked.
+**Nothing to fill in.** No date, no name, no company. Send or paste as-is.
 
 ---
 
-[Date]
-
-Dear [Name],
+Hello,
 
 I will keep this short — the resume covers the history.
 
@@ -23,14 +15,17 @@ point where nobody knows yet who the buyer really is, or why the thing matters, 
 in the first sentence. Working that out with a team, and then watching them go do it without me,
 is the most satisfying work I know.
 
-What pulled me toward **[Company]** is *[one honest sentence — the specific thing you noticed,
-not a compliment]*. I would like to be part of it.
+That is what I am drawn to — work where the commercial answers are not fully written yet, and
+people willing to say so out loud. Whether that means building something from nothing or fixing
+the one part of an engine that is stuck, it is the same job to me, and I have never wanted to do
+anything else.
 
-You will see on the resume that I am publicly sober and in recovery. I mention it here because
-it is not a footnote. It is where the directness comes from, and it is why the people I work
-with tell me the truth about their pipeline early enough for it to matter.
+You will see on the resume that I am publicly sober and in recovery. I mention it because it is
+not a footnote. It is where the directness comes from, and it is why the people I work with tell
+me the truth about their pipeline early enough for it to matter.
 
-If it seems like there is something here, I would love to talk. Thank you for reading this.
+I would love to talk, and I would be glad to get specific about your business the moment there is
+a conversation to have. Thank you for reading this.
 
 Warmly,
 **Jess Ferretti**
@@ -39,9 +34,15 @@ Warmly,
 
 ## Notes
 
-- The recovery paragraph is optional. It is the most personal thing in the letter and the
-  thing least likely to read as boilerplate, which is exactly why it earns its place — but
-  cut it for any submission where it does not feel right, and the letter still holds.
+- **No fill-ins by design.** The paragraph that would normally name the company instead says
+  what kind of work she wants, which is true of every submission and reads as a position rather
+  than a blank. The closing line does the rest of that job: it promises specificity in the
+  conversation instead of faking it on the page.
+- The recovery paragraph is optional. It is the most personal thing in the letter and the thing
+  least likely to read as boilerplate, which is why it earns its place — but cut it for any
+  submission where it does not feel right and the letter still holds.
+- No date line. A dated letter goes stale in a folder; an undated one does not.
+- "Hello," rather than "Dear Hiring Manager" — no guessing, and it sounds like her.
 - The letterhead uses the general tagline, so it pairs with either resume variant.
 - One page, and it should stay one page. A cover letter that fills the page stops being
   heartfelt and starts being a second resume.

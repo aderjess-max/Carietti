@@ -31,7 +31,7 @@ which is real history the digital health cut deliberately suppresses.
 | `Jess-Ferretti-Resume-General.docx` / `.pdf` | General cut. |
 | `cover-letter.md` | Copy source for the generic cover letter. |
 | `build_letter.js` | Renders the cover letter. |
-| `Jess-Ferretti-Cover-Letter.docx` / `.pdf` | One-page cover letter, three fields to fill. |
+| `Jess-Ferretti-Cover-Letter.docx` / `.pdf` | One-page cover letter. No fill-ins — send as-is. |
 
 ## Rebuilding
 
