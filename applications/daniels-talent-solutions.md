@@ -104,24 +104,26 @@ instead of bounce.
 
 ## 5. Tell us about a low-lift business development opportunity that you turned into a quick win of $100k or more. What did you see, what did you do, and what was the outcome?
 
-> **NEEDS YOUR NUMBERS — do not send as-is.** Three true candidates from your record, framed. Pick
-> the one where the deal actually cleared $100K and fill the brackets.
+At BI WORLDWIDE, Canon was an existing relationship rather than a cold account, and the win came
+out of about a week of research rather than a campaign.
 
-**Option A — Koa's dormant IP (best fit for "low-lift").** Koa Health had already-built product
-sitting unsold: crisis prediction tooling, body dysmorphia programming, PTSD digital therapeutics.
-The engineering was done and the clinical validation existed; nobody had packaged or priced it.
+**What I saw.** I had a hunch their incumbent employee engagement program was priced above market.
+So I went and did the work on what our competitors were actually charging for comparable scope —
+pricing structures, what was bundled versus billed separately, where the margin was hiding. It
+turned up roughly $150,000 a year of overspend that Canon had no visibility into. Not because
+anyone had misled them, but because nobody had ever benchmarked it and there was no reason for
+them to know on their own.
 
-> What I saw: revenue that was already paid for. The company was funding new development while
-> finished assets sat dormant, because no one had made them sellable — no positioning, no pricing,
-> no one carrying them into a conversation. What I did: [how you picked which asset, who you took
-> it to, what you had to build — a one-pager, a price, a pilot structure]. The outcome: [$ value,
-> timeline, and whether it opened anything after].
+**What I did.** I did not lead with our product. I brought them the number. I walked their team
+through what they were paying, what the market rate was for the same scope, and exactly where the
+gap came from. That conversation was about their budget rather than my quota, and it changed who I
+was in the room before I ever made a proposal.
 
-**Option B — Koa's first US sale.** If the agricultural deal cleared $100K and came from a warm or
-inbound source, it is a clean answer: a first-in-market sale nobody had built a motion for.
+**The outcome.** A $300,000 deal. They moved the program to us, and the savings I had found paid
+for scope they had not previously been able to justify.
 
-**Option C — BI WORLDWIDE.** An expansion inside the $12M portfolio — existing client, existing
-trust, new scope. Low-lift by definition. [Which client, what you spotted, what it was worth.]
+What made it low-lift is that the opportunity was already sitting inside a relationship we had.
+The only thing missing was somebody willing to go and look.
 
 ## 6. At Daniels Talent Solutions, we believe diverse perspectives strengthen organizations and lead to better outcomes. Equity is an important part of our daily work. How does this align with your perspectives and approach to your work?
 
