@@ -1,13 +1,23 @@
 # Jess Ferretti (she/her)
 
-**Fractional VP of Sales — Digital Health**
-
 NYC Metro / Long Island · Works fully remote, national reach
 516.385.0411 · ader.jess@gmail.com · linkedin.com/in/jess-ferretti-324611b
+
+> **Two variants build from this file.** Everything below is shared except the tagline, the
+> opening two paragraphs, the recovery paragraph, the Carietti descriptor, the Ferrandino closing
+> bullet, and the Where I Sell rows — those swap per variant and live in `VARIANTS` in
+> `build_resume.js`. Both are listed here.
 
 ---
 
 ## What I Do
+
+### Tagline
+
+- **Digital health** — Fractional VP of Sales · Digital Health
+- **General** — Enterprise Sales Leader · Go-to-Market & Revenue Growth
+
+### Opening — digital health variant
 
 I help digital health companies build the sales engine they do not have yet.
 
@@ -16,14 +26,34 @@ selling mental health, substance use, recovery, and specialty pharmacy products 
 employers and health plans. I know the buyer — CHROs, Total Rewards leaders, benefits consultants,
 health plan decision-makers — because I have sold to them from six different seats over eight years.
 
+### Opening — general variant
+
+I build the sales engine a company does not have yet, and the team that runs it after.
+
+Twenty-three years in enterprise sales, quotas carried to $12M, and a $50M territory at the high
+end. I have built commercial functions from nothing at seed stage and run large, complex ones inside
+Fortune 100 accounts — across healthcare, automotive, manufacturing, retail, CPG, and employee
+engagement. The constant is the long-cycle, multi-stakeholder sale and the operating discipline
+underneath it.
+
+### Shared
+
 What that looks like depends on the company. Sometimes it is the whole engine — positioning,
 process, CRM, first hires. Sometimes it is the one piece that is stuck: a narrative that is not
 landing, a pipeline that will not forecast, a founder who needs someone in the room on the
 enterprise deals. I would rather start with the real problem than with a package.
 
+### Recovery paragraph — digital health variant
+
 I am also publicly sober and in recovery. Selling into a category built to treat that condition,
 it is a commercial credential, not a personal footnote: it is why founders trust the positioning
 work and why buyers take the meeting.
+
+### Recovery paragraph — general variant
+
+I am also publicly sober and in recovery, and certified in behavioral economics, trauma-informed
+leadership, and LGBTQIA+ leadership. It is not incidental to the work: it is where the directness
+comes from, and it is how I build teams that tell the truth about their pipeline.
 
 ---
 
@@ -31,7 +61,8 @@ work and why buyers take the meeting.
 
 ### The Carietti Group — Co-Founder & Principal, Sales & Business Development
 **March 2026 – Present · Remote**
-*Sales and business development practice serving digital health companies*
+*Digital health variant:* Sales and business development practice serving digital health companies
+*General variant:* Sales and business development practice for founder-led and early-stage commercial teams
 
 I work with founders and early commercial teams at the point where selling has to become a system
 instead of a set of individual efforts. Engagements are scoped to what the company actually needs —
@@ -161,12 +192,16 @@ seed-stage company.
 - Grew partnerships with the American Museum of Natural History, MoMA, Union Square Hospitality
   Group, Hofstra University, and The Intrepid
 - Took on marketing responsibility in the final year, building the client communication strategy
-- The origin of the construction and trades relationships now driving the highest-need employer
-  segment in workplace substance use
+- *Digital health variant:* The origin of the construction and trades relationships now driving
+  the highest-need employer segment in workplace substance use
+- *General variant:* Built the construction, facilities, and trades relationships that still open
+  doors two decades later
 
 ---
 
 ## Where I Sell
+
+### Digital health variant
 
 **Categories** — Digital health · Mental health · Substance use and recovery · Digital therapeutics ·
 Specialty pharmacy · Employee benefits and total rewards
@@ -176,6 +211,19 @@ decision-makers · Benefits consultants and brokers · Self-insured employers, F
 
 **Motions** — Founder-led to first sales team · Enterprise and complex committee sales ·
 Consultant and broker channel · Direct-to-employer
+
+### General variant
+
+**Industries** — Healthcare and digital health · Employee benefits and total rewards · Automotive ·
+Manufacturing · Retail and CPG · Facilities and commercial construction
+
+**Buyers** — CHROs and Heads of Total Rewards · Health plan decision-makers · Benefits consultants
+and brokers · OEM and channel partners · Fortune 100 through 1000, and seed stage
+
+**Motions** — Founder-led to first sales team · Enterprise and complex committee sales · Channel
+and partner · Direct-to-enterprise · Territory and team leadership
+
+### Shared
 
 **Build** — ICP and segmentation · Sales narrative · Outbound cadences · Sales process and
 forecasting · Sales tech stack and CRM implementation · Enablement and ramp · Hiring VP-level

@@ -188,7 +188,16 @@ The construction correction cascades. Still built on the wrong premise:
 ## Resume
 
 Lives in `resume/` — `resume.md` is the copy source of truth, `build_resume.js` renders the
-`.docx`, and the `.pdf` is generated from that. Rebuild steps and design notes in `resume/README.md`.
+`.docx` files, and the `.pdf`s are generated from those. Rebuild steps and design notes in
+`resume/README.md`.
+
+**Two variants, one record — added 2026-09-03, her call.** `Jess-Ferretti-Resume` is the digital
+health cut and the one she leads with. `Jess-Ferretti-Resume-General` lifts the vertical claim out
+of the intro so she can submit for roles and industries beyond digital health without maintaining a
+second document. Only six things swap (tagline, opening two paragraphs, recovery paragraph, Carietti
+descriptor, Ferrandino closing bullet, Where I Sell rows); they live in the `VARIANTS` table at the
+top of `build_resume.js`. Digital health stays the positioning everywhere else — this is a submission
+variant, not a change of strategy.
 
 **The resume does not carry the offer structure — decided 2026-09-02, her call.** The six-month
 fixed term, the three-slot ceiling, the terminal-deliverable gate and the $2–10M ICP band are real

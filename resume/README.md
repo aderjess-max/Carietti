@@ -2,19 +2,41 @@
 
 Source of truth for Jess Ferretti's resume.
 
+## Two variants
+
+Both build from the same record. They differ only in the intro and the market framing —
+the experience, awards, and education are identical.
+
+| Variant | File | Use it for |
+|---|---|---|
+| **Digital health** | `Jess-Ferretti-Resume` | The practice. The one to lead with. |
+| **General** | `Jess-Ferretti-Resume-General` | Roles and industries outside digital health. |
+
+What actually swaps: the tagline, the opening two paragraphs, the recovery paragraph, the
+Carietti descriptor, the Ferrandino closing bullet, and the Where I Sell rows. All six live
+in the `VARIANTS` table at the top of `build_resume.js` — add a variant by adding a key.
+
+The general cut leads on the shape of the sale (long-cycle, multi-stakeholder, built from
+nothing or run at scale) rather than the category, and widens Where I Sell to the full
+industry set — automotive, manufacturing, retail and CPG, facilities and construction —
+which is real history the digital health cut deliberately suppresses.
+
+## Files
+
 | File | What it is |
 |---|---|
 | `resume.md` | Readable source of truth for the copy. Edit here first. |
-| `build_resume.js` | Renders the copy into a formatted `.docx` (docx-js). |
-| `Jess-Ferretti-Resume.docx` | The deliverable. Editable in Word/Google Docs, ATS-parseable. |
-| `Jess-Ferretti-Resume.pdf` | Send-ready PDF, rendered from the `.docx`. |
+| `build_resume.js` | Renders both variants into formatted `.docx` files (docx-js). |
+| `Jess-Ferretti-Resume.docx` / `.pdf` | Digital health cut. |
+| `Jess-Ferretti-Resume-General.docx` / `.pdf` | General cut. |
 
 ## Rebuilding
 
 ```bash
 npm install          # first time only
-node build_resume.js
+node build_resume.js # writes both .docx files
 soffice --headless --convert-to pdf --outdir . Jess-Ferretti-Resume.docx
+soffice --headless --convert-to pdf --outdir . Jess-Ferretti-Resume-General.docx
 ```
 
 Keep `resume.md` and `build_resume.js` in sync by hand — the script does not parse the

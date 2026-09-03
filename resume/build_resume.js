@@ -67,6 +67,56 @@ const label = (head, rest) => p({
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Two variants off one body of content. `health` is the one to lead with;
+// `general` is the same record with the vertical claim lifted out of the
+// intro so it can go out for roles and industries beyond digital health.
+const VARIANTS = {
+  health: {
+    file: 'Jess-Ferretti-Resume.docx',
+    tagline: 'Fractional VP of Sales  ·  Digital Health',
+    lede: 'I help digital health companies build the sales engine they do not have yet.',
+    track:
+      'Twenty-three years in enterprise sales, quotas carried to $12M, and five consecutive companies selling ' +
+      'mental health, substance use, recovery, and specialty pharmacy products to self-insured employers and health ' +
+      'plans. I know the buyer — CHROs, Total Rewards leaders, benefits consultants, health plan decision-makers — ' +
+      'because I have sold to them from six different seats over eight years.',
+    recovery:
+      'I am also publicly sober and in recovery. Selling into a category built to treat that condition, it is a ' +
+      'commercial credential, not a personal footnote: it is why founders trust the positioning work and why buyers ' +
+      'take the meeting.',
+    carietti: 'Sales and business development practice serving digital health companies · Remote',
+    ferrandino: 'The origin of the construction and trades relationships now driving the highest-need employer segment in workplace substance use',
+    sell: [
+      ['Categories', 'Digital health · Mental health · Substance use and recovery · Digital therapeutics · Specialty pharmacy · Employee benefits and total rewards'],
+      ['Buyers', 'CHROs and Heads of Total Rewards · Benefits and wellbeing leaders · Health plan decision-makers · Benefits consultants and brokers · Self-insured employers, Fortune 100 through 1000'],
+      ['Motions', 'Founder-led to first sales team · Enterprise and complex committee sales · Consultant and broker channel · Direct-to-employer'],
+    ],
+  },
+  general: {
+    file: 'Jess-Ferretti-Resume-General.docx',
+    tagline: 'Enterprise Sales Leader  ·  Go-to-Market & Revenue Growth',
+    lede: 'I build the sales engine a company does not have yet, and the team that runs it after.',
+    track:
+      'Twenty-three years in enterprise sales, quotas carried to $12M, and a $50M territory at the high end. I have ' +
+      'built commercial functions from nothing at seed stage and run large, complex ones inside Fortune 100 accounts — ' +
+      'across healthcare, automotive, manufacturing, retail, CPG, and employee engagement. The constant is the ' +
+      'long-cycle, multi-stakeholder sale and the operating discipline underneath it.',
+    recovery:
+      'I am also publicly sober and in recovery, and certified in behavioral economics, trauma-informed leadership, ' +
+      'and LGBTQIA+ leadership. It is not incidental to the work: it is where the directness comes from, and it is ' +
+      'how I build teams that tell the truth about their pipeline.',
+    carietti: 'Sales and business development practice for founder-led and early-stage commercial teams · Remote',
+    ferrandino: 'Built the construction, facilities, and trades relationships that still open doors two decades later',
+    sell: [
+      ['Industries', 'Healthcare and digital health · Employee benefits and total rewards · Automotive · Manufacturing · Retail and CPG · Facilities and commercial construction'],
+      ['Buyers', 'CHROs and Heads of Total Rewards · Health plan decision-makers · Benefits consultants and brokers · OEM and channel partners · Fortune 100 through 1000, and seed stage'],
+      ['Motions', 'Founder-led to first sales team · Enterprise and complex committee sales · Channel and partner · Direct-to-enterprise · Territory and team leadership'],
+    ],
+  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+function buildChildren(V) {
 const children = [];
 
 // Header block
@@ -79,7 +129,7 @@ children.push(p({
 }));
 children.push(p({
   spacing: { before: 40, after: 60 },
-  children: [t('Fractional VP of Sales  ·  Digital Health', { bold: true, color: GREEN, size: 22 })],
+  children: [t(V.tagline, { bold: true, color: GREEN, size: 22 })],
 }));
 children.push(p({
   spacing: { after: 0 },
@@ -93,33 +143,22 @@ children.push(p({
 
 // ── What I Do ───────────────────────────────────────────────────────────────
 children.push(section('What I Do'));
-children.push(body([
-  t('I help digital health companies build the sales engine they do not have yet.', { bold: true }),
-]));
-children.push(body(
-  'Twenty-three years in enterprise sales, quotas carried to $12M, and five consecutive companies selling ' +
-  'mental health, substance use, recovery, and specialty pharmacy products to self-insured employers and health ' +
-  'plans. I know the buyer — CHROs, Total Rewards leaders, benefits consultants, health plan decision-makers — ' +
-  'because I have sold to them from six different seats over eight years.'
-));
+children.push(body([t(V.lede, { bold: true })]));
+children.push(body(V.track));
 children.push(body(
   'What that looks like depends on the company. Sometimes it is the whole engine — positioning, process, CRM, ' +
   'first hires. Sometimes it is the one piece that is stuck: a narrative that is not landing, a pipeline that ' +
   'will not forecast, a founder who needs someone in the room on the enterprise deals. I would rather start with ' +
   'the real problem than with a package.'
 ));
-children.push(body(
-  'I am also publicly sober and in recovery. Selling into a category built to treat that condition, it is a ' +
-  'commercial credential, not a personal footnote: it is why founders trust the positioning work and why buyers ' +
-  'take the meeting.'
-));
+children.push(body(V.recovery));
 
 // ── Experience ──────────────────────────────────────────────────────────────
 children.push(section('Experience'));
 
 // Carietti
 children.push(role('The Carietti Group', 'Co-Founder & Principal, Sales & Business Development', 'March 2026 – Present'));
-children.push(descriptor('Sales and business development practice serving digital health companies · Remote'));
+children.push(descriptor(V.carietti));
 children.push(body(
   'I work with founders and early commercial teams at the point where selling has to become a system instead of a ' +
   'set of individual efforts. Engagements are scoped to what the company actually needs — a focused project, an ' +
@@ -228,14 +267,12 @@ children.push(descriptor('National commercial general contractor and facility ma
   'Built the company’s first regionally focused sales team',
   'Grew partnerships with the American Museum of Natural History, MoMA, Union Square Hospitality Group, Hofstra University, and The Intrepid',
   'Took on marketing responsibility in the final year, building the client communication strategy',
-  'The origin of the construction and trades relationships now driving the highest-need employer segment in workplace substance use',
+  V.ferrandino,
 ].forEach((b) => children.push(bullet(b)));
 
 // ── Where I Sell ────────────────────────────────────────────────────────────
 children.push(section('Where I Sell'));
-children.push(label('Categories', 'Digital health · Mental health · Substance use and recovery · Digital therapeutics · Specialty pharmacy · Employee benefits and total rewards'));
-children.push(label('Buyers', 'CHROs and Heads of Total Rewards · Benefits and wellbeing leaders · Health plan decision-makers · Benefits consultants and brokers · Self-insured employers, Fortune 100 through 1000'));
-children.push(label('Motions', 'Founder-led to first sales team · Enterprise and complex committee sales · Consultant and broker channel · Direct-to-employer'));
+V.sell.forEach(([head, rest]) => children.push(label(head, rest)));
 children.push(label('Build', 'ICP and segmentation · Sales narrative · Outbound cadences · Sales process and forecasting · Sales tech stack and CRM implementation · Enablement and ramp · Hiring VP-level sales leaders'));
 
 // ── Education ───────────────────────────────────────────────────────────────
@@ -262,10 +299,13 @@ children.push(body(
   'which is still, more or less, the job.'
 ));
 
+return children;
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
-const doc = new Document({
+const buildDoc = (V) => new Document({
   creator: 'Jess Ferretti',
-  title: 'Jess Ferretti — Fractional VP of Sales, Digital Health',
+  title: 'Jess Ferretti — ' + V.tagline.replace(/\s+·\s+/g, ', '),
   numbering: {
     config: [{
       reference: 'dot',
@@ -298,11 +338,13 @@ const doc = new Document({
         },
       },
     },
-    children,
+    children: buildChildren(V),
   }],
 });
 
-Packer.toBuffer(doc).then((buf) => {
-  fs.writeFileSync(__dirname + '/Jess-Ferretti-Resume.docx', buf);
-  console.log('wrote Jess-Ferretti-Resume.docx');
+Object.values(VARIANTS).forEach((V) => {
+  Packer.toBuffer(buildDoc(V)).then((buf) => {
+    fs.writeFileSync(__dirname + '/' + V.file, buf);
+    console.log('wrote ' + V.file);
+  });
 });
