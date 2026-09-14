@@ -1,0 +1,209 @@
+# Alliant HP Vendor RFI — Sobrynth: open items
+Every cell listed below is highlighted pale yellow in the workbook and contains a `[CONFIRM ...]` marker.
+Strip the markers and clear the highlight before sending.
+
+## Alliant Vendor Due Diligence Qu (67 open)
+- **C5** — Company Address
+  - [CONFIRM] Sobrynth corporate address.
+- **C6** — Year ./ Month Company was established / launched
+  - Launched 2024. [CONFIRM exact month and legal entity formation date.]
+- **C8** — Phone # of individual completing the questionnaire
+  - [CONFIRM] Direct phone number.
+- **C9** — Email of individual completing the questionnaire
+  - [CONFIRM] Sobrynth work email address.
+- **C10** — Total # of U.S. Clients
+  - [CONFIRM] Total number of U.S. employer clients.
+- **C11** — Total # of U.S. employee lives covered
+  - [CONFIRM] Total U.S. employee lives covered.
+- **C14** — Total # of Alliant clients
+  - [CONFIRM] Total number of Alliant clients.
+- **C15** — Retention % of Alliant clients over last 2 years
+  - [CONFIRM] Alliant-specific retention. Book-of-business client retention is 96%.
+- **C16** — Total # of Alliant employee lives covered
+  - [CONFIRM] Total Alliant employee lives covered.
+- **C17** — Please provide Alliant client name(s) - attachment
+  - [CONFIRM] Alliant client names / reference attachment.
+- **C18** — How many employees does your organization have?
+  - [CONFIRM] Corporate headcount. Note: Sobrynth has no W-2 employees delivering coaching services; the entire Peer Coach network is engaged as 1099 independent contractors.
+- **C19** — Please describe the employment relationship of your employees (W-2, 1099, etc.).
+  - All Peer Coaches are 1099 independent contractors (0% W-2, 100% contracted), supervised by a Licensed Alcohol and Drug Counselor (LADC). [CONFIRM employment classification of corporate/administrative staff.]
+- **C20** — Do you have an in house attorney familiar with employer group health plan compliance? If not, was your program vetted by outside counsel fam
+  - [CONFIRM] In-house counsel or outside counsel familiar with employer group health plan compliance.
+- **C21** — Please describe your funding structure (round, total funding to date, etc.)
+  - [CONFIRM] Funding stage, round, and total funding to date.
+- **C23** — Group size / minimum requirements
+  - [CONFIRM] Minimum group size. Standard contract term is 12 months. Sobrynth is delivered fully virtually, which removes population-density constraints on smaller or geographically distributed groups.
+- **C28** — Contract minimums / year(s) commitment requirement
+  - Standard term is 12 months. Customer is invoiced upon execution of the Statement of Work with Net 30 payment terms. Pricing is subject to update upon renewal. [CONFIRM any multi-year commitment options.]
+- **C30** — Can you perform a pre-sale impact analysis? If yes, what are the data requirements to perform?
+  - [CONFIRM] Sobrynth does not require or receive claims data, so a claims-based pre-sale impact analysis is not available. A prevalence-based estimate can be modeled from employer industry mix, headcount, and geography using published occupational SUD prevalence data. Confirm what Sobrynth will commit to pre-sale.
+- **C32** — Please outline Main Competitors, Competitor Description & Market Landscape
+  - [CONFIRM - DRAFT] Sobrynth competes in the workplace substance use category alongside clinical virtual SUD vendors (telehealth MAT, therapy, and contingency-management models) and EAP or behavioral health point solutions that treat substance use as a sub-module. Sobrynth is positioned differently: subclinical, anonymous, peer-delivered support that engages people far earlier than a clinical program can, and navigates to clinical care when it is warranted. Confirm the named competitor list with Sobrynth leadership before submission.
+- **C34** — Please confirm if any individual(s) from Alliant Insurance Services are members on your board of directors or advisors and / or if anyone fr
+  - [CONFIRM] Expected response: No. Confirm no Alliant Insurance Services individual serves on the board or as an advisor and that no Alliant entity holds or is pursuing a direct investment stake.
+- **C35** — Have you been endorsed, certified, or accredited by any reputable organizations in the clinical and/or health and well-being field? If yes, 
+  - [CONFIRM] Organization-level accreditation. At the practitioner level, all Peer Coaches hold CPRS (Certified Peer Recovery Specialist) certification and are supervised by a Licensed Alcohol and Drug Counselor (LADC).
+- **C36** — Do you consider your entity a group health plan covered service provider under the Consolidated Appropriations Act of 2020 (CAA) and subject
+  - [CONFIRM WITH COUNSEL] Relevant facts: Sobrynth is contracted and paid for directly by the employer, is not billed through insurance, and provides subclinical peer support rather than covered medical services.
+- **C37** — If you answered YES to the above question, will you disclose compensation you receive in conjunction with services you provide the group hea
+  - [CONFIRM WITH COUNSEL] Contingent on the response above.
+- **C38** — Do you consider your program to be a HIPAA excepted benefit?
+  - [CONFIRM WITH COUNSEL] Relevant facts: services are anonymous, require no eligibility file, are not billed through the medical plan, and are paid directly by the employer.
+- **C39** — Do you consider your program part of the client's group health plan offering?
+  - [CONFIRM WITH COUNSEL] See above. Note that some health plans have elected to cover Sobrynth's fees for fully-insured employer groups through wellness credits.
+- **C40** — Do you consider your program or providers under your program to be a covered entity under HIPAA?
+  - [CONFIRM WITH COUNSEL] Sobrynth does not receive an eligibility file, does not verify identity, and does not bill claims.
+- **C41** — What are your Cyber Insurance Liability Limits (recommended $10m)?
+  - [CONFIRM] Cyber liability limits.
+- **C42** — Describe the investment made in modern infrastructure and security.
+  - [CONFIRM] Infrastructure and security investment for the SOBRPath platform.
+- **C43** — Please describe the security features of your hosting center(s).
+  - [CONFIRM] Hosting provider and data center security controls.
+- **C44** — Do you carry Professional E&O coverage? What is the coverage limit?
+  - [CONFIRM] Professional E&O coverage and limit.
+- **C45** — Have you had any security breaches or incidents in the past 36 months?
+  - [CONFIRM] Security breaches or incidents in the past 36 months.
+- **C46** — Have any of the following agencies contacted your organization to request information about your program(s): Internal Revenue Service (IRS),
+  - [CONFIRM] Any IRS, HHS, or CMS inquiries.
+- **C47** — Do you have any pending litigation or lawsuits? If yes, please provide a high level summary.
+  - [CONFIRM] Pending litigation or lawsuits.
+- **C48** — Please outline your HIPAA compliance policies & procedures
+  - [CONFIRM] HIPAA policies and procedures. Note the underlying model materially limits exposure: members are anonymous, there is no enrollment or eligibility verification, and no individual-level information is reported to the employer - including for last chance agreements and mandatory referrals.
+- **C49** — Please outline your compliance and/or participation with: a. GDPR b. HITRUST c. SOC d. State data privacy - including CPRA / CCPA
+  - [CONFIRM] a) GDPR - not applicable in practice; Sobrynth operates in the United States only. b) HITRUST c) SOC 2 d) State privacy including CPRA/CCPA.
+- **C50** — Please provide your position statement on your compliance with Group Health Plan requirements, including ERISA, HIPAA, COBRA, Health Saving 
+  - [CONFIRM WITH COUNSEL] Position statement on ERISA, HIPAA, COBRA, and HSA eligibility.
+- **C51** — Briefly describe your role in helping group health plan clients comply with applicable group health plan mandates.
+  - [CONFIRM] Note that Sobrynth does supply employers with monthly aggregate utilization reporting and supports employer substance use policy administration, including last chance agreements and mandatory referrals, without disclosing individual participation.
+- **C53** — Are you currently using AI in any of your processes?
+  - [CONFIRM] Whether AI is used in any Sobrynth process, including the SOBRPath platform, resource directory, or internal operations.
+- **C55** — What kind of AI is being deployed and what is the data used to train the model?
+  - [CONFIRM] Contingent on the response above.
+- **C56** — What internal data does your AI have access to?
+  - [CONFIRM] Contingent on the response above.
+- **C57** — How is the data ringfenced within the AI engine?
+  - [CONFIRM] Contingent on the response above.
+- **C58** — Who will have access to or control over tools enhanced by AI?
+  - [CONFIRM] Contingent on the response above.
+- **C59** — What are your testing protocols to ensure AI outputs are accurate?
+  - [CONFIRM] Contingent on the response above.
+- **C60** — What measures have been taken to remove bias from your models?
+  - [CONFIRM] Contingent on the response above.
+- **C65** — Please provide a list of carriers, vendors or TPAs you have streamlined contracting with (ex. Carrier vendor hubs, PBMs, TPAs, Navigation pa
+  - [CONFIRM] Streamlined contracting arrangements with carriers, vendor hubs, or aggregators. None known at this time.
+- **C69** — Please provide Book of Business Return on Investment (ROI), if tracked
+  - [CONFIRM] Sobrynth does not currently publish a book-of-business ROI figure. See the Return on Value response below.
+- **C70** — Please clarify if ROI is independently validated / scored; If so, please provide the source
+  - [CONFIRM] No independently validated or scored ROI at this time.
+- **C71** — Please specify if above provided ROI based on the actual clients' data / BOB, etc. or is ROI based on academic research / industry standards
+  - [CONFIRM] N/A pending the above.
+- **C72** — % of cases / groups / clients achieve above stated ROI
+  - [CONFIRM] N/A pending the above.
+- **C73** — Please include ROI timeframes, other stipulations as it relates to ROI
+  - [CONFIRM] N/A pending the above.
+- **C74** — Please outline ROI methodology and ROI calculation process description (share documentation, if possible)
+  - [CONFIRM] N/A pending the above.
+- **C77** — Please provide a high-level overview of your implementation process, including timelines and teams supporting the process the client and/or 
+  - Each client is assigned a dedicated account manager who leads onboarding and the 90-Day Recovery Friendly Workplace Activation rollout, coordinates communications and promotional materials, delivers utilization reporting, conducts satisfaction check-ins, and leads renewal conversations. No data feeds or eligibility files are required, so implementation is a communications and culture rollout rather than a technical integration. [CONFIRM go-live timeline in weeks from SOW execution.]
+- **C78** — Please outline your service support team for clients & brokers. a. Does this vary by client size?
+  - A dedicated account manager per client, supported by the peer coaching network under LADC supervision. The account management structure does not vary by client size. [CONFIRM broker/consultant support contact.]
+- **C79** — Do you track Client Satisfaction Scores? If so, please provide your Book of Business score
+  - [CONFIRM] Formal client satisfaction score. Currently measured through employer satisfaction check-ins led by the account manager, awareness and sentiment pulse surveys conducted pre-launch and approximately six months post-launch, and a 96% client retention rate used as a proxy.
+- **C81** — Member NPS
+  - [CONFIRM] Sobrynth does not currently report a member NPS. Member experience is measured through awareness and sentiment pulse surveys pre-launch and approximately six months post-launch.
+- **C82** — What is your average engagement or enrollment rate? a. Average engagement/enrollment in Year 1 b. Average engagement/enrollment in Year 2 c.
+  - Book-of-business average is 6% unique employee engagement with 4.7 touches per engaged member. [CONFIRM year 1 vs. year 2 vs. year 3 breakout; most contracts are still inside their first or second term.]
+- **C85** — Do you have the ability to perform single sign on access with systems? If so, is there a cost to this set-up?
+  - [CONFIRM] SSO is not required for access: SOBRPath requires no eligibility verification or enrollment, so members reach services without an employer credential. Confirm whether SSO can be supported where a client requests it and whether a setup fee applies.
+- **C86** — Please outline your ability to customize the offering of your product(s).
+  - Customization is delivered through the 90-Day Recovery Friendly Workplace Activation: co-branded communication templates and launch materials, manager training, and ERG framework guidance, all included in standard pricing. Coaches are matched to member preference, and the resource directory surfaces local and free options by zip code. [CONFIRM extent of platform-level customization.]
+- **C88** — Enrollment fee (employee)
+  - [CONFIRM] Sobrynth prices as an annual employer contract rather than per-enrollment; there is no separate employee enrollment fee.
+- **C89** — Enrollment fee (spouse)
+  - [CONFIRM] No separate spouse fee. Spouses, dependents, and other household or extended family members have the same access as employees at no additional cost.
+- **C90** — Enrollment fee (pediatric), if applicable
+  - [CONFIRM] N/A. Coaching is intended for individuals 18 and older.
+- **C91** — Monthly participation fee
+  - [CONFIRM] Monthly participation/PEPM fee ranges by employer size.
+- **C92** — Implementation fees
+  - [CONFIRM] Implementation fees, if any.
+- **C93** — SSO Integration (intranet and/or 3rd party hub) per occurrence
+  - [CONFIRM] SSO integration fee, if applicable.
+- **C94** — Communications (customizations or translations fees)
+  - No additional fee. All promotional support is included in Sobrynth's standard pricing, including communication templates, launch materials, manager training, and ERG framework guidance. There is no separate paid promotional tier. [CONFIRM translation fees.]
+- **C95** — Reseller/white label fees
+  - [CONFIRM] Reseller/white label fees.
+- **C96** — Additional/Ad-hoc fees (e.g. Ad hoc or miscellaneous reporting; Device fees; Customer support (e.g. telephonic, enhanced support, etc.); Dat
+  - [CONFIRM] Ad-hoc fees. Note that standard monthly aggregate utilization reporting and the HR/manager self-serve dashboard are included; there are no device fees, and telephonic member support is included 24/7.
+- **C98** — Please provide your standard operational and clinical program performance guarantees for clients (including applicable details by program/se
+  - [CONFIRM] Standard operational and clinical performance guarantees. Note that clinical outcome guarantees are not compatible with the anonymous, subclinical model; operational guarantees (implementation milestones, reporting delivery, coach response and availability, account management responsiveness) are the workable category.
+
+## General (34 open)
+- **B4** — Company website
+  - [CONFIRM] Company website.
+- **B5** — What year did you launch your program to employer groups?
+  - 2024. [CONFIRM exact launch month.]
+- **B6** — Net Promoter Score (NPS)
+  - [CONFIRM] Member NPS is not currently reported. Member experience is measured via awareness and sentiment pulse surveys pre-launch and ~6 months post-launch; client retention is 96%.
+- **B7** — SOC2 Certified?
+  - [CONFIRM] SOC 2 certification status.
+- **B8** — Please provide any published white papers or recent case studies on engagement and clinical/particpant outcomes from the last 2 years:
+  - [CONFIRM] Published white papers or case studies from the last 2 years.
+- **B10** — Describe your product roadmap
+  - [CONFIRM] Roadmap. Committed item: WCAG 2.2 compliance in 2H 2026. Reporting cadence moves from monthly to quarterly for established accounts at renewal.
+- **B12** — Most common competitors
+  - [CONFIRM - DRAFT] Clinical virtual SUD vendors (telehealth MAT, therapy, contingency management) and EAP or behavioral health point solutions that carry substance use as a sub-module. Sobrynth sits upstream of both: subclinical, anonymous, peer-delivered. Confirm the named list with Sobrynth leadership.
+- **B16** — Are you currently partnered with any 3rd party vendors (i.e. engagement, advocacy) to offer your solution?
+  - [CONFIRM] No third-party engagement, advocacy, or navigation vendor partnerships known at this time.
+- **B18** — How many clients are direct-to-employer versus health plan, EAP, PBM, wellbeing platform, or carrier-partner relationships?
+  - [CONFIRM] Client mix by channel. Sobrynth contracts directly with employers; services are paid for by the employer rather than billed through a health plan, EAP, or PBM.
+- **B19** — Have you been endorsed, certified or accredited by any reputable organizations in the clinical and/or health and well-being field? If so, pl
+  - [CONFIRM] Organization-level accreditation. At practitioner level: all Peer Coaches are CPRS-certified (Certified Peer Recovery Specialist) and supervised by a Licensed Alcohol and Drug Counselor (LADC).
+- **B20** — Do you have any third-party validated outcomes? If so list validating party and provide report.
+  - [CONFIRM] No third-party validated outcomes at this time.
+- **B26** — Do you use AI? If yes, describe use cases, data inputs, human oversight, model training, and whether client/member data is used to train mod
+  - [CONFIRM] Whether AI is used in any Sobrynth process, including SOBRPath, the resource directory, or internal operations, and if so the use cases, data inputs, human oversight, and whether member data trains any model. Note that Sobrynth holds no identified member data.
+- **B29** — Describe the behavorial science behind your offering
+  - The model is built on peer recovery science: change is carried by a credible relationship with someone who has lived the same experience, not by clinical instruction. Anonymity and the absence of any enrollment step remove the disclosure risk that suppresses utilization of clinical SUD benefits. Goals are member-defined rather than prescribed, and return to use is treated as part of recovery rather than failure. [CONFIRM any named frameworks Sobrynth cites, e.g. motivational interviewing.]
+- **B45** — How do you assess suicide risk through your offering? What prevention measures do you take to protect and support members.
+  - Acute psychiatric emergency, including imminent risk of harm to self or others, is an explicit exclusion from peer coaching. Coaches are trained to recognize it and to connect the member to 988 (Suicide and Crisis Lifeline) or 911 as appropriate, with LADC supervision behind the coaching network. Sobrynth does not administer a standardized suicide risk screening instrument. [CONFIRM the documented escalation protocol for the response file.]
+- **B143** — What is the average implementation timeframe?
+  - [CONFIRM] Go-live timeline from SOW execution. Implementation requires no eligibility file, claims feed, or technical integration, so it is a communications and culture rollout; the 90-Day Recovery Friendly Workplace Activation runs from launch.
+- **B145** — What is your average enrollment rate in year 1? What percentage remains enrolled and active in year 2 and 3?
+  - Book-of-business average is 6% unique employee engagement with 4.7 touches per engaged member; employer client retention is 96%. [CONFIRM year 2 and year 3 engagement; most accounts are still within their first or second term.]
+- **B148** — PEPM: Under 500 Ees
+  - [CONFIRM] PEPM under 500 employees.
+- **B149** — PEPM: 500-1K Ees
+  - [CONFIRM] PEPM 500-1K employees.
+- **B150** — PEPM: 1K-2K Ees
+  - [CONFIRM] PEPM 1K-2K employees.
+- **B151** — PPEM: 2K+Ees
+  - [CONFIRM] PEPM 2K+ employees.
+- **B152** — PEPM: 5K+Ees
+  - [CONFIRM] PEPM 5K+ employees.
+- **B153** — Other pricing model (please describe)
+  - [CONFIRM pricing figures] Structure: annual employer contract, 12-month standard term, invoiced upon execution of the SOW with Net 30 terms, pricing subject to update at renewal. Family and household members are included at no additional cost, and all promotional and implementation support is included in standard pricing.
+- **B154** — What is your minimum client size and/or minimum annual spend?
+  - [CONFIRM] Minimum client size and minimum annual spend.
+- **B155** — Do you support minors/dependents under age 18? If yes, describe consent, guardian involvement, privacy, and clinical limitations.
+  - Peer coaching is intended for individuals 18 and older. Minors are not treated as a distinct service population and there is no minor-specific service track, no guardian consent workflow, and no pediatric clinical capability. [CONFIRM - the Mercer VIP response lists eligible family/household members age 13 and older; reconcile the two before submission.]
+- **B157** — Please provide your program's expected annual net savings per participant
+  - [CONFIRM] Sobrynth does not currently calculate expected annual net savings per participant. Services are not billed through the health plan and Sobrynth receives no claims data, so a claims-derived savings figure is not available today.
+- **B158** — What capabiliites are avialable for providing RAS reporting?
+  - Limited. Sobrynth does not offer a tobacco cessation program and cannot serve as a reasonable alternative standard for a tobacco surcharge, and it cannot report completion to third parties for surcharge removal - there is no completion milestone and participation is anonymous. Reporting to the employer is monthly aggregate utilization only. [CONFIRM whether any RAS attestation pathway is contemplated.]
+- **B159** — Can you provide any program impact on leave of absence?
+  - [CONFIRM] Leave of absence impact is not currently tracked. Sobrynth receives no absence, disability, or claims data, so any LOA analysis would have to be run by the client against its own data.
+- **B162** — Has a Data/Security Breach Occurred Within the Last 36 Months? If so, how was it handled?
+  - [CONFIRM] Data or security breaches in the last 36 months and remediation.
+- **B164** — Have you validated your ROI through employer health plan claims data analysis specifically for your SUD program? If so, please describe the 
+  - No. Sobrynth has not validated ROI through employer health plan claims data analysis. Services are contracted and paid for directly by the employer, are not billed through the medical plan, and Sobrynth does not receive claims data. [CONFIRM whether any client-side claims analysis has been run by an employer or consultant.]
+- **E52** — Can the actual app/platform be translated Into different languages?
+  - SOBRPath is not currently offered in multiple languages. Language support is delivered telephonically through bilingual coaches. [CONFIRM roadmap.]
+- **E59** — Artifical Inteligence (AI)
+  - [CONFIRM] AI use has not been confirmed with Sobrynth.
+- **E120** — Gambling or behavioral addictions
+  - [CONFIRM] Sobrynth is substance-agnostic; gambling and other behavioral addictions are not a defined focus of the model.
+- **E137** — Delivered via direct mail
+  - [CONFIRM] Direct mail delivery.
+- **E138** — Delivered via text
+  - [CONFIRM] Text/SMS promotion. Note members can text a Peer Coach after opting in; that is a service channel, not a promotional one.
