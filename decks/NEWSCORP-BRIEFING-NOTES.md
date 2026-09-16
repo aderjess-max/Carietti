@@ -10,16 +10,16 @@
 | Slide | Change |
 |---|---|
 | 1 | Subtitle reframed to "activated company by company"; added audience line |
-| 2 | Misconception 3 re-cut around one EAP procured centrally for very different workforces |
+| 2 | Misconception 3 re-cut: agnostic to whether EAP is one contract or several |
 | **3** | **NEW — "What the Data Says About People Who Work in Media"** (6 verified facts) |
-| 5 | Headline re-anchored: "At ~23,000 employees, 1 in 10 is roughly 2,300 people" |
+| 5 | Headline stated per 1,000 employees, so it holds at any US scale |
 | 6 | Chain of consequence re-cut for media: missed deadline → resignation no one probed → incident in the plant or the field |
 | 10 | 24/7 navigation: "dedicated line and unique code for each operating company" |
 | 11 | 90-day activation framed as run company by company, not a group-wide template |
 | 14 | Gardner positioned explicitly as the hardest case; fixed "AWARNESS" typo from source |
 | 15 | Olympia positioned as the closest analogue to a multi-company, multi-site footprint |
-| 16 | ROI re-modeled: 2,000-person operating company ($100K → $1.07M), ~$12.3M group-wide |
-| 17 | Next steps: EAP utilization broken out **by operating company**, not blended |
+| 16 | ROI re-modeled for one US operating company: 2,000 people, $100K → $1.07M, $968K net |
+| 17 | Next steps: ask **each** EAP vendor for SUD-specific utilization, side by side |
 | **18** | **NEW — "Start with one operating company. 90 days."** (pilot proposal) |
 | — | **Removed** the construction webinar promo slide (Gardner speakers, hard-hat art, QR) |
 
@@ -36,13 +36,40 @@
    A Systematic Review*, European Addiction Research.
 6. **17,163 media job cuts in 2025, up 15%** — Challenger, Gray & Christmas 2025.
 
+## Scope
+
+**US entities only.** Every number and claim in the deck is scoped to the US
+businesses. Nothing depends on how News UK or News Corp Australia are structured.
+
+## Corrections made after first draft
+
+Two claims in the first cut were assumptions, not facts, and were removed:
+
+1. **"One EAP procured centrally."** Not verified, and the public evidence cuts both
+   ways. News Corp runs region-specific benefits portals (`mynewscorpbenefits.com`
+   / `.uk` / `.com.au`) and, within the US portal, employees select their operating
+   company. Separate benefits sites are referenced for HarperCollins, realtor.com,
+   New York Post Holdings, Storyful, Investor's Business Daily and The U.S. Sun, plus
+   a distinct site for Dow Jones IAPE (union) employees. Two different EAP provider
+   names appear against Dow Jones alone — Resources for Living (mylifevalues.com) and
+   ComPsych (guidanceresources.com, ID `DOWJONES`). That is consistent with one US
+   contract presented per-company *or* with several. It is not knowable from outside.
+
+   The deck now works either way, and slide 1's notes tell Jess to **ask the room**
+   rather than assert. Being corrected on their own benefits stack in the first ten
+   minutes would cost her the room — and the IAPE population is collectively
+   bargained, so "one contract" is a real risk.
+
+2. **"~23,000 employees."** That is News Corp's *worldwide* headcount. With US-only
+   scope it was the wrong denominator, so slide 5 is now stated per 1,000 employees
+   and the ~$12.3M group extrapolation is gone from slide 16.
+
 ## Open items before Friday
 
-1. **Non-US coverage.** SOBRPath's resource directory is built for the 50 US states.
-   News UK and News Corp Australia are a large share of the headcount. Confirm with
-   Marin what travels internationally before the room asks. Flagged in slide 19 notes.
-2. **Headcount.** ~23,102 is a third-party figure (Revelio Labs, 2026). Sanity-check
-   against the FY2026 10-K if you want to say it from the podium.
-3. **The ~$12.3M group figure is a linear scale** of Sobrynth's per-employee model and
-   is labeled illustrative on the slide. The defensible number is Olympia's verified
-   claims analysis. Lead with Olympia if challenged.
+1. **US headcount per operating company.** Not public at that granularity. Slide 5
+   is scale-free by design; get the real census from them and model per company.
+2. **Do not extrapolate the ROI on your feet.** Slide 16 notes carry this warning.
+   If asked "what would this be across all of us?", the answer is: give me your US
+   census per company and I'll model it properly.
+3. **Lead with Olympia if the ROI is challenged.** The savings side of slide 16 is
+   modeled, not billed. Olympia's is a health plan's own claims analysis.

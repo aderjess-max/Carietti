@@ -115,13 +115,21 @@ notes(s, """Jess
 
 I want to start with the word on this slide that matters most, and it isn't 'finally.' It's alongside.
 
-I know what this room is managing. Across News Corp you have an EAP. You have behavioral health coverage. Some of your companies have a digital mental health app, a musculoskeletal vendor, a fertility benefit, a navigation layer on top of all of it — and somebody above you asking why the stack keeps growing.
+I know what this room is managing. Across these businesses you have EAP coverage. You have behavioral health coverage. Some of your companies have a digital mental health app, a musculoskeletal vendor, a fertility benefit, a navigation layer on top of all of it — and somebody above you asking why the stack keeps growing.
 
 So I'm not here to add a fourteenth vendor. I'm here about one condition that every single thing in your stack technically covers and functionally does not reach.
 
 I'm Jess Ferretti, VP of Sales at Sobrynth, and before anything else you should know I'm in recovery myself. I say that in rooms like this because the reason this condition doesn't show up in your utilization reports is that people like me learned very early not to raise our hand at work. That's not a benefits design problem. It's a disclosure problem.
 
-One more framing note for this room specifically. You are not one workforce. You are a newsroom, a book publisher, a digital real estate business, a print and distribution operation, and a corporate center — across several countries. One EAP gets procured centrally and lands completely differently in each of them. Hold that thought, because it's the whole reason I'm asking for one company and ninety days, not a group-wide rollout.""")
+Two framing notes before I start.
+
+First, scope. I'm here about your US entities. Everything I'm proposing today is US-only, so nothing I say depends on how News UK or News Corp Australia are set up.
+
+Second — and this is a genuine question, not a setup. You are not one workforce. You are a newsroom, a book publisher, a digital real estate business, a print and distribution operation, and a corporate center. I don't know from the outside whether that sits on one US EAP contract or several, and I'd rather ask than assume: how many EAP contracts are in this room?
+
+[Jess: ASK THIS OUT LOUD. Do not assert it. At minimum the Dow Jones IAPE population is collectively bargained, so 'one contract' may well not be true — and being corrected on their own benefits stack in the first ten minutes costs you the room.]
+
+Whatever the answer, it points the same way, which is why I'm asking for one company and ninety days rather than a group-wide rollout.""")
 
 # ----------------------------------------------------------------- slide 2
 s = S[1]
@@ -132,10 +140,10 @@ set_text(find(s, "Text 5"),
          "claim, or a crisis.")
 set_text(find(s, "Text 13"),
          "An EAP may technically cover SUD, but that doesn't mean employees will "
-         "use it for SUD — or use it early. And when one EAP is procured "
-         "centrally for very different workforces, the gap widens. Substance "
-         "use needs an engagement strategy built for each culture, not one "
-         "group-wide contract.")
+         "use it for SUD — or use it early. Whether these businesses sit on one "
+         "EAP contract or several, the reporting comes back blended across all "
+         "conditions. Substance use needs an engagement strategy built for each "
+         "culture, and a number of its own.")
 
 notes(s, """Jess
 
@@ -145,7 +153,15 @@ One — 'you can tell when someone has a substance use problem.' If you met me w
 
 Two — 'if they really wanted help, they'd get it.' This is the one that sounds like common sense and isn't. Fear of stigma, fear of job consequences, cost, confidentiality — and the big one nobody designs for: they're not ready for formal treatment yet. Support has to exist before someone is ready, or it doesn't get used.
 
-Three — and this is the one I'd flag hardest for this group — 'our EAP already handles substance use.' Here's the News Corp version of that problem. One EAP, procured centrally, lands in a newsroom, a book publisher, a digital real estate sales floor and a print plant. Those are four completely different disclosure cultures. A single group-wide engagement strategy will underperform in at least three of them, and you will never see it in the reporting, because the reporting is blended.""")
+Three — and this is the one I'd flag hardest for this group — 'our EAP already handles substance use.'
+
+Here I want to ask rather than tell, because I genuinely cannot know it from outside: how is EAP structured across your US businesses? One contract, or several?
+
+If it's one, it lands in a newsroom, a book publisher, a digital real estate sales floor and a print plant — four completely different disclosure cultures — and it will underperform in at least three of them.
+
+If it's several, then nobody in this room holds a single comparable number, and the variation between your businesses is invisible.
+
+Either answer lands in the same place: the reporting you get is blended across every condition, so the substance use line has never been broken out on its own. That's ask number two at the end.""")
 
 # ----------------------------------------------------- slide 3 (NEW: media)
 s = S[2]
@@ -232,18 +248,18 @@ I'm not telling you News Corp has a drinking problem. I'm telling you that you e
 # ------------------------------------------------- slide 5 (SUD at scale)
 s = S[4]
 hl = find(s, "Text 31")
-set_text(hl, "At ~23,000 employees, 1 in 10 is roughly 2,300 people.")
+set_text(hl, "Per 1,000 employees: 100 untreated. 80 getting nothing.")
 notes(s, """Jess
 
 Run this against your own census while we talk through it.
 
 70% of adults with a substance use disorder hold active jobs. They're on your headcount. They enrolled during open enrollment.
 
-1 in 10 of your employees has untreated SUD right now. News Corp runs roughly 23,000 people worldwide, so that's on the order of 2,300. And here's the number I want you to hold: 4 in 5 of them are never treated. That's about 1,800 people with nothing in place.
+1 in 10 of your employees has untreated SUD right now. I'm putting this per thousand rather than quoting you a headcount, because the public News Corp figure is a worldwide number and we are only talking about your US entities today. So take it at whatever scale is yours: per 1,000 employees, 100 people. And here's the number I want you to hold — 4 in 5 of them are never treated. That's 80 of those 100, with nothing in place.
 
 Now — 4 in 5 never treated. Not 4 in 5 uncovered. Every one of those people has coverage. They have your medical plan. They have your EAP. Coverage was never the problem. Reach is.
 
-Over $8,800 per affected employee per year, up 30% in three years. I'm deliberately not going to multiply that across your whole census and put a headline number on the screen, because your operating companies are on different plans in different countries and the blended figure would be fiction. Run it per company. That's ask number one at the end.
+Over $8,800 per affected employee per year, up 30% in three years. On a thousand people that's about $880,000 a year. I'm not going to multiply it across your whole US census and put one headline number on the screen, because your operating companies sit on different plans and a blended figure would be fiction. Run it per company. That's ask number one at the end.
 
 And it isn't a projection — it's already in your numbers. It's spread across absence, turnover, disability, medical and pharmacy, and never once coded to substance use.""")
 
@@ -318,8 +334,8 @@ The reason I show you Gardner and Olympia together: Gardner proves it works wher
 # ----------------------------------------------- slide 16 (ROI, re-scaled)
 s = S[15]
 set_text(find(s, "Subtitle"),
-         "Modeled at News Corp scale using the same per-employee economics. "
-         "The multiplier will vary by workforce, the pattern will not.")
+         "Modeled for one US operating company on Sobrynth's per-employee "
+         "economics. The multiplier will vary by workforce, the pattern will not.")
 set_text(find(s, "BannerSubCaption"),
          "2,000-employee operating company · $100,000 investment")
 set_text(find(s, "Card1Number"), "$100K")
@@ -328,23 +344,20 @@ set_text(find(s, "Card1Caption"),
 set_text(find(s, "Card3Number"), "$864K")
 set_text(find(s, "Card4Number"), "$204K")
 set_text(find(s, "Closing"),
-         "$1.07M in impact at one operating company. ~$12.3M across the group.")
+         "$1.07M in impact. $968K net of the investment.")
 set_text(find(s, "Support"),
-         "Scaled linearly from Sobrynth's per-employee model using its own "
-         "utilization data and independent peer-support research. The "
-         "group-wide figure is illustrative, not a quote.")
+         "Scaled from Sobrynth's per-employee model using its own utilization "
+         "data and independent peer-support research. Illustrative, not a quote.")
 
 notes(s, """Jess
 
-Same model Sobrynth uses everywhere, re-scaled to your world so nobody has to do arithmetic in their head.
+Same model Sobrynth uses everywhere, sized to one of your US operating companies so nobody has to do arithmetic in their head.
 
-One two-thousand-person operating company invests a hundred thousand dollars a year. Engagement lands at six percent, three times the typical EAP benchmark, matched to what we actually see across our customer base. That avoids treatment cost and retains talent worth $864,000, and recovers $204,000 in productivity from employees who get, and stay, sober. Call it $1.07 million in impact against a hundred thousand dollar investment.
+A two-thousand-person operating company invests a hundred thousand dollars a year. Engagement lands at six percent, three times the typical EAP benchmark, matched to what we actually see across our customer base. That avoids treatment cost and retains talent worth $864,000, and recovers $204,000 in productivity from employees who get, and stay, sober. Call it $1.07 million in impact against a hundred thousand dollar investment. $968,000 net.
 
-Carry the same per-employee economics across roughly 23,000 employees and you get about $12.3 million.
+One caveat I'd rather say than have someone catch: the savings side is modeled, not billed. The number I'd actually defend to a CFO is Olympia's — three times the treatment-seeking, flat dollars year over year, verified by a health plan's own claims analysis.
 
-Two caveats I'd rather say than have someone catch. First, that group number is a straight linear scale — it's illustrative, not a quote, and your operating companies sit on different plans in different countries. Second, the savings side is modeled, not billed. The number I'd actually defend to a CFO is Olympia's: three times the treatment-seeking, flat dollars, verified by a health plan's own claims analysis.
-
-So treat the $12.3 million as the shape of the prize, and the one-company pilot as how you find out what it's really worth here.""")
+[Jess: do NOT extrapolate this to a group-wide number on your feet. The public News Corp headcount is worldwide, your scope is US, and a number you can't source is the one thing that will get picked apart in this room. If someone asks 'what would this be across all of us?', the answer is: give me your US census per company and I'll model it properly.]""")
 
 # ------------------------------------------------ slide 17 (next steps)
 s = S[16]
@@ -353,11 +366,10 @@ set_text(find(s, "Text 5"),
          "not one blended number for the group.")
 box(find(s, "Text 5"), width=9.00)
 set_text(find(s, "Text 8"),
-         "Ask your EAP vendor for SUD-specific utilization, broken out by "
-         "operating company.")
+         "Ask each EAP vendor for SUD-specific utilization, not blended.")
 set_text(find(s, "Text 9"),
-         "Blended, group-level reporting hides the variation. That variation "
-         "is the entire business case.")
+         "However many contracts you have across these businesses, ask for all "
+         "of them side by side. The variation is the business case.")
 box(find(s, "Text 9"), width=9.20)
 
 notes(s, """Jess
@@ -366,9 +378,9 @@ Three things, and none of them cost anything or require a decision.
 
 One — run your workforce through the Substance Use Cost Calculator before your next benefits review. Ten minutes. But do it per operating company, not once for News Corp. A blended number across a newsroom, a publisher and a print operation is a number you can't act on.
 
-Two — and this is the one I'd actually do first. Go back to your EAP vendor and ask for SUD-specific utilization, broken out by operating company. Not blended. Not all-conditions. Ask in writing.
+Two — and this is the one I'd actually do first. Go back to your EAP vendor, or vendors, and ask for SUD-specific utilization. Not blended. Not all-conditions. Substance use, broken out, in writing.
 
-Two things will happen. Either they can't produce it at that granularity, which tells you something — or they can, and the number will be well under one percent in most of your businesses. Either way, the gap between what gets reported to you and what's actually in your workforce is the whole business case, and you don't need me to make it.
+However many contracts sit across these businesses, ask for all of them side by side. Two things will happen. Either they can't produce it at that granularity, which tells you something — or they can, and the number will be well under one percent in most of your businesses. Either way, the gap between what gets reported to you and what's actually in your workforce is the whole business case, and you don't need me to make it.
 
 Three — start one internal conversation about recovery-friendly practices. Leadership, HR, or Safety. It starts with a decision, not a budget.""")
 
@@ -377,7 +389,7 @@ s = S[17]
 set_text(find(s, "Text 0"), "WHAT WE'RE PROPOSING")
 set_text(find(s, "Text 1"), "Start with one operating company. 90 days.")
 
-set_text(find(s, "Text 4"), "Pick the one company where the case is clearest.")
+set_text(find(s, "Text 4"), "Pick the one US company where the case is clearest.")
 set_text(find(s, "Text 5"),
          "Highest-risk workforce, or simply the HR leader with the most "
          "appetite. One masthead, one business, one market.")
@@ -407,7 +419,7 @@ Here's what I'm actually asking for, and it is deliberately small.
 
 Not a group-wide rollout. One operating company, ninety days.
 
-Pick the one where the case is clearest to you — the highest-risk workforce, or honestly just whichever HR leader in this room has the most appetite. One masthead, one business, one market.
+Pick the one US business where the case is clearest to you — the highest-risk workforce, or honestly just whichever HR leader in this room has the most appetite. One masthead, one business, one market.
 
 We run the whole activation. Communications, people-leader training, peer champions, the dedicated line with a code specific to that company. Your team's job is to give us your leaders for one session.
 
@@ -420,7 +432,7 @@ notes(S[18], """Jess
 
 Questions. And the two I expect, so let me pre-empt them.
 
-Global coverage — SOBRPath's resource directory is built out for all fifty US states. If we're piloting inside News UK or News Corp Australia, the peer coaching and the 24/7 navigation travel, but the local resource directory is work we'd scope with you before committing to a date. I'd rather say that now than discover it in month two. [Jess: confirm current non-US coverage with Marin before Friday.]
+Coverage — we're scoped to your US entities, and SOBRPath's resource directory is built out for all fifty states, so that lines up cleanly. If anyone asks about extending to News UK or News Corp Australia later, say honestly that non-US resource coverage is work we would scope before committing to a date. [Jess: don't volunteer international. If asked, that's the answer.]
 
 Privacy — anonymous by design. No names shared with HR, no claims filed, nothing hits the plan. That's also why utilization reporting comes back aggregated at the company level.""")
 
