@@ -1,5 +1,34 @@
 # LinkedIn post — the altered photo
 
+## POSTED 2026-09-17 — this is the version that went out
+
+Her own draft. The three below are what I offered and she rejected; they're kept
+only as a record of what didn't work. The lesson is written up as a copy rule in
+CLAUDE.md — short version: on a personal post, drop the credentials, the thesis,
+the instructions to the reader and the business adjacency. Authority came from
+declining to claim any.
+
+> I've spent a lot of time debating whether I should post this. I kept thinking "Is LinkedIn the place for this?" and "Does it even matter?" but I kept coming back to the fact that we, as women, have a responsibility to each other — especially in the workplace — to talk about things that aren't okay when they happen.
+>
+> A company I used to work for is hosting an event in a few weeks and recently started promoting it with a team photo that I was in. I say "was" because instead of cropping me out or simply choosing another photo, they used AI to generate a completely different face and put it over mine.
+>
+> It's still my body. My posture. My hands. The clothes I picked out and put on that morning. But when you look at the picture, someone else's face is where mine used to be. And, truth be told, I've been trying to figure out why it bothered me as much as it did.
+>
+> I think there's something very different about being removed from a picture and being replaced in one. If I had simply been cropped out, I honestly don't know that I would have thought much about it. But there's something incredibly unsettling about keeping everything else about me in the photo while using AI to make it look like I was never actually there.
+>
+> We spend so much time talking about whether AI is going to replace people's jobs, but we're not talking nearly enough about the smaller, more human decisions it's suddenly making incredibly easy. Companies have always been able to control the story they tell after someone leaves. What's different now is that you can literally rewrite who was standing in the room. A few minutes with AI and the person is gone while everything around them stays exactly where it was.
+>
+> Women being labeled difficult, pushed out and then quietly written out of the story certainly isn't new. AI didn't create that. It just made it possible to do with a prompt.
+
+What survived from the drafts: the removed-vs-replaced distinction, the posture/
+hands/clothes detail, and the closing move on AI making an old thing cheap. What
+she cut: every credential, every prescription, and the optional block naming the
+retaliation.
+
+---
+
+# Drafts (not used)
+
 Three drafts. The incident is the post; the AI angle is the spine. None names the
 company. Each is a different distance from the firing.
 

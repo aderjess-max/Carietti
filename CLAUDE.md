@@ -262,6 +262,30 @@ would ring false. What keeps directness from reading as need is naming the work 
 immediately before the ask. Never write "one spot left" or any inventory count — the three-slot
 ceiling is an internal capacity model, not a marketing line.
 
+**Copy rule — on personal posts, don't reach for authority.** Learned 2026-09-17 from the
+workplace-respect post, where my drafts were wrong and hers was right. On commercial posts the
+credentials belong ($12M quotas, eight years in digital health, the named companies). On a post
+about something that happened to her, every one of those moves is a mistake. Hers worked because
+it never argued: it opened on the hesitation ("I kept thinking, is LinkedIn the place for this"),
+stated why she was posting anyway (responsibility to other women), laid out the facts, and admitted
+what she couldn't work out ("truth be told, I've been trying to figure out why it bothered me as
+much as it did"). No thesis, no takeaway, no instructions to the reader, no policy prescription,
+no credential. The authority came from declining to claim any.
+
+Specifically, for next time:
+- **Don't append the business.** Nothing about what she sells, no "every organization I sell into,"
+  no three-questions-for-your-team. Adjacency to her market is not a reason to reach for it.
+- **Don't tell the reader what to think.** Cut "here's the part I'd want leaders to sit with" and
+  every variant. She states what she noticed; readers draw it themselves.
+- **Uncertainty is the register, not a weakness.** "I honestly don't know that I would have thought
+  much about it" is the most credible line in the post. Drafts that are certain all the way through
+  read as argument, and argument reads as agenda.
+- **Longer sentences than I default to.** My staccato fragments are her *pitch* register, not her
+  *personal* register. Personal runs closer to how she talks — flowing, qualified, self-interrupting.
+- **The grievance goes in generalized form, once, at the end.** She never described the firing.
+  "Women being labeled difficult, pushed out and then quietly written out of the story" carries the
+  whole thing as a pattern statement and gives nobody anything to litigate.
+
 **Copy rule — the hypothetical founder is "they."** Decided 2026-08-17. Prospecting copy has to
 let every founder read themselves into it; a gendered composite quietly excludes half the market.
 When "they" gets ambiguous against the reps, say "the founder" rather than reaching for a pronoun.
@@ -295,4 +319,5 @@ Re-cut the revenue model against this as real data accumulates, rather than leav
 
 | Date | Channel | Action | Result |
 |---|---|---|---|
+| 2026-09-17 | LinkedIn content | Post on a former employer AI-replacing her face in a team photo used to promote their event. Thu ~3:30pm ET, text only, no hashtags, no link. Company not named; firing not described. | Results TBD — fill in. Her own draft, after rejecting three of mine. See the copy rule above on personal-post register. |
 | 2026-08-17 | LinkedIn content | Launch post ("Willpower doesn't scale"), Mon ~11am ET, image A, no hashtags | ~4 hrs: 5 reposts, 16 likes, 8 comments incl. replies. Reposts unusually high vs. likes — copy is vouching-grade. Monday afternoon slot cost early velocity. Next post Thu 7:30–9am. |
