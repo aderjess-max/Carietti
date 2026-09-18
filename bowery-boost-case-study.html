@@ -1,0 +1,765 @@
+<title>The January Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap">
+<style>
+  :root {
+    --ground:     #FCFCFA;
+    --surface:    #F2F2EC;
+    --surface-2:  #E7E8E0;
+    --ink:        #16181A;
+    --ink-2:      #333A3D;
+    --muted:      #646C70;
+    --rule:       #DEDFD7;
+    --rule-firm:  #B9BCB2;
+    --accent:     #1F4E5F;
+    --accent-bg:  #E2ECEE;
+    --signal:     #A8481A;
+    --signal-bg:  #F6E9E0;
+
+    --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --body:    "Newsreader", Georgia, "Times New Roman", serif;
+    --mono:    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --measure: 68ch;
+    --gutter: clamp(1rem, 4vw, 3.5rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:    #101315;
+      --surface:   #181C1E;
+      --surface-2: #212628;
+      --ink:       #E9EAE5;
+      --ink-2:     #C6C9C2;
+      --muted:     #909891;
+      --rule:      #262B2D;
+      --rule-firm: #3A4144;
+      --accent:    #74B4C4;
+      --accent-bg: #132227;
+      --signal:    #DE9059;
+      --signal-bg: #2A1C12;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:    #101315;
+    --surface:   #181C1E;
+    --surface-2: #212628;
+    --ink:       #E9EAE5;
+    --ink-2:     #C6C9C2;
+    --muted:     #909891;
+    --rule:      #262B2D;
+    --rule-firm: #3A4144;
+    --accent:    #74B4C4;
+    --accent-bg: #132227;
+    --signal:    #DE9059;
+    --signal-bg: #2A1C12;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17.5px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    padding-inline: var(--gutter);
+    padding-block: 0 6rem;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  .col  { max-width: var(--measure); }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* ---------- masthead ---------- */
+
+  .masthead { padding-block: clamp(2.5rem, 7vw, 5rem) 2rem; border-bottom: 2px solid var(--ink); }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--muted); margin: 0 0 1.75rem;
+  }
+
+  h1 {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(2.4rem, 7.5vw, 4.4rem); line-height: 0.98;
+    letter-spacing: -0.035em; margin: 0 0 1.1rem; max-width: 15ch;
+    text-wrap: balance;
+  }
+
+  .standfirst {
+    font-size: clamp(1.1rem, 2.3vw, 1.35rem); line-height: 1.48; color: var(--ink-2);
+    max-width: 56ch; margin: 0 0 2rem; text-wrap: pretty;
+  }
+
+  .meta { display: flex; flex-wrap: wrap; gap: 0.45rem; font-family: var(--mono); font-size: 0.7rem; }
+  .meta span { border: 1px solid var(--rule-firm); padding: 0.32rem 0.6rem; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- layout ---------- */
+
+  .body-grid { display: block; }
+
+  @media (min-width: 1040px) {
+    .body-grid { display: grid; grid-template-columns: 172px minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+    nav.rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 2rem); padding-top: 4rem; }
+  }
+
+  nav.rail { display: none; }
+  @media (min-width: 1040px) { nav.rail { display: block; } }
+
+  nav.rail ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.55rem; }
+  nav.rail a {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.04em;
+    color: var(--muted); text-decoration: none; display: block; line-height: 1.35;
+  }
+  nav.rail a:hover { color: var(--accent); }
+  nav.rail a b { color: var(--ink-2); font-weight: 500; display: block; font-size: 0.72rem; }
+
+  section { padding-top: 3.75rem; scroll-margin-top: 2rem; }
+
+  .sec-head {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    border-top: 1px solid var(--rule-firm); padding-top: 0.65rem; margin-bottom: 1.75rem;
+  }
+  .sec-num {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em;
+    color: var(--accent); font-weight: 600; flex: none; padding-top: 0.35rem;
+  }
+  .sec-head h2 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(1.5rem, 3.4vw, 2.1rem); letter-spacing: -0.025em;
+    margin: 0; line-height: 1.1; text-wrap: balance;
+  }
+
+  h3 {
+    font-family: var(--display); font-weight: 700; font-size: 1.12rem;
+    letter-spacing: -0.012em; margin: 2.6rem 0 0.7rem; line-height: 1.25;
+  }
+  h4 {
+    font-family: var(--mono); font-weight: 600; font-size: 0.72rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+    margin: 2rem 0 0.6rem;
+  }
+
+  p { margin: 0 0 1.05rem; text-wrap: pretty; }
+  .lede { font-size: 1.12rem; color: var(--ink-2); }
+  strong { font-weight: 600; color: var(--ink); }
+  em { font-style: italic; }
+
+  ul, ol { margin: 0 0 1.15rem; padding-left: 1.2rem; }
+  li { margin-bottom: 0.45rem; }
+  li::marker { color: var(--muted); }
+
+  /* ---------- devices ---------- */
+
+  .finding {
+    border-left: 3px solid var(--accent); background: var(--accent-bg);
+    padding: 1.1rem 1.3rem; margin: 0 0 1.25rem;
+  }
+  .finding p:last-child { margin-bottom: 0; }
+  .finding .tag {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); font-weight: 600;
+    display: block; margin-bottom: 0.45rem;
+  }
+  .finding h3 { margin: 0 0 0.5rem; font-size: 1.16rem; }
+
+  .flag {
+    border: 1px solid var(--signal); background: var(--signal-bg);
+    padding: 0.85rem 1.1rem; margin: 1.25rem 0;
+    font-size: 0.93rem; color: var(--ink-2);
+  }
+  .flag p:last-child { margin-bottom: 0; }
+  .flag b { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--signal); }
+
+  .panel {
+    background: var(--surface); border: 1px solid var(--rule);
+    padding: 1.35rem 1.5rem; margin: 1.5rem 0;
+  }
+  .panel > :last-child { margin-bottom: 0; }
+  .panel h3:first-child, .panel h4:first-child { margin-top: 0; }
+
+  .two-up { display: grid; gap: 1.25rem; margin: 1.5rem 0; }
+  @media (min-width: 720px) { .two-up { grid-template-columns: 1fr 1fr; } }
+
+  .split-card { border: 1px solid var(--rule-firm); padding: 1.2rem 1.35rem; background: var(--ground); }
+  .split-card > :last-child { margin-bottom: 0; }
+  .split-card ul { margin-bottom: 0; }
+  .split-card .cap {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.11em;
+    text-transform: uppercase; font-weight: 600; margin: 0 0 0.75rem; display: block;
+  }
+  .split-card.make .cap { color: var(--accent); }
+  .split-card.build .cap { color: var(--muted); }
+
+  .table-scroll { overflow-x: auto; margin: 1.5rem 0; -webkit-overflow-scrolling: touch; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.92rem; min-width: 420px; }
+  th, td { text-align: left; padding: 0.55rem 0.8rem 0.55rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th {
+    font-family: var(--mono); font-size: 0.67rem; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--muted); font-weight: 600;
+    border-bottom: 1px solid var(--rule-firm); white-space: nowrap;
+  }
+  td.num, th.num { text-align: right; font-family: var(--mono); font-size: 0.85rem; font-variant-numeric: tabular-nums; padding-right: 0; }
+  tbody tr:last-child td { border-bottom: none; }
+  tr.total td { border-top: 1px solid var(--rule-firm); font-weight: 600; }
+  tr.total td.num { color: var(--accent); }
+
+  .brand {
+    border: 1px solid var(--rule-firm); margin: 1.5rem 0; background: var(--ground);
+  }
+  .brand-head {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 0.9rem;
+    padding: 1rem 1.35rem; background: var(--surface); border-bottom: 1px solid var(--rule-firm);
+  }
+  .brand-head h3 { margin: 0; font-size: 1.22rem; }
+  .brand-head .cat {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .brand-body { padding: 1.15rem 1.35rem; }
+  .brand-body > :last-child { margin-bottom: 0; }
+  .brand dl { margin: 0 0 1rem; display: grid; gap: 0.35rem 1rem; }
+  @media (min-width: 620px) { .brand dl { grid-template-columns: 8.5rem 1fr; } }
+  .brand dt {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--muted); padding-top: 0.3rem;
+  }
+  .brand dd { margin: 0; font-size: 0.96rem; }
+
+  .msg {
+    border: 1px solid var(--rule-firm); background: var(--surface);
+    margin: 1.4rem 0; font-size: 0.97rem;
+  }
+  .msg-head {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.11em;
+    text-transform: uppercase; color: var(--muted); font-weight: 600;
+    padding: 0.7rem 1.25rem; border-bottom: 1px solid var(--rule);
+    display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  }
+  .msg-head .wc { color: var(--accent); }
+  .msg-body { padding: 1.15rem 1.25rem; }
+  .msg-body p { margin-bottom: 0.85rem; }
+  .msg-body p:last-child { margin-bottom: 0; }
+  .subject {
+    font-family: var(--mono); font-size: 0.82rem; color: var(--ink);
+    padding: 0.75rem 1.25rem; border-bottom: 1px solid var(--rule); background: var(--surface-2);
+  }
+  .subject span { color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.66rem; margin-right: 0.6rem; }
+
+  .cadence { list-style: none; padding: 0; margin: 1.4rem 0; }
+  .cadence li {
+    display: grid; grid-template-columns: 4.2rem 1fr; gap: 1rem;
+    padding: 0.7rem 0; border-bottom: 1px solid var(--rule); margin: 0;
+    font-size: 0.95rem;
+  }
+  .cadence li:last-child { border-bottom: none; }
+  .cadence .day {
+    font-family: var(--mono); font-size: 0.72rem; color: var(--accent);
+    font-weight: 600; letter-spacing: 0.04em; padding-top: 0.22rem;
+  }
+  .cadence .what b { display: block; font-family: var(--display); font-size: 0.94rem; font-weight: 700; margin-bottom: 0.1rem; }
+  .cadence .what span { color: var(--muted); }
+
+  .checklist { list-style: none; padding: 0; margin: 1.3rem 0; }
+  .checklist li {
+    padding-left: 1.7rem; position: relative; margin-bottom: 0.8rem; font-size: 0.97rem;
+  }
+  .checklist li::before {
+    content: ""; position: absolute; left: 0; top: 0.52em;
+    width: 0.62rem; height: 0.62rem; border: 1.5px solid var(--accent);
+  }
+
+  .closer {
+    margin-top: 4.5rem; border-top: 2px solid var(--ink); padding-top: 1.5rem;
+    font-size: 0.88rem; color: var(--muted);
+  }
+  .closer a { color: var(--accent); }
+
+  /* ---------- print ---------- */
+
+  @media print {
+    :root { --ground: #fff; --surface: #f6f6f2; --surface-2: #eee; --ink: #000; --ink-2: #222;
+            --muted: #555; --rule: #ccc; --rule-firm: #999; --accent: #1F4E5F; --accent-bg: #f0f4f5;
+            --signal: #A8481A; --signal-bg: #faf2ec; }
+    body { font-size: 10.5pt; padding: 0; }
+    nav.rail { display: none; }
+    .body-grid { display: block; }
+    section { padding-top: 1.6rem; break-inside: auto; }
+    .sec-head { break-after: avoid; }
+    h3, h4 { break-after: avoid; }
+    .brand, .msg, .panel, .finding, .flag, .split-card, .table-scroll { break-inside: avoid; }
+    .masthead { padding-block: 0 1.2rem; }
+    h1 { font-size: 30pt; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Sales Lead · Candidate Case Study · Prepared for Bowery Boost</p>
+    <h1>The January Calendar</h1>
+    <p class="standfirst">A 90-day plan to build qualified pipeline without the founder in the middle of it — written for a start that lands in the one quarter of the year when brands decide who they will work with next.</p>
+    <div class="meta">
+      <span><b>Jess Ferretti</b></span>
+      <span>ader.jess@gmail.com</span>
+      <span>linkedin.com/in/jess-ferretti-324611b</span>
+      <span>September 2026</span>
+    </div>
+  </header>
+
+  <div class="body-grid">
+
+    <nav class="rail" aria-label="Sections">
+      <ol>
+        <li><a href="#read">00 <b>The read</b></a></li>
+        <li><a href="#plan">01 <b>First 90 days</b></a></li>
+        <li><a href="#target">02 <b>Targeting</b></a></li>
+        <li><a href="#outreach">03 <b>Outreach</b></a></li>
+        <li><a href="#measure">04 <b>What I'd measure</b></a></li>
+        <li><a href="#support">05 <b>What I'd need</b></a></li>
+        <li><a href="#gap">06 <b>The gap, named</b></a></li>
+      </ol>
+    </nav>
+
+    <main>
+
+      <!-- ============ 00 ============ -->
+      <section id="read">
+        <div class="sec-head">
+          <span class="sec-num">00</span>
+          <h2>The read</h2>
+        </div>
+        <div class="col">
+          <p class="lede">Three conclusions from your brief and the public record. Every choice in this plan comes out of them, so they are worth disagreeing with first.</p>
+
+          <div class="finding">
+            <span class="tag">Finding one</span>
+            <h3>Conversion isn't broken. Volume and dependency are.</h3>
+            <p>You wrote that once you meet a well-qualified prospect, the cycle moves quickly. That is the sentence that decides the plan. A brand with a closing problem needs the pitch rebuilt. A brand with a <em>meeting</em> problem needs a sourcing engine, and nothing else changed. I would not touch the pitch, the pricing, or the way you run a first call in the first 90 days. I would put everything into the two things upstream of them: how many qualified conversations exist each week, and whether they can happen without the founder.</p>
+          </div>
+
+          <div class="finding">
+            <span class="tag">Finding two</span>
+            <h3>Q4 is the best window of the year, not the worst.</h3>
+            <p>The brief frames the year-end start as a headwind — brands planning for next year, delaying agency changes until January. That reads the calendar backwards. The January change gets <em>decided</em> in November. Budgets get written, roster reviews get held, and by the second week of January most of it is already settled and the incumbent has been told.</p>
+            <p>So the mistake in Q4 is prospecting <em>toward</em> January. The move is to sell <em>into the planning process itself</em> while it is happening — which means the pitch in November is not "hire us," it is "let us build the Q1 paid plan you are sitting down to write this month." That reframes a $0 conversation in November into the working session that makes the January decision a formality.</p>
+          </div>
+
+          <div class="finding">
+            <span class="tag">Finding three</span>
+            <h3>Consultative doesn't scale through a person. It scales through an artifact.</h3>
+            <p>The thing you're protecting — the informed, consultative approach — is currently stored in the founder's head. That's why new business runs through the founder. You cannot hire your way out of that by finding someone equally informed; you get out of it by making the insight <em>manufacturable</em>.</p>
+            <p>For a creative-first performance agency, the raw material is already public. Any prospect's active creative is visible in the Meta Ad Library. Their landing pages, PDPs, offer structure and post-purchase flow are visible to anyone who buys something. Their traffic trend and channel mix are estimable. Put that against your own category benchmarks and you have a repeatable, one-page diagnostic that a seller can produce in 40 minutes and that reads as though you already work there. That artifact is the whole plan's load-bearing beam — it's section 03.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 01 ============ -->
+      <section id="plan">
+        <div class="sec-head">
+          <span class="sec-num">01</span>
+          <h2>First 90 days</h2>
+        </div>
+        <div class="col">
+
+          <h3>Day one</h3>
+          <p>Pipeline starts on day one, not day 31. A listening tour is a defensible way to spend a first month and a bad way to spend a first November. Day one has a build half and a send half.</p>
+
+          <ul class="cadence">
+            <li><span class="day">9:00</span><span class="what"><b>Deal history with the founder, 60 minutes</b><span>Not the story of the agency. The last ten wins and the last ten losses, one at a time: where the lead came from, what the first conversation was about, what the objection was, what closed it or killed it, what they pay now. This is the highest-value hour of the first month and it decays — book it before day one.</span></span></li>
+            <li><span class="day">10:15</span><span class="what"><b>Read every proposal and SOW from the last 12 months</b><span>I want the pricing architecture, the scope language, what gets discounted, and the five sentences that appear in every deal that closed.</span></span></li>
+            <li><span class="day">13:00</span><span class="what"><b>CRM and inbound, as they actually are</b><span>Where do inbound leads land, who responds, how fast, and what happened to every inbound lead from the last 90 days. Unworked inbound is the cheapest pipeline in the building and it is almost always sitting there.</span></span></li>
+            <li><span class="day">15:00</span><span class="what"><b>Sit in on a live client call</b><span>Whatever is on the calendar. I need to hear how the work is actually talked about before I write a word of outreach.</span></span></li>
+            <li><span class="day">17:00</span><span class="what"><b>Ten messages out</b><span>From a target list I bring with me, built before I start. They will be my worst ten messages of the year. They also mean the week-three calendar exists.</span></span></li>
+          </ul>
+
+          <h3>Week one</h3>
+          <p>One theme a day, and by Friday the engine is running badly rather than not running.</p>
+
+          <ul class="cadence">
+            <li><span class="day">Tue</span><span class="what"><b>Five current-client calls</b><span>Twenty minutes each, one question that matters: <em>why did you choose Bowery Boost, and what were you doing about it before?</em> Their answers, in their words, become the outbound copy. Messaging written from client language outperforms messaging written from a positioning doc, every time.</span></span></li>
+            <li><span class="day">Wed</span><span class="what"><b>ICP from the P&amp;L, not the pitch deck</b><span>Rank the current and past roster by retainer, gross margin and months retained. The pattern in the top quartile is the ICP. It is usually narrower than the stated one and it is usually a surprise.</span></span></li>
+            <li><span class="day">Thu</span><span class="what"><b>Map the founder's network, once, systematically</b><span>Export the connection list, score it against the ICP, produce a ranked 40-name warm list. One 45-minute approval sitting with the founder. After that, the network is an asset I operate, not a favor I request.</span></span></li>
+            <li><span class="day">Fri</span><span class="what"><b>First sequence live; first scoreboard published</b><span>40 accounts in sequence. The Friday scoreboard goes out in the same format it will use for the rest of the year, starting with a week of mostly zeros.</span></span></li>
+          </ul>
+
+          <h3>The split the brief asked for</h3>
+          <p>Work that creates opportunities and work that supports it are not equal, and the failure mode for a new sales hire is spending November on a CRM migration. My rule: <strong>no infrastructure gets built in month one unless it is required to book a meeting that week.</strong> Everything else waits for December, when prospects go quiet anyway.</p>
+
+          <div class="two-up">
+            <div class="split-card make">
+              <span class="cap">Creates opportunities — 70% of month one</span>
+              <ul>
+                <li>Target list construction and signal monitoring</li>
+                <li>Outbound sequences: email, LinkedIn, phone</li>
+                <li>Diagnostic teardowns for named accounts</li>
+                <li>Referral asks — clients, the founder's network, partner agencies</li>
+                <li>Working every inbound lead within one hour</li>
+                <li>First calls, second calls, proposals</li>
+                <li>Reactivating closed-lost and churned accounts from the last 24 months</li>
+              </ul>
+            </div>
+            <div class="split-card build">
+              <span class="cap">Supports it — 30%, and only when it unblocks the above</span>
+              <ul>
+                <li>CRM hygiene: stages, required fields, one dashboard</li>
+                <li>Sequencing and enrichment tooling</li>
+                <li>The teardown template and its production process</li>
+                <li>Proposal and pricing templates</li>
+                <li>Case studies with numbers in them, cleared for use</li>
+                <li>Win/loss logging as a habit, from week one</li>
+                <li>Partner and referral program mechanics</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3>Days 1–30 — build the list, start the conversations</h3>
+          <p>The month is scored on activity and list quality, not on signings. Targets: <strong>250 qualified accounts</strong> researched and tiered, <strong>120 in active sequence</strong>, <strong>six first meetings held</strong>, CRM configured to the point of being trustworthy, and the diagnostic teardown built and used on ten real accounts.</p>
+          <p>The Q4-specific move goes live this month: a named, fixed-scope <strong>Q1 Paid Plan session</strong> — a working session against their actual 2027 planning, not a pitch. It is the only offer in the deck that a brand can say yes to in November without changing agencies in November.</p>
+
+          <h3>Days 31–60 — the planning window, and the one thing nobody else is selling</h3>
+          <p>Peak season. Prospects are heads-down on Q4 revenue and simultaneously writing next year's budget. Two plays:</p>
+          <p><strong>The planning insertion.</strong> Every Tier 1 account gets the Q1 planning offer, timed to the two weeks when the budget conversation is live. The teardown is the door-opener; the planning session is the ask.</p>
+          <p><strong>The Q5 argument.</strong> The window from roughly December 26 to mid-January is the cheapest media of the year — advertisers pull back, CPMs drop, and acquisition costs fall with them. Most brands sit it out because the agency conversation is parked until January. That is a concrete, dated reason to sign in December rather than January, and it is worth real money to them rather than to us. It is the strongest close available in this quarter and I would build December's entire outbound around it.</p>
+          <p>Targets: <strong>160 new accounts</strong> into sequence, <strong>14 first meetings</strong>, <strong>four proposals out</strong>, first signature.</p>
+
+          <h3>Days 61–90 — convert, and make January's calendar already exist</h3>
+          <p>January is decision month, and a January calendar built in January is a wasted January. The last 30 days run three things at once: closing what is live, booking the first two weeks of January before the holidays, and turning what worked into something repeatable enough that the second seller — whenever you hire one — inherits a system rather than a folder.</p>
+          <p>Targets: <strong>16 first meetings</strong>, <strong>six proposals out</strong>, <strong>two to three signed</strong>, and <strong>at least six live proposals carried into January</strong> with a named decision date on each.</p>
+          <p>Day 90 also produces the honest document: what the real conversion rates are, where the model I'm about to show you was wrong, and what the next 90 days should cost and return.</p>
+        </div>
+      </section>
+
+      <!-- ============ 02 ============ -->
+      <section id="target">
+        <div class="sec-head">
+          <span class="sec-num">02</span>
+          <h2>Targeting</h2>
+        </div>
+        <div class="col">
+
+          <h3>Who I would prioritize</h3>
+          <p>Your stated fit is $5–50M in fashion, beauty, wellness, CPG and lifestyle. That is the frame. Inside it I would concentrate on brands at a specific moment: <strong>DTC-native, recently capitalized, and crossing into a growth phase their current media setup wasn't built for.</strong> Those brands have money, a deadline, and a problem they can already feel. They are also the ones where creative-first is an argument rather than a claim, because the thing breaking is usually the creative, not the buying.</p>
+          <p>The decision-maker is almost always one of three people, and the difference matters:</p>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>Who</th><th>When they're the buyer</th><th>What they're actually deciding</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Founder / CEO</strong></td><td>Under ~$15M, or founder-led marketing at any size</td><td>Whether to trust someone with the growth number. Sold on judgment and proof, fast.</td></tr>
+                <tr><td><strong>CMO / VP Growth</strong></td><td>$15M+, or any brand that just hired one</td><td>Whether you make them look right. Sold on process, reporting and category fluency.</td></tr>
+                <tr><td><strong>Head of Performance / Ecommerce</strong></td><td>$25M+, or in-house team already exists</td><td>Whether you add capacity they don't have — usually creative volume. Sold on throughput.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Practical rule: find the economic buyer, but enter through whoever owns the pain. A Head of Performance drowning in creative requests is a better first conversation than a CEO who has not yet noticed.</p>
+
+          <h3>The signals that make a prospect worth pursuing <em>now</em></h3>
+          <p>Fit tells you whether to put a company on the list. Signal tells you whether to touch it this week. I would run three tiers, and only Tier 1 interrupts the queue.</p>
+
+          <h4>Tier 1 — buying window open, act within 14 days</h4>
+          <ul>
+            <li><strong>Raised capital in the last two quarters.</strong> A round comes with growth targets written down, and paid media is the first line item to get re-examined.</li>
+            <li><strong>New CMO, VP Growth or Head of Performance in the last 90 days.</strong> New commercial leaders review the agency roster. This is the single most reliable signal in agency new business and it is fully visible on LinkedIn.</li>
+            <li><strong>Retail launch announced or imminent.</strong> Door expansion changes what paid media is for, and almost nobody adjusts the measurement in time.</li>
+            <li><strong>Open in-house paid media or growth req, 45+ days unfilled.</strong> They have already admitted the gap and failed to close it internally. The agency conversation is now cheaper than the hire.</li>
+            <li><strong>Departure at the incumbent agency</strong> — the account lead who owned the relationship leaves. Contracts survive on relationships; that one just ended.</li>
+          </ul>
+
+          <h4>Tier 2 — condition signals, visible in public data</h4>
+          <ul>
+            <li><strong>Meta Ad Library thin or stale:</strong> a handful of active creatives, or the same assets running unchanged for 45+ days. For a creative-first agency this is the best signal there is — it is a diagnosable problem, visible for free, and it is precisely what you sell against.</li>
+            <li><strong>Organic traction far ahead of paid.</strong> Large, engaged TikTok or Instagram presence with almost no paid amplification. The creative already works; nobody has put money behind it.</li>
+            <li><strong>Category extension or a new product line.</strong> New SKUs need their own acquisition motion and rarely get one.</li>
+            <li><strong>Conversion tells on-site:</strong> no post-purchase upsell, thin PDP content, a slow mobile LCP, a subscription offer buried below the fold.</li>
+          </ul>
+
+          <h4>Tier 3 — fit qualification</h4>
+          <ul>
+            <li>Estimated revenue $5–50M (triangulated from Charm.io / Similarweb, headcount, door count and funding history)</li>
+            <li>Shopify or Shopify Plus, with a discoverable app stack</li>
+            <li>No category conflict with the current roster</li>
+            <li>Media budget plausibly above the floor where a retainer makes sense for both sides</li>
+          </ul>
+
+          <h4>Disqualifiers — as important as the signals</h4>
+          <ul>
+            <li><strong>Under ~$3M revenue.</strong> Can't fund the retainer, will churn in six months, and will churn loudly.</li>
+            <li><strong>Signed an AOR contract in the last 90 days.</strong> Not a no — a <em>not yet</em>. Tag it, set the reminder for month nine, and be the first call.</li>
+            <li><strong>Three or more agencies in 24 months.</strong> The pattern is the problem and it will not be us that fixes it.</li>
+            <li><strong>Sub-$35 AOV with thin margin.</strong> The paid math never closes, and when it doesn't they will say the agency failed.</li>
+          </ul>
+
+          <h3>Three brands I would work, from public information</h3>
+          <p>Deliberately not three categories — three instances of one pattern. If the pattern is right it can be run 200 times; three unrelated good ideas cannot. All three are DTC-native, recently capitalized, women-founded, and at an inflection that changes what their paid media has to do.</p>
+
+          <div class="brand">
+            <div class="brand-head">
+              <h3>Apothékary</h3>
+              <span class="cat">Wellness / CPG · founded 2020 · Shizu Okusa</span>
+            </div>
+            <div class="brand-body">
+              <dl>
+                <dt>The signal</dt>
+                <dd>Raised $16M in the first half of 2026 ($10M equity, $6M debt, with Shiseido participating). Entered Ulta in July 2025, Whole Foods in January 2026, The Vitamin Shoppe in May 2026 — publicly targeting 1,700+ doors and roughly $40M in 2026 sales.</dd>
+                <dt>Why now</dt>
+                <dd>A DTC-native brand crossing into that many doors inside eighteen months has a measurement problem it usually doesn't name for another two quarters. Paid is still graded on DTC ROAS while half its actual job has become shelf velocity in stores where the conversion is invisible. Blended CAC stops meaning anything, and the creative that built the DTC business underperforms in a retail-awareness context because it was built to close, not to remind.</dd>
+                <dt>Why you</dt>
+                <dd>This is the exact problem Boostify exists to answer, and it is a creative problem before it is a buying problem. Top of the revenue band, so it's a flagship-sized account, and the retail push is funded.</dd>
+                <dt>The opening line</dt>
+                <dd>"You added Whole Foods in January and Vitamin Shoppe in May. The thing that breaks at this point usually isn't the rollout — it's that paid is still being graded on DTC ROAS while it's quietly doing a second job."</dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="brand">
+            <div class="brand-head">
+              <h3>Crown Affair</h3>
+              <span class="cat">Beauty / haircare · NYC · Dianna Cohen</span>
+            </div>
+            <div class="brand-body">
+              <dl>
+                <dt>The signal</dt>
+                <dd>Closed a Series C led by Stride Consumer Partners, completed an all-door US expansion into Sephora, and hired Elise Valentine — previously director of hair merchandising at Sephora — as VP of Sales and Marketing. Roughly 18 products across ~800 points of distribution including Sephora, Goop and Violet Grey.</dd>
+                <dt>Why now</dt>
+                <dd>Two Tier 1 signals stacked: capital in, and a brand-new commercial leader. A VP of Sales and Marketing in their first two quarters reviews the agency roster — that is what the first two quarters are for. That window is open now and closes when they pick.</dd>
+                <dt>Why you</dt>
+                <dd>Crown Affair is a brand built on restraint and a very specific aesthetic, now needing performance creative at volume across all-door retail. That tension — more creative throughput without cheapening the brand — is the argument a creative-first agency built by brand-side operators is uniquely positioned to make, and a pure media-buying shop cannot.</dd>
+                <dt>The opening line</dt>
+                <dd>Addressed to the new VP, not the founder: "Congratulations on the move. The first thing most people in your seat find is that all-door retail needs three or four times the creative volume the brand was built on, and the brand is the reason it worked."</dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="brand">
+            <div class="brand-head">
+              <h3>Perelel</h3>
+              <span class="cat">Women's health / CPG · subscription-led</span>
+            </div>
+            <div class="brand-body">
+              <dl>
+                <dt>The signal</dt>
+                <dd>$20M Series B in January 2026, ~$58M raised to date, profitable, revenue roughly doubling year over year, with stated growth plans in product innovation and <em>increased marketing for brand awareness</em>. Retail is deliberately limited — Revolve, Erewhon, Free People, and 250+ doctors' offices — and the founders have said they are not chasing further retail expansion right now.</dd>
+                <dt>Why now</dt>
+                <dd>Fresh capital, an explicit awareness push, and a conscious decision <em>not</em> to solve growth through distribution. That combination means paid media and creative are the growth lever by elimination, not by preference. And a subscription model changes the economics of creative testing: LTV justifies a CAC that a one-off purchase never would, which means creative volume pays for itself faster here than almost anywhere else in the category.</dd>
+                <dt>Why you</dt>
+                <dd>A brand-awareness mandate handed to a performance team is where most agency relationships go wrong, because awareness spend judged on last-click looks like failure for two quarters. Being the agency that frames the measurement correctly <em>before</em> taking the budget is a strong, honest opening — and it is the kind of thing a brand-side operator says and a media buyer doesn't.</dd>
+                <dt>The opening line</dt>
+                <dd>"You've said the next phase is awareness rather than distribution. The failure mode is that awareness spend gets graded on last-click for two quarters and gets cut right before it starts working."</dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="flag">
+            <p><b>Before any of these send</b></p>
+            <p>Every claim above comes from public reporting and each one gets re-verified the morning it goes out — funding dates, door counts and titles move, and a stale detail in a first line does more damage than no detail. I would also pull each brand's current Meta Ad Library page before writing, because the live creative is the observation that makes the message impossible to have sent to anyone else.</p>
+          </div>
+
+          <h3>Building and refreshing the list</h3>
+          <p>The list isn't a file, it's a standing intake. Four feeds, one weekly block.</p>
+
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>Feed</th><th>Sources</th><th>What it produces</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Capital &amp; category</strong></td><td>Beauty Independent, BeautyMatter (including the FUTURE50 and NEXT50 lists — NEXT50 is the sub-$10M tier, FUTURE50 the scaled one), Glossy, Modern Retail, Retail Dive, Crunchbase and Dealroom alerts</td><td>New raises, brands entering the band</td></tr>
+                <tr><td><strong>Retail</strong></td><td>Ulta, Sephora, Target and Whole Foods new-brand announcements; BeautyMatter's monthly retail roundups</td><td>Door expansions — Tier 1 signal</td></tr>
+                <tr><td><strong>People</strong></td><td>LinkedIn Sales Navigator saved searches with job-change alerts across the whole list; job boards for open paid media and growth reqs</td><td>New commercial leaders, unfilled roles</td></tr>
+                <tr><td><strong>Product &amp; creative</strong></td><td>Charm.io and Similarweb for sizing and traffic trend; Storeleads or BuiltWith for the Shopify app stack; Meta Ad Library and TikTok Creative Center for live creative</td><td>Fit qualification and Tier 2 condition signals</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p><strong>Monday, 90 minutes, non-negotiable:</strong> 25 new accounts researched and tiered in; every Tier 1 signal from the week promoted to active; anything untouched for 90 days archived so the list stays real. Target volumes: 250 accounts by day 30, 600 by day 90.</p>
+          <p>One capacity rule I would hold: <strong>never more than 120 accounts in active sequence at once.</strong> Personalization is the thing that makes this work and it is the first thing to die under volume pressure. The constraint is deliberate — it is cheaper to have a smaller list that converts than a bigger one that trains the market to ignore us.</p>
+        </div>
+      </section>
+
+      <!-- ============ 03 ============ -->
+      <section id="outreach">
+        <div class="sec-head">
+          <span class="sec-num">03</span>
+          <h2>Outreach and relationships</h2>
+        </div>
+        <div class="col">
+
+          <p class="lede">Every message answers one question before it asks for anything: <em>why are you writing to me, today, specifically?</em> If the answer would fit another brand with only the name changed, it isn't finished.</p>
+
+          <h3>Outbound email</h3>
+          <p>To Shizu Okusa at Apothékary, on the retail-expansion signal. Under 150 words, because founders read on phones.</p>
+
+          <div class="msg">
+            <div class="msg-head"><span>Email · touch 1</span><span class="wc">147 words</span></div>
+            <div class="subject"><span>Subject</span>ulta, whole foods, vitamin shoppe</div>
+            <div class="msg-body">
+              <p>Shizu —</p>
+              <p>Whole Foods in January, Vitamin Shoppe in May, on top of a DTC business that got you there. That's a lot of shelf in eighteen months.</p>
+              <p>The thing that usually breaks at this point isn't the rollout. It's that paid media is still being graded on DTC ROAS while half its actual job has become velocity on a shelf where you can't see the conversion. Blended CAC stops meaning anything, the creative that built the DTC business underperforms against a retail-awareness job it wasn't made for, and the honest answer to "is paid working" becomes nobody knows.</p>
+              <p>I run new business at Bowery Boost — creative-first performance, mostly beauty, wellness and CPG at your size. We built our own measurement layer because of this exact problem.</p>
+              <p>Twenty minutes? If the rollout is already covered, say so and I'll leave it there.</p>
+              <p>Jess</p>
+            </div>
+          </div>
+
+          <h3>LinkedIn message</h3>
+          <p>Shorter, lower-stakes, and it does not repeat the email — a second channel saying the same thing reads as a sequence, which is the one thing that kills a good first line.</p>
+
+          <div class="msg">
+            <div class="msg-head"><span>LinkedIn · direct message</span><span class="wc">106 words</span></div>
+            <div class="msg-body">
+              <p>Shizu — congratulations on the Vitamin Shoppe launch. Two retail adds in five months is a serious amount of rollout.</p>
+              <p>An observation rather than a pitch: when DTC-native brands cross into that many doors, paid usually keeps getting measured on DTC ROAS long after that stopped being what it's doing. The number keeps reporting and quietly stops meaning anything.</p>
+              <p>I lead new business at Bowery Boost — creative-first performance, mostly beauty, wellness and CPG in your range. If that tension is live, I'd trade twenty minutes on how other brands have handled the measurement side of an omnichannel shift. If it's already solved, ignore this and congratulations again.</p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h4>Connection request variant — 300 characters</h4>
+            <p style="font-family: var(--mono); font-size: 0.86rem; margin-bottom: 0.6rem;">"Shizu — congratulations on the Vitamin Shoppe launch. I lead new business at Bowery Boost, a creative-first performance agency in beauty and wellness. Curious how you're measuring paid now that a good part of its job is shelf velocity rather than DTC ROAS. Happy to trade notes either way."</p>
+            <p style="margin-bottom:0; font-size: 0.9rem; color: var(--muted);">278 characters. The note is where most people waste the request — a blank connection to a founder converts at a fraction of a specific one.</p>
+          </div>
+
+          <h3>The follow-up architecture</h3>
+          <p>One rule governs all of it: <strong>every touch carries new information.</strong> No checking in, no bumping, no "wanted to make sure this didn't get buried." If I have nothing new to say, the touch doesn't go — and the reason I always have something new is the teardown.</p>
+
+          <ul class="cadence">
+            <li><span class="day">Day 1</span><span class="what"><b>Email — the signal</b><span>The observation and the failure mode it points at. No attachment, no link, no calendar.</span></span></li>
+            <li><span class="day">Day 3</span><span class="what"><b>LinkedIn — connect with a note</b><span>Different angle, different words. Presence in a second channel, not a repeat.</span></span></li>
+            <li><span class="day">Day 7</span><span class="what"><b>Email — the teardown</b><span>The one-page diagnostic, built from their live creative and their site, in the body of the email rather than behind a link. This is the touch that converts. It also proves the claim rather than making it.</span></span></li>
+            <li><span class="day">Day 12</span><span class="what"><b>Call, then a voicemail that references the teardown</b><span>The teardown makes a cold call warm. Nobody is cold once you've told them something true about their own advertising.</span></span></li>
+            <li><span class="day">Day 16</span><span class="what"><b>LinkedIn — one relevant thing</b><span>A comparable brand's result, a category shift, a platform change that affects them. Sent because it's useful, with no ask attached.</span></span></li>
+            <li><span class="day">Day 21</span><span class="what"><b>Email — the close-out</b><span>"I'll stop here. If the paid setup is working, that's a good problem and I'd rather know. If it changes, I'm easy to find." Highest reply rate in the whole sequence, reliably, and it leaves the relationship intact.</span></span></li>
+            <li><span class="day">Day 90</span><span class="what"><b>Nurture, signal-triggered only</b><span>Back to the list, not the sequence. They re-enter when a Tier 1 signal fires — a raise, a new CMO, a retail launch — and the next first line writes itself.</span></span></li>
+          </ul>
+
+          <p>Referrals run on a schedule rather than on goodwill. Every client gets the ask at the 90-day mark of an engagement and after any reported win, with a written two-sentence intro they can forward without composing anything. The reason most agency referral programs underperform is that the ask requires the client to do the writing.</p>
+          <p>Events are for the accounts already in the list, never for collecting cards. The way I use a conference is to pull the attendee or exhibitor list two to three weeks out, cross it against the target list, and book six to eight meetings before travelling — a conference with nothing booked is a very expensive way to read a badge. The calendar worth building around: eTail and Expo West in the first quarter for CPG, Shoptalk, the Glossy and Modern Retail summits, BeautyMatter's FUTURE50 event, and Beauty Independent's programming, which is also where a good part of the target list gets published every year. Exact dates and which of these you already attend is a week-one question.</p>
+
+          <h3>Using the founder without depending on the founder</h3>
+          <p>The founder's fifteen years on the brand side — Dermstore, L'Oréal, Briogeo, Winky Lux — is the most valuable asset in the building for new business, and the current problem is that it's also the only one. The fix isn't to use it less. It's to convert it from a person into a system, in five moves.</p>
+
+          <ul class="checklist">
+            <li><strong>Mine the network once, deliberately, in week one.</strong> Export, score against the ICP, rank. One 45-minute sitting to approve 40 names and choose which are warm enough for a personal note. After that I operate the list; the founder is not asked again next month, or the month after.</li>
+            <li><strong>Put the founder at exactly two moments.</strong> The diagnostic reveal on call two, and the close. Not discovery, not follow-up, not proposal writing, not the mid-funnel chase. Those are the four places founder time gets absorbed and they are all places a seller should be.</li>
+            <li><strong>Cap it at four hours a week, booked as standing slots.</strong> A hard cap is what makes it real. If I need more than four hours of founder time to run new business, my process is broken and the cap is how we find out in week three instead of month five.</li>
+            <li><strong>Write down what's only in the founder's head, inside 30 days.</strong> The objection handling, the pricing logic, the read on when a brand isn't ready, the reason a specific pitch lost. That undocumented judgment <em>is</em> the dependency — far more than the introductions, which are easy to replace.</li>
+            <li><strong>Treat every past client and colleague as a mappable node.</strong> The brand-side alumni network from fifteen years is a real channel, not a nice-to-have, and it has never been worked systematically. Same with agency partners who don't compete — creative studios, retention and email shops, Shopify agencies, fractional CFOs. A structured referral swap with four or five of them is the cheapest qualified pipeline available to an agency this size, and it is entirely mine to build.</li>
+          </ul>
+
+          <p>Underneath all of it, one field on every record: <strong>warm path</strong>. Before anything goes out cold, the check runs — is there a first- or second-degree route through the founder, the client roster, a partner, or me? A warm path converts at a multiple of cold, and the only reason it goes unused is that nobody looked.</p>
+        </div>
+      </section>
+
+      <!-- ============ 04 ============ -->
+      <section id="measure">
+        <div class="sec-head">
+          <span class="sec-num">04</span>
+          <h2>What I'd measure</h2>
+        </div>
+        <div class="col">
+
+          <p class="lede">A Q4 start graded on closed revenue at day 90 measures the calendar, not the work. So I'd propose the day-90 bar be <strong>qualified pipeline in decision position for January</strong>, with signed revenue as the second number rather than the only one. If that framing is wrong for you, that's a conversation worth having in week one rather than in March.</p>
+
+          <h3>The Friday scoreboard</h3>
+          <p>One page, same format every week, sent whether the week was good or bad. Leading indicators are the ones I'd be judged on early, because they're the only ones I control in month one.</p>
+
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>Layer</th><th>Metric</th><th>Why it's on the page</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Leading</strong></td><td>Accounts researched and tiered · first touches sent · teardowns produced · referral asks made</td><td>Pure effort and quality of preparation. Controllable from day one.</td></tr>
+                <tr><td><strong>Leading</strong></td><td>Reply rate · positive reply rate · meetings booked · meetings held</td><td>Tells me whether the message is working before the pipeline does. A falling reply rate is a copy problem, four weeks before it's a revenue problem.</td></tr>
+                <tr><td><strong>Mid-funnel</strong></td><td>Qualified opportunities · proposals delivered · monthly retainer value proposed · median days from first touch to meeting</td><td>The honest read on whether volume is becoming pipeline. Cycle time is the early warning on targeting.</td></tr>
+                <tr><td><strong>Lagging</strong></td><td>Signed · new monthly recurring revenue · average retainer · win rate · source attribution on every win and loss</td><td>The scoreboard. Attribution from day one is what lets us kill the channels that don't work in month four instead of month twelve.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>The 90-day model, with the assumptions showing</h3>
+          <p>Built on a 40-accounts-per-week intake, an 8% reply rate on personalized outbound with a teardown, 40% of replies converting to a first meeting, and a $12K monthly retainer as a placeholder. Every one of those inputs gets replaced with your real numbers in week one, and the forecast gets re-cut against them. I'd rather show you the arithmetic and be corrected than show you a number.</p>
+
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr><th>Measure</th><th class="num">Days 1–30</th><th class="num">31–60</th><th class="num">61–90</th><th class="num">90-day</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Accounts into active sequence</td><td class="num">120</td><td class="num">160</td><td class="num">160</td><td class="num">440</td></tr>
+                <tr><td>First meetings held</td><td class="num">6</td><td class="num">14</td><td class="num">16</td><td class="num">36</td></tr>
+                <tr><td>Qualified opportunities</td><td class="num">3</td><td class="num">6</td><td class="num">8</td><td class="num">17</td></tr>
+                <tr><td>Proposals delivered</td><td class="num">1</td><td class="num">4</td><td class="num">6</td><td class="num">11</td></tr>
+                <tr><td>Signed</td><td class="num">0</td><td class="num">1</td><td class="num">2</td><td class="num">3</td></tr>
+                <tr class="total"><td>New monthly recurring signed</td><td class="num">—</td><td class="num">$12K</td><td class="num">$24K</td><td class="num">$36K</td></tr>
+                <tr class="total"><td>Live proposals carried into January</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">6 · ~$72K/mo</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p><strong>Floor case:</strong> two signed and five proposals carried, if reply rates come in at half the model — which is the realistic downside if Bowery Boost has less name recognition among cold prospects than the client roster suggests.</p>
+
+          <h3>What would make me wrong</h3>
+          <p>Three assumptions I'd want pressure-tested in the first fortnight, because they carry the whole forecast:</p>
+          <ul>
+            <li><strong>The reply rate.</strong> 8% assumes the teardown does what I think it does. If the first 200 sends come back at 3%, the problem is the message and I'd know by day 25, not day 60.</li>
+            <li><strong>The retainer placeholder.</strong> If your real average is materially different, every revenue line above moves and the ICP floor probably moves with it.</li>
+            <li><strong>January conversion.</strong> I've assumed proposals sitting over the holidays convert at roughly the normal rate. I have no evidence for that, and you might — it's the first thing I'd look for in the win/loss history.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ 05 ============ -->
+      <section id="support">
+        <div class="sec-head">
+          <span class="sec-num">05</span>
+          <h2>What I'd need from you</h2>
+        </div>
+        <div class="col">
+          <p>Short list, and most of it is cheap. The two that actually gate the plan are the first and the third.</p>
+
+          <ul class="checklist">
+            <li><strong>Proof, cleared for use, by day 10.</strong> Three anonymized case studies with real numbers in them and two clients willing to take a reference call. Selling a performance agency without a number you're allowed to say out loud is selling on adjectives. The "Meta CPA down 32% in three weeks" result is exactly the shape — I'd want two more like it and written permission to use them.</li>
+            <li><strong>Pricing floor and approval authority.</strong> What I can scope and quote without a second conversation, and where the discount line is. A seller who has to check every number is a slower seller and a less credible one in the room.</li>
+            <li><strong>Boostify access, and permission to run prospect-side benchmark cuts.</strong> This is the one that makes the teardown a weapon rather than a document. If category benchmarks can be shown to a prospect before they're a client, that is a genuine differentiator and I'd build the entire outbound program on it. If that isn't possible for good reasons, tell me in week one and I'll build the diagnostic from public data alone — it's weaker, but it works.</li>
+            <li><strong>Four hours of founder time per week, booked as standing slots</strong> — plus the 45-minute network-approval sitting in week one and the deal-history hour before day one.</li>
+            <li><strong>A creative resource, roughly four hours a week.</strong> Teardowns need someone who can cut a visual comparison. Junior time is fine; it's the single highest-leverage non-selling hour in the plan.</li>
+            <li><strong>CRM decision and a modest tool budget.</strong> HubSpot if there's no strong existing preference — I've implemented both HubSpot and Salesforce and would pick HubSpot at this size without hesitation. Plus sequencing, enrichment and Sales Navigator. Low four figures a month, and I'd rather start with less than the wish list.</li>
+            <li><strong>The client list, the conflict list, and the do-not-contact list.</strong> Category exclusivity is real in agency work and the fastest way to burn a relationship is to prospect into a conflict nobody told me about.</li>
+            <li><strong>Win/loss history for the last 12 months of pitches</strong> — including the ones that got away, which is the more useful half.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ 06 ============ -->
+      <section id="gap">
+        <div class="sec-head">
+          <span class="sec-num">06</span>
+          <h2>The gap, named</h2>
+        </div>
+        <div class="col">
+          <p>My twenty-three years are in enterprise health, benefits and HR technology, selling to CHROs, benefits leaders and health plans. Quotas up to $12M. It is not beauty and it is not CPG, and I'd rather say that on page seven than have you find it in month three.</p>
+          <p>What doesn't transfer is a rolodex in this category. A candidate who has spent ten years in DTC would arrive with warm paths I have to build. That's a real advantage and it's worth about one quarter.</p>
+          <p>What does transfer is the specific assignment. I have been the first or early commercial hire four times, at companies where the founder was the only person who could sell and the whole business was capped at the founder's calendar. That is the same problem in a different vocabulary: the product is credibility-dependent, the buyer is senior, the cycle is consultative, and the constraint is that the insight lives in one person's head. Building the system that gets it out of there is the work I have actually done, repeatedly.</p>
+          <p>It's also why day one in this plan is ten messages out rather than a listening tour. If I'm going to need a quarter to build what an insider starts with, that quarter starts on the first afternoon.</p>
+        </div>
+      </section>
+
+      <div class="closer">
+        <p><strong>Sources and assumptions.</strong> Everything about Bowery Boost comes from the case study brief and public reporting. Everything about the three target brands comes from trade press — Beauty Independent, BeautyMatter, Femtech Insider, Forbes and company announcements — and is dated where it matters. Revenue band placements are estimates, not stated figures. Retainer values, reply rates and conversion assumptions in section 04 are my own modelling inputs, clearly marked, and are meant to be replaced with your actual numbers in week one rather than defended.</p>
+        <p style="margin-bottom:0;">Jess Ferretti · ader.jess@gmail.com · linkedin.com/in/jess-ferretti-324611b</p>
+      </div>
+
+    </main>
+  </div>
+</div>
