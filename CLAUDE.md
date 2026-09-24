@@ -217,7 +217,7 @@ Channel targets: VC/PE platform partners 2–3 deals · warm network 1–2 · re
 - **Strategy, research and pricing**: https://claude.ai/code/artifact/7985cfd3-122f-446a-af21-4bae3f71694c
 - **Launch playbook, plays and target list**: https://claude.ai/code/artifact/5cbaaef2-2819-4942-bb24-1626ba17de2a (`launch-playbook.html`)
 - **LinkedIn rebuild**: https://claude.ai/code/artifact/e0b79491-087e-4218-9104-fe6df228d389 (`linkedin-rebuild.html`)
-- **Weekday planner** (Mon–Fri tasks by company, time blocks, check-ins): https://claude.ai/artifact/HRZeqjQUB1hfpDr7Dvgjqn (`weekday-planner.html`). Tasks live in the artifact database (`tasks`, `config/companies`, `log`). Reminder routines: Monday 8am ET planning prompt, weekday 1pm ET check-in (cron is UTC; shift +1h when EST starts Nov 1).
+- **Weekday planner** (Mon–Fri tasks by company, time blocks, check-ins): https://claude.ai/artifact/HRZeqjQUB1hfpDr7Dvgjqn (`weekday-planner.html`). Tasks live in the artifact database (`tasks`, `series` for repeating tasks, `config/companies`, `log`). Reminder routines: Monday 8am ET planning prompt, weekday 1pm ET check-in (cron is UTC; shift +1h when EST starts Nov 1).
 
 ## Outstanding — needs re-cutting for the corrected vertical
 

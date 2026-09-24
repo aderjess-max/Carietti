@@ -39,6 +39,7 @@
   }
 
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--sans); }
   button, input, select, textarea { font: inherit; color: inherit; }
   button { cursor: pointer; }
@@ -166,6 +167,20 @@
   .formact { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
   .formact .spacer { flex: 1; }
   .hint { margin: 0; font-size: 12px; color: var(--muted); }
+  input[type="date"] { width: 100%; border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 8px 10px; color: var(--ink); font-size: 15px; }
+  .daypick { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .daypick legend { font-size: 13px; font-weight: 500; color: var(--muted); padding: 0; margin-bottom: 4px; }
+  .daypick label { display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; color: var(--ink); cursor: pointer; }
+  .daypick label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+  .daypick input { accent-color: var(--accent); margin: 0; }
+  .seg.scope { display: flex; }
+  .seg.scope button { flex: 1; padding: 7px 8px; font-size: 13px; }
+  .rep { display: inline-flex; align-items: center; gap: 3px; }
+  .series { display: grid; gap: 8px; }
+  .series .srs { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; }
+  .series .srs::before { content: ""; flex: none; width: 10px; height: 10px; margin-top: 6px; border-radius: 3px; background: var(--co); }
+  .series .srs div { flex: 1; min-width: 0; display: grid; }
+  .series .srs small { font: 400 12px/1.4 var(--mono); color: var(--muted); }
 
   .summary { display: grid; gap: 10px; }
   .srow { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; gap: 4px 8px; align-items: center; font-size: 14px; }
@@ -217,6 +232,10 @@
     <aside>
       <form class="panel" id="taskForm" autocomplete="off">
         <h2 id="formTitle">Add a task</h2>
+        <div class="seg scope" id="scopeWrap" role="group" aria-label="Apply changes to" hidden>
+          <button type="button" data-scope="one" aria-pressed="true">This day only</button>
+          <button type="button" data-scope="all" aria-pressed="false">Every day it repeats</button>
+        </div>
         <label>Task
           <input type="text" id="f-title" required placeholder="Revise contract">
         </label>
@@ -226,7 +245,7 @@
         <label id="newcoWrap" hidden>New company name
           <input type="text" id="f-newco" placeholder="Company name">
         </label>
-        <label>Day
+        <label id="dateWrap">Day
           <select id="f-date"></select>
         </label>
         <div class="row2">
@@ -237,6 +256,25 @@
             <input type="time" id="f-end" step="900">
           </label>
         </div>
+        <label id="repeatWrap">Repeat
+          <select id="f-repeat">
+            <option value="none">Does not repeat</option>
+            <option value="weekdays">Every weekday (Mon–Fri)</option>
+            <option value="weekly">Weekly</option>
+            <option value="custom">On specific days…</option>
+          </select>
+        </label>
+        <fieldset class="daypick" id="daysWrap" hidden>
+          <legend>Repeat on</legend>
+          <label><input type="checkbox" id="f-d1" value="1"> Mon</label>
+          <label><input type="checkbox" id="f-d2" value="2"> Tue</label>
+          <label><input type="checkbox" id="f-d3" value="3"> Wed</label>
+          <label><input type="checkbox" id="f-d4" value="4"> Thu</label>
+          <label><input type="checkbox" id="f-d5" value="5"> Fri</label>
+        </fieldset>
+        <label id="untilWrap" hidden>Ends on (optional)
+          <input type="date" id="f-until">
+        </label>
         <label>Notes
           <textarea id="f-notes" rows="2" placeholder="Optional"></textarea>
         </label>
@@ -246,9 +284,10 @@
           <span class="spacer"></span>
           <button type="button" class="btn danger" id="f-delete" hidden>Delete</button>
         </div>
-        <p class="hint">Leave the time empty for a to-do. Add a start time to put it on the time-block grid.</p>
+        <p class="hint">Leave the time empty for a to-do. Add a start time to put it on the time-block grid. Set Repeat for anything you do every week.</p>
       </form>
       <section class="panel summary" id="weekSummary"></section>
+      <section class="panel series" id="seriesList" hidden></section>
     </aside>
   </main>
   <p class="status" id="status"></p>
@@ -297,32 +336,33 @@
     tasks: {},
     companies: [],
     log: {},
+    series: {},
     week: defaultWeek(),
     day: null,
     editing: null,
+    editSeries: null,
+    scope: "one",
+    seriesOnly: false,
     confirmDelete: false,
   };
   state.day = isWeekday(new Date()) ? todayISO() : iso(state.week);
 
   // ---------- storage ----------
   const store = { db: null, pending: new Set() };
+  const COLLS = ["tasks", "log", "series"];
 
   function loadLocal() {
     try {
       const raw = JSON.parse(localStorage.getItem(LS_KEY) || "null");
-      if (raw) { state.tasks = raw.tasks || {}; state.companies = raw.companies || []; state.log = raw.log || {}; }
+      if (raw) { COLLS.forEach((c) => { state[c] = raw[c] || {}; }); state.companies = raw.companies || []; }
     } catch (e) {}
   }
   function saveLocal() {
-    try { localStorage.setItem(LS_KEY, JSON.stringify({ tasks: state.tasks, companies: state.companies, log: state.log })); } catch (e) {}
+    try { localStorage.setItem(LS_KEY, JSON.stringify({ tasks: state.tasks, companies: state.companies, log: state.log, series: state.series })); } catch (e) {}
   }
 
   async function writeDoc(coll, id, data) {
-    if (!store.db) {
-      if (coll === "tasks") state.tasks[id] = data;
-      else if (coll === "log") state.log[id] = data;
-      saveLocal(); render(); return;
-    }
+    if (!store.db) { state[coll][id] = data; saveLocal(); render(); return; }
     const key = coll + "/" + id;
     if (store.pending.has(key)) return;
     store.pending.add(key);
@@ -331,7 +371,7 @@
     finally { store.pending.delete(key); }
   }
   async function removeDoc(coll, id) {
-    if (!store.db) { delete state.tasks[id]; saveLocal(); render(); return; }
+    if (!store.db) { delete state[coll][id]; saveLocal(); render(); return; }
     try { await store.db.collection(coll).doc(id).delete(); } catch (e) { toast(errText(e)); }
   }
   async function saveCompanies(list) {
@@ -356,17 +396,17 @@
       return;
     }
     store.db = db;
-    let got = { tasks: false, config: false, log: false };
-    const ready = (k) => { got[k] = true; if (got.tasks && got.config && got.log) state.loaded = true; render(); };
+    const got = { config: false };
+    COLLS.forEach((c) => { got[c] = false; });
+    const ready = (k) => { got[k] = true; if (Object.values(got).every(Boolean)) state.loaded = true; render(); };
     const onErr = () => { $("#status").textContent = "Lost the connection to your saved tasks. Reload the page to reconnect."; };
-    db.collection("tasks").onSnapshot((s) => {
-      const t = {}; s.docs.forEach((d) => { t[d.id] = d.data(); }); state.tasks = t; ready("tasks");
-    }, onErr);
+    COLLS.forEach((c) => {
+      db.collection(c).onSnapshot((s) => {
+        const m = {}; s.docs.forEach((d) => { m[d.id] = d.data(); }); state[c] = m; ready(c);
+      }, onErr);
+    });
     db.doc("config/companies").onSnapshot((s) => {
       state.companies = s.exists ? (s.data().list || []) : []; ready("config");
-    }, onErr);
-    db.collection("log").onSnapshot((s) => {
-      const l = {}; s.docs.forEach((d) => { l[d.id] = d.data(); }); state.log = l; ready("log");
     }, onErr);
     $("#status").textContent = "Synced to your claude.ai account.";
   }
@@ -380,10 +420,38 @@
     const i = state.companies.findIndex((x) => x.name === name);
     return i < 0 ? 999 : i;
   }
+
+  // Repeating tasks: a series doc describes the pattern; each day's copy is
+  // virtual until it is crossed off or edited, which saves it as a task doc
+  // with the id "r-<seriesId>-<date>".
+  const occId = (sid, date) => "r-" + sid + "-" + date;
+  const parseOcc = (id) => { const m = /^r-([^-]+)-(\d{4}-\d{2}-\d{2})$/.exec(id); return m ? { sid: m[1], date: m[2] } : null; };
+  function seriesRunsOn(s, date) {
+    if (!s || date < s.startDate || (s.until && date > s.until)) return false;
+    if ((s.skip || []).includes(date)) return false;
+    return (s.days || []).includes(parse(date).getDay());
+  }
+  function virtualOcc(sid, date) {
+    const s = state.series[sid];
+    return { id: occId(sid, date), virtual: true, seriesId: sid, title: s.title, company: s.company, date, start: s.start || "", end: s.end || "", notes: s.notes || "", done: false, createdAt: s.createdAt || 0 };
+  }
+  function getItem(id) {
+    if (state.tasks[id]) return Object.assign({ id }, state.tasks[id]);
+    const o = parseOcc(id);
+    return o && state.series[o.sid] ? virtualOcc(o.sid, o.date) : null;
+  }
+  function repeatText(s) {
+    const d = (s.days || []).slice().sort();
+    const pat = d.length === 5 ? "Every weekday" : d.length === 1 ? "Every " + DOW_LONG[d[0]] : "Every " + d.map((n) => DOW[n]).join(", ");
+    return pat + (s.until ? " until " + MON[parse(s.until).getMonth()] + " " + parse(s.until).getDate() : "");
+  }
   function tasksOn(date, filtered = true) {
-    return Object.entries(state.tasks)
-      .map(([id, t]) => Object.assign({ id }, t))
-      .filter((t) => t.date === date && (!filtered || prefs.filter === "all" || t.company === prefs.filter))
+    const list = Object.entries(state.tasks).map(([id, t]) => Object.assign({ id }, t)).filter((t) => t.date === date);
+    Object.keys(state.series).forEach((sid) => {
+      if (seriesRunsOn(state.series[sid], date) && !state.tasks[occId(sid, date)]) list.push(virtualOcc(sid, date));
+    });
+    return list
+      .filter((t) => !filtered || prefs.filter === "all" || t.company === prefs.filter)
       .sort((a, b) => {
         const sa = toMin(a.start), sb = toMin(b.start);
         if (sa != null && sb != null && sa !== sb) return sa - sb;
@@ -391,12 +459,19 @@
         return (a.createdAt || 0) - (b.createdAt || 0);
       });
   }
-  const newId = () => "t" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  // Unfinished one-off tasks from past days. Repeating tasks come back on their own, so they're left out.
+  function staleTasks() {
+    const today = todayISO(), floor = iso(addDays(new Date(), -28));
+    return Object.entries(state.tasks).filter(([, t]) => !t.done && !t.seriesId && t.date < today && t.date >= floor);
+  }
+  const newId = (p = "t") => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
   const CHECK_SVG = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
+  const REP_SVG = '<svg viewBox="0 0 16 16" width="11" height="11" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8a5.5 5.5 0 0 1 9.6-3.6M13.5 8a5.5 5.5 0 0 1-9.6 3.6"/><path d="M12.5 1.8v2.8H9.7M3.5 14.2v-2.8h2.8"/></svg>';
 
   function toggleDone(id) {
-    const t = state.tasks[id]; if (!t) return;
+    const t = getItem(id); if (!t) return;
     const next = Object.assign({}, t, { done: !t.done, doneAt: !t.done ? Date.now() : null, updatedAt: Date.now() });
+    delete next.id; delete next.virtual;
     writeDoc("tasks", id, next);
   }
 
@@ -408,6 +483,7 @@
     renderFilters();
     renderDay();
     renderSummary();
+    renderSeries();
     renderFormOptions();
   }
 
@@ -469,7 +545,7 @@
     }
 
     // Carry-over
-    const stale = Object.entries(state.tasks).filter(([, t]) => !t.done && t.date < today && t.date >= iso(addDays(now, -28)));
+    const stale = staleTasks();
     if (stale.length && weekDates(state.week).includes(state.day) && isWeekday(now)) {
       out.push('<div class="banner warn"><div class="btxt"><strong>' + stale.length + " unfinished task" + (stale.length === 1 ? "" : "s") + " from earlier days</strong>" +
         "<p>Move them to today, or open those days and cross them off if they're already handled.</p></div>" +
@@ -479,13 +555,13 @@
   }
 
   function renderFilters() {
-    const used = new Set(Object.values(state.tasks).map((t) => t.company));
+    const used = new Set(Object.values(state.tasks).concat(Object.values(state.series)).map((t) => t.company));
     const names = state.companies.map((c) => c.name);
     used.forEach((n) => { if (n && !names.includes(n)) names.push(n); });
     if (prefs.filter !== "all" && !names.includes(prefs.filter)) prefs.filter = "all";
     $("#filters").innerHTML = '<button class="chip all" data-filter="all" aria-pressed="' + (prefs.filter === "all") + '">All companies</button>' +
       names.map((n) => '<button class="chip" data-filter="' + esc(n) + '" style="--co:' + companyColor(n) + '" aria-pressed="' + (prefs.filter === n) + '">' + esc(n) + "</button>").join("");
-    document.querySelectorAll(".seg button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === prefs.view)));
+    document.querySelectorAll(".seg button[data-view]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === prefs.view)));
   }
 
   function taskRow(t, showCo) {
@@ -493,7 +569,8 @@
     return '<li class="task' + (t.done ? " done" : "") + '" style="--co:' + co + '">' +
       '<button class="check" data-toggle="' + t.id + '" aria-pressed="' + !!t.done + '" aria-label="' + (t.done ? "Mark not done: " : "Mark done: ") + esc(t.title) + '">' + CHECK_SVG + "</button>" +
       '<div class="tbody"><span class="ttitle">' + esc(t.title) + "</span>" +
-      ((t.start || showCo) ? '<span class="tmeta">' + (showCo ? '<span class="co">' + esc(t.company) + "</span>" : "") + (t.start ? "<span>" + fmtRange(t.start, t.end) + "</span>" : "") + "</span>" : "") +
+      ((t.start || showCo || t.seriesId) ? '<span class="tmeta">' + (showCo ? '<span class="co">' + esc(t.company) + "</span>" : "") + (t.start ? "<span>" + fmtRange(t.start, t.end) + "</span>" : "") +
+        (t.seriesId && state.series[t.seriesId] ? '<span class="rep" title="' + esc(repeatText(state.series[t.seriesId])) + '">' + REP_SVG + " Repeats</span>" : "") + "</span>" : "") +
       (t.notes ? '<span class="tnote">' + esc(t.notes) + "</span>" : "") +
       "</div>" +
       '<button class="edit" data-edit="' + t.id + '">Edit</button></li>';
@@ -554,7 +631,7 @@
         const t = it.t;
         return '<div class="block' + (t.done ? " done" : "") + '" style="--co:' + companyColor(t.company) + ";top:" + top + "px;height:" + h + "px;left:calc(" + (w * it.lane) + "% + 4px);width:calc(" + w + '% - 8px)">' +
           '<button class="check" data-toggle="' + t.id + '" aria-pressed="' + !!t.done + '" aria-label="' + (t.done ? "Mark not done: " : "Mark done: ") + esc(t.title) + '">' + CHECK_SVG + "</button>" +
-          '<div class="bt"><b>' + esc(t.title) + "</b><span>" + esc(t.company) + " · " + fmtRange(t.start, t.end) + "</span></div>" +
+          '<div class="bt"><b>' + esc(t.title) + "</b><span>" + (t.seriesId ? REP_SVG + " " : "") + esc(t.company) + " · " + fmtRange(t.start, t.end) + "</span></div>" +
           '<button class="edit" data-edit="' + t.id + '">Edit</button></div>';
       }).join("");
       let nowLine = "";
@@ -585,10 +662,21 @@
         : '<p class="hint">No tasks this week yet.</p>');
   }
 
+  function renderSeries() {
+    const today = todayISO();
+    const list = Object.entries(state.series).filter(([, x]) => !x.until || x.until >= today)
+      .sort((a, b) => companyOrder(a[1].company) - companyOrder(b[1].company) || a[1].title.localeCompare(b[1].title));
+    const box = $("#seriesList");
+    box.hidden = !list.length;
+    box.innerHTML = "<h3>Repeating tasks</h3>" + list.map(([sid, x]) =>
+      '<div class="srs" style="--co:' + companyColor(x.company) + '"><div><span>' + esc(x.title) + "</span><small>" + esc(x.company) + " · " + esc(repeatText(x)) + (x.start ? " · " + fmtRange(x.start, x.end) : "") + "</small></div>" +
+      '<button class="edit" data-edit-series="' + sid + '">Edit</button></div>').join("");
+  }
+
   function renderFormOptions() {
     const sel = $("#f-company"), cur = sel.value;
     const names = state.companies.map((c) => c.name);
-    const editing = state.editing && state.tasks[state.editing];
+    const editing = state.editing ? getItem(state.editing) : null;
     if (editing && !names.includes(editing.company)) names.push(editing.company);
     sel.innerHTML = names.map((n) => "<option>" + esc(n) + "</option>").join("") + '<option value="__new">+ Add a company…</option>';
     if (cur && (names.includes(cur) || cur === "__new")) sel.value = cur;
@@ -601,30 +689,92 @@
     if (editing && !dates.includes(editing.date)) dates.unshift(editing.date);
     dsel.innerHTML = dates.map((d) => { const dt = parse(d); return '<option value="' + d + '">' + DOW_LONG[dt.getDay()] + ", " + MON[dt.getMonth()] + " " + dt.getDate() + "</option>"; }).join("");
     dsel.value = dates.includes(dcur) && dsel.dataset.touched ? dcur : (editing ? editing.date : state.day);
+    updateWeeklyLabel();
   }
 
   // ---------- form ----------
+  const DAY_BOXES = [1, 2, 3, 4, 5].map((n) => $("#f-d" + n));
+  function updateWeeklyLabel() {
+    const d = $("#f-date").value;
+    $('#f-repeat option[value="weekly"]').textContent = d ? "Weekly on " + DOW_LONG[parse(d).getDay()] + "s" : "Weekly";
+  }
+  function setRepeatUI(kind, days, until) {
+    $("#f-repeat").value = kind;
+    DAY_BOXES.forEach((b) => { b.checked = (days || []).includes(Number(b.value)); });
+    $("#f-until").value = until || "";
+    syncRepeatUI();
+  }
+  function syncRepeatUI() {
+    const kind = $("#f-repeat").value;
+    const inAll = state.editSeries && state.scope === "all";
+    const oneOff = state.editSeries && state.scope === "one";
+    $("#repeatWrap").hidden = oneOff;
+    $("#daysWrap").hidden = oneOff || kind !== "custom";
+    $("#untilWrap").hidden = oneOff || kind === "none";
+    $("#dateWrap").hidden = !!inAll;
+    $("#scopeWrap").hidden = !state.editSeries || state.seriesOnly;
+    document.querySelectorAll("#scopeWrap button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.scope === state.scope)));
+  }
+  function repeatKindFor(x, date) {
+    const d = (x.days || []).slice().sort();
+    if (d.length === 5) return "weekdays";
+    if (d.length === 1 && date && parse(date).getDay() === d[0]) return "weekly";
+    return "custom";
+  }
+  // Returns {days, until}, null for "Does not repeat", or false when the input is incomplete.
+  function readRepeat(date) {
+    const kind = $("#f-repeat").value;
+    if (kind === "none") return null;
+    let days;
+    if (kind === "weekdays") days = [1, 2, 3, 4, 5];
+    else if (kind === "weekly") days = [parse(date).getDay()];
+    else days = DAY_BOXES.filter((b) => b.checked).map((b) => Number(b.value));
+    if (!days.length) { toast("Pick at least one day to repeat on."); return false; }
+    const until = $("#f-until").value || null;
+    if (until && until < date) { toast("The end date needs to be on or after the first day."); $("#f-until").focus(); return false; }
+    return { days, until };
+  }
+  function fillFields(x) {
+    $("#f-title").value = x.title || ""; $("#f-company").value = x.company; $("#newcoWrap").hidden = true;
+    $("#f-start").value = x.start || ""; $("#f-end").value = x.end || ""; $("#f-notes").value = x.notes || "";
+  }
+  function editChrome(title) {
+    $("#formTitle").textContent = title;
+    $("#f-submit").textContent = "Save changes";
+    $("#f-cancel").hidden = false; $("#f-delete").hidden = false; $("#f-delete").textContent = "Delete";
+    $("#taskForm").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    $("#f-title").focus({ preventScroll: true });
+  }
+
   function resetForm() {
-    state.editing = null; state.confirmDelete = false;
+    state.editing = null; state.editSeries = null; state.scope = "one"; state.seriesOnly = false; state.confirmDelete = false;
     $("#f-title").value = ""; $("#f-start").value = ""; $("#f-end").value = ""; $("#f-notes").value = "";
     $("#formTitle").textContent = "Add a task";
     $("#f-submit").textContent = "Add task";
     $("#f-cancel").hidden = true; $("#f-delete").hidden = true; $("#f-delete").textContent = "Delete";
     delete $("#f-date").dataset.touched;
     renderFormOptions();
+    setRepeatUI("none", [], "");
   }
   function startEdit(id) {
-    const t = state.tasks[id]; if (!t) return;
-    state.editing = id; state.confirmDelete = false;
+    const t = getItem(id); if (!t) return;
+    const series = t.seriesId && state.series[t.seriesId];
+    state.editing = id; state.editSeries = series ? t.seriesId : null; state.scope = "one"; state.seriesOnly = false; state.confirmDelete = false;
     renderFormOptions();
-    $("#f-title").value = t.title; $("#f-company").value = t.company; $("#newcoWrap").hidden = true;
+    fillFields(t);
     $("#f-date").value = t.date; $("#f-date").dataset.touched = "1";
-    $("#f-start").value = t.start || ""; $("#f-end").value = t.end || ""; $("#f-notes").value = t.notes || "";
-    $("#formTitle").textContent = "Edit task";
-    $("#f-submit").textContent = "Save changes";
-    $("#f-cancel").hidden = false; $("#f-delete").hidden = false; $("#f-delete").textContent = "Delete";
-    $("#taskForm").scrollIntoView({ behavior: "smooth", block: "nearest" });
-    $("#f-title").focus({ preventScroll: true });
+    updateWeeklyLabel();
+    if (series) setRepeatUI(repeatKindFor(series, t.date), series.days, series.until);
+    else setRepeatUI("none", [], "");
+    editChrome(series ? "Edit repeating task" : "Edit task");
+  }
+  function startEditSeries(sid) {
+    const x = state.series[sid]; if (!x) return;
+    state.editing = null; state.editSeries = sid; state.scope = "all"; state.seriesOnly = true; state.confirmDelete = false;
+    renderFormOptions();
+    fillFields(x);
+    setRepeatUI(repeatKindFor(x, x.startDate), x.days, x.until);
+    editChrome("Edit repeating task");
   }
 
   $("#taskForm").addEventListener("submit", async (e) => {
@@ -646,28 +796,110 @@
     if (start && !end) end = fromMin(Math.min(toMin(start) + 30, 23 * 60 + 59));
     if (!start) end = "";
     if (start && end && toMin(end) <= toMin(start)) { toast("End time needs to be after the start time."); $("#f-end").focus(); return; }
+    const notes = $("#f-notes").value.trim();
+    const fields = { title, company, start, end, notes, updatedAt: Date.now() };
+    const now = Date.now();
+
+    // Changing every day of a repeating task
+    if (state.editSeries && state.scope === "all") {
+      const sid = state.editSeries, x = state.series[sid];
+      if (!x) { resetForm(); return; }
+      const occDate = state.editing ? parseOcc(state.editing)?.date || $("#f-date").value : null;
+      const rp = readRepeat(occDate || x.startDate);
+      if (rp === false) return;
+      const next = Object.assign({}, x, fields);
+      if (rp === null) {
+        next.until = occDate || iso(addDays(new Date(), -1));
+        if (next.until < x.startDate) next.until = x.startDate;
+        toast("Stopped repeating after " + MON[parse(next.until).getMonth()] + " " + parse(next.until).getDate());
+      } else {
+        next.days = rp.days; next.until = rp.until;
+        toast("Updated every day it repeats");
+      }
+      await writeDoc("series", sid, next);
+      resetForm();
+      return;
+    }
+
     const date = $("#f-date").value;
-    const base = state.editing ? state.tasks[state.editing] : null;
-    const id = state.editing || newId();
-    const data = Object.assign({}, base || { done: false, doneAt: null, createdAt: Date.now() }, {
-      title, company, date, start, end, notes: $("#f-notes").value.trim(), updatedAt: Date.now(),
-    });
+
+    // Changing one day of a repeating task
+    if (state.editSeries && state.scope === "one") {
+      const t = getItem(state.editing);
+      const data = Object.assign({}, t, fields, { date, seriesId: state.editSeries });
+      delete data.id; delete data.virtual;
+      await writeDoc("tasks", state.editing, data);
+      toast("Saved for this day only");
+      resetForm();
+      return;
+    }
+
+    const rp = readRepeat(date);
+    if (rp === false) return;
     const wasEdit = !!state.editing;
-    await writeDoc("tasks", id, data);
-    toast(wasEdit ? "Saved" : "Added to " + DOW_LONG[parse(date).getDay()]);
+
+    if (rp) {
+      const sid = newId("s");
+      const series = Object.assign({}, fields, { days: rp.days, until: rp.until, startDate: date, skip: [], createdAt: now });
+      await writeDoc("series", sid, series);
+      if (wasEdit) {
+        const old = state.tasks[state.editing];
+        if (old && old.done && seriesRunsOn(series, date)) {
+          await writeDoc("tasks", occId(sid, date), Object.assign({}, old, fields, { date, seriesId: sid }));
+          await removeDoc("tasks", state.editing);
+        } else if (old && !old.done) {
+          await removeDoc("tasks", state.editing);
+        }
+      }
+      toast("Repeats " + repeatText(series).replace(/^Every/, "every"));
+    } else {
+      const base = wasEdit ? state.tasks[state.editing] : null;
+      const id = state.editing || newId();
+      const data = Object.assign({}, base || { done: false, doneAt: null, createdAt: now }, fields, { date });
+      await writeDoc("tasks", id, data);
+      toast(wasEdit ? "Saved" : "Added to " + DOW_LONG[parse(date).getDay()]);
+    }
     const keepCo = company, keepDate = date;
     resetForm();
-    if (!wasEdit) { $("#f-company").value = keepCo; $("#f-date").value = keepDate; $("#f-date").dataset.touched = "1"; $("#newcoWrap").hidden = true; }
+    if (!wasEdit) { $("#f-company").value = keepCo; $("#f-date").value = keepDate; $("#f-date").dataset.touched = "1"; $("#newcoWrap").hidden = true; updateWeeklyLabel(); }
     $("#f-title").focus({ preventScroll: true });
   });
   $("#f-company").addEventListener("change", () => { $("#newcoWrap").hidden = $("#f-company").value !== "__new"; if (!$("#newcoWrap").hidden) $("#f-newco").focus(); });
-  $("#f-date").addEventListener("change", () => { $("#f-date").dataset.touched = "1"; });
+  $("#f-date").addEventListener("change", () => { $("#f-date").dataset.touched = "1"; updateWeeklyLabel(); });
+  $("#f-repeat").addEventListener("change", () => {
+    if ($("#f-repeat").value === "custom" && !DAY_BOXES.some((b) => b.checked) && $("#f-date").value) {
+      const n = parse($("#f-date").value).getDay(); DAY_BOXES.forEach((b) => { b.checked = Number(b.value) === n; });
+    }
+    syncRepeatUI();
+  });
+  $("#scopeWrap").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-scope]"); if (!b || !state.editSeries) return;
+    state.scope = b.dataset.scope; state.confirmDelete = false; $("#f-delete").textContent = "Delete";
+    const src = state.scope === "all" ? state.series[state.editSeries] : getItem(state.editing);
+    if (src) fillFields(src);
+    syncRepeatUI();
+  });
   $("#f-cancel").addEventListener("click", resetForm);
   $("#f-delete").addEventListener("click", async () => {
-    if (!state.editing) return;
-    if (!state.confirmDelete) { state.confirmDelete = true; $("#f-delete").textContent = "Confirm delete"; return; }
-    await removeDoc("tasks", state.editing);
-    toast("Deleted"); resetForm();
+    if (!state.editing && !state.editSeries) return;
+    if (!state.confirmDelete) { state.confirmDelete = true; $("#f-delete").textContent = state.editSeries && state.scope === "all" ? "Confirm: delete every day" : "Confirm delete"; return; }
+    if (state.editSeries && state.scope === "all") {
+      const sid = state.editSeries, today = todayISO();
+      await removeDoc("series", sid);
+      for (const [id, t] of Object.entries(state.tasks)) {
+        if (t.seriesId === sid && !t.done && t.date >= today) await removeDoc("tasks", id);
+      }
+      toast("Repeating task deleted");
+    } else if (state.editSeries) {
+      const sid = state.editSeries, x = state.series[sid], date = parseOcc(state.editing).date;
+      if (x) await writeDoc("series", sid, Object.assign({}, x, { skip: (x.skip || []).concat([date]), updatedAt: Date.now() }));
+      if (state.tasks[state.editing]) await removeDoc("tasks", state.editing);
+      toast("Removed from " + DOW_LONG[parse(date).getDay()] + " only");
+    } else {
+      await removeDoc("tasks", state.editing);
+      toast("Deleted");
+    }
+    resetForm();
   });
 
   // ---------- events ----------
@@ -675,6 +907,7 @@
     const el = e.target.closest("button"); if (!el) return;
     if (el.dataset.toggle) { toggleDone(el.dataset.toggle); return; }
     if (el.dataset.edit) { startEdit(el.dataset.edit); return; }
+    if (el.dataset.editSeries) { startEditSeries(el.dataset.editSeries); return; }
     if (el.dataset.day) { state.day = el.dataset.day; if (!$("#f-date").dataset.touched) renderFormOptions(); render(); return; }
     if (el.dataset.filter) { prefs.filter = el.dataset.filter; savePrefs(); render(); return; }
     if (el.dataset.view) { prefs.view = el.dataset.view; savePrefs(); render(); return; }
@@ -689,7 +922,7 @@
       toast("Checked in");
     } else if (act === "carry") {
       const today = todayISO(), now = new Date();
-      const stale = Object.entries(state.tasks).filter(([, t]) => !t.done && t.date < today && t.date >= iso(addDays(now, -28)));
+      const stale = staleTasks();
       for (const [id, t] of stale) await writeDoc("tasks", id, Object.assign({}, t, { date: today, start: "", end: "", updatedAt: Date.now() }));
       state.week = mondayOf(now); state.day = today; render();
       toast("Moved " + stale.length + " to today");
@@ -718,6 +951,7 @@
   setInterval(() => { if (prefs.view === "blocks" && state.day === todayISO()) renderDay(); }, 60000);
 
   render();
+  syncRepeatUI();
   initStore();
 })();
 </script>
