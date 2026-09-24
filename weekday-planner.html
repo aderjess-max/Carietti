@@ -1,0 +1,723 @@
+<title>Carietti Weekday Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --bg: #F3F5F7;
+    --surface: #FFFFFF;
+    --surface-2: #EAEEF2;
+    --ink: #121820;
+    --muted: #5A6673;
+    --line: #D8DEE5;
+    --accent: #1C8A63;
+    --accent-ink: #FFFFFF;
+    --accent-soft: #DDF1E8;
+    --warn-soft: #FFF3DC;
+    --warn-ink: #7A4A00;
+    --danger: #B3263E;
+    --shadow: 0 1px 2px rgba(18,24,32,.06), 0 4px 16px rgba(18,24,32,.05);
+    --sans: "IBM Plex Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    --hour: 56px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #0F1319; --surface: #171D25; --surface-2: #1F2731; --ink: #F2F5F8; --muted: #9AA6B2;
+      --line: #2A3440; --accent: #37B98A; --accent-ink: #0F1319; --accent-soft: #173A2E;
+      --warn-soft: #3A2E14; --warn-ink: #F4CF86; --danger: #F07A8E;
+      --shadow: 0 1px 2px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0F1319; --surface: #171D25; --surface-2: #1F2731; --ink: #F2F5F8; --muted: #9AA6B2;
+    --line: #2A3440; --accent: #37B98A; --accent-ink: #0F1319; --accent-soft: #173A2E;
+    --warn-soft: #3A2E14; --warn-ink: #F4CF86; --danger: #F07A8E;
+    --shadow: 0 1px 2px rgba(0,0,0,.3);
+  }
+
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--sans); }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .app { max-width: 1180px; margin: 0 auto; padding: 24px 16px 64px; display: grid; gap: 18px; }
+
+  .top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; }
+  .eyebrow { margin: 0; font: 500 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+  h1 { margin: 6px 0 0; font-size: 28px; line-height: 1.1; font-weight: 700; letter-spacing: -.01em; text-wrap: balance; }
+  .weeknav { display: flex; align-items: center; gap: 6px; }
+  .weeknav span { font: 500 13px/1 var(--mono); color: var(--muted); padding: 0 6px; min-width: 128px; text-align: center; }
+  .btn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 7px 12px; font-size: 14px; font-weight: 500; }
+  .btn:hover { border-color: var(--muted); }
+  .btn.icon { width: 34px; height: 34px; padding: 0; display: grid; place-items: center; font-size: 18px; line-height: 1; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn.primary:hover { filter: brightness(1.06); }
+  .btn.ghost { background: transparent; border-color: transparent; color: var(--muted); }
+  .btn.ghost:hover { color: var(--ink); border-color: var(--line); }
+  .btn.danger { color: var(--danger); }
+
+  /* Week strip */
+  .days { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+  .day { text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 10px 12px; display: grid; gap: 6px; }
+  .day:hover { border-color: var(--muted); }
+  .day[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+  .day .dname { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; font-weight: 600; }
+  .day .dname small { font: 500 11px/1 var(--mono); color: var(--accent); letter-spacing: .08em; text-transform: uppercase; }
+  .day .dnum { font: 400 12px/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+  .bar { height: 4px; border-radius: 2px; background: var(--surface-2); overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .25s ease; }
+  .dots { display: flex; gap: 3px; flex-wrap: wrap; min-height: 8px; }
+  .dots b { width: 8px; height: 8px; border-radius: 50%; background: var(--co); }
+  .dots b.done { opacity: .3; }
+
+  /* Banners */
+  #banners { display: grid; gap: 10px; }
+  #banners:empty { display: none; }
+  .banner { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding: 14px 16px; border-radius: 10px; background: var(--accent-soft); }
+  .banner.warn { background: var(--warn-soft); color: var(--warn-ink); }
+  .banner .btxt { flex: 1 1 320px; min-width: 0; }
+  .banner strong { display: block; font-weight: 600; }
+  .banner p { margin: 2px 0 0; font-size: 14px; }
+  .banner .bact { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .banner input { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 7px 10px; width: min(280px, 100%); }
+  .quiet { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+
+  /* Toolbar */
+  .toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 5px 12px 5px 10px; font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 7px; }
+  .chip::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--co, var(--muted)); }
+  .chip.all::before { display: none; }
+  .chip.all { padding-left: 12px; }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+  .seg button { border: 0; background: transparent; padding: 7px 14px; font-size: 14px; font-weight: 500; color: var(--muted); }
+  .seg button[aria-pressed="true"] { background: var(--surface-2); color: var(--ink); }
+
+  /* Main */
+  .grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 18px; align-items: start; }
+  @media (max-width: 880px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; box-shadow: var(--shadow); }
+  .dayhead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 12px; margin-bottom: 14px; }
+  .dayhead h2 { margin: 0; font-size: 20px; font-weight: 600; text-wrap: balance; }
+  .dayhead .prog { font: 500 13px/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+  .dayhead .bar { flex-basis: 100%; height: 6px; border-radius: 3px; }
+  h3 { margin: 0; font-size: 12px; font-family: var(--mono); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+
+  .group { display: grid; gap: 4px; padding-block: 12px; border-top: 1px solid var(--line); }
+  .group:first-of-type { border-top: 0; padding-top: 0; }
+  .ghead { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+  .ghead::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--co); flex: none; }
+  .ghead span { margin-left: auto; font: 400 12px/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+  ul.tasks { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+
+  .task { display: flex; align-items: flex-start; gap: 10px; padding: 7px 6px; border-radius: 8px; }
+  .task:hover { background: var(--surface-2); }
+  .check { flex: none; width: 24px; height: 24px; margin-top: 1px; border-radius: 50%; border: 2px solid var(--co, var(--muted)); background: transparent; display: grid; place-items: center; padding: 0; }
+  .check svg { width: 13px; height: 13px; stroke: var(--surface); stroke-width: 3; fill: none; opacity: 0; }
+  .check:hover svg { opacity: .5; stroke: var(--co, var(--muted)); }
+  .task.done .check { background: var(--co, var(--muted)); }
+  .task.done .check svg { opacity: 1; stroke: var(--surface); }
+  .tbody { flex: 1; min-width: 0; display: grid; gap: 1px; }
+  .ttitle { overflow-wrap: anywhere; transition: color .2s; }
+  .task.done .ttitle { text-decoration: line-through; text-decoration-thickness: 1.5px; color: var(--muted); }
+  .tmeta { font: 400 12px/1.4 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; display: flex; flex-wrap: wrap; gap: 2px 10px; }
+  .tmeta .co { font-family: var(--sans); }
+  .tnote { font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+  .edit { flex: none; border: 0; background: transparent; color: var(--muted); font-size: 13px; padding: 2px 6px; border-radius: 6px; opacity: .75; }
+  .edit:hover { opacity: 1; color: var(--ink); background: var(--surface); }
+  .empty { color: var(--muted); padding: 24px 4px; text-align: center; }
+
+  /* Time grid */
+  .unsched { margin-bottom: 16px; padding: 12px; border: 1px dashed var(--line); border-radius: 10px; display: grid; gap: 6px; }
+  .timegrid { position: relative; display: grid; grid-template-columns: 56px minmax(0, 1fr); }
+  .hours { position: relative; }
+  .hours div { height: var(--hour); font: 400 11px/1 var(--mono); color: var(--muted); transform: translateY(-5px); font-variant-numeric: tabular-nums; }
+  .lanes { position: relative; border-left: 1px solid var(--line); }
+  .lanes .hl { height: var(--hour); border-top: 1px solid var(--line); }
+  .lanes .hl:nth-child(odd) { background: color-mix(in srgb, var(--surface-2) 35%, transparent); }
+  .now { position: absolute; left: 0; right: 0; height: 0; border-top: 2px solid var(--danger); z-index: 3; pointer-events: none; }
+  .now::before { content: ""; position: absolute; left: -5px; top: -6px; width: 10px; height: 10px; border-radius: 50%; background: var(--danger); }
+  .block { position: absolute; z-index: 2; border-radius: 8px; padding: 5px 8px; overflow: hidden; display: flex; gap: 7px; align-items: flex-start;
+    background: color-mix(in srgb, var(--co) 18%, var(--surface)); border: 1px solid color-mix(in srgb, var(--co) 55%, transparent); }
+  .block .check { width: 20px; height: 20px; }
+  .block .check svg { width: 11px; height: 11px; }
+  .block .bt { min-width: 0; display: grid; font-size: 13px; line-height: 1.3; }
+  .block .bt b { font-weight: 600; overflow-wrap: anywhere; }
+  .block .bt span { font: 400 11px/1.3 var(--mono); color: var(--muted); }
+  .block.done { opacity: .55; }
+  .block.done .bt b { text-decoration: line-through; }
+  .block.done .check { background: var(--co); }
+  .block.done .check svg { opacity: 1; }
+  .block .edit { margin-left: auto; padding: 0 4px; font-size: 12px; }
+
+  /* Form */
+  aside { display: grid; gap: 18px; }
+  form { display: grid; gap: 12px; }
+  form h2 { margin: 0; font-size: 17px; font-weight: 600; }
+  label { display: grid; gap: 4px; font-size: 13px; font-weight: 500; color: var(--muted); }
+  input[type="text"], input[type="time"], select, textarea { width: 100%; border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 8px 10px; color: var(--ink); font-size: 15px; }
+  textarea { resize: vertical; min-height: 60px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .formact { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .formact .spacer { flex: 1; }
+  .hint { margin: 0; font-size: 12px; color: var(--muted); }
+
+  .summary { display: grid; gap: 10px; }
+  .srow { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; gap: 4px 8px; align-items: center; font-size: 14px; }
+  .srow::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--co); }
+  .srow .n { font: 400 12px/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
+  .srow .bar { grid-column: 2 / 4; }
+  .srow .bar i { background: var(--co); }
+
+  .status { margin: 0; font-size: 12px; color: var(--muted); text-align: center; }
+  .toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 9px 16px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
+
+  @media (max-width: 640px) {
+    h1 { font-size: 23px; }
+    .days { gap: 5px; }
+    .day { padding: 8px; }
+    .day .dname small { display: none; }
+    .weeknav span { min-width: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="app">
+  <header class="top">
+    <div>
+      <p class="eyebrow">The Carietti Group</p>
+      <h1>Weekday Planner</h1>
+    </div>
+    <div class="weeknav">
+      <button class="btn icon" id="prevWeek" aria-label="Previous week">‹</button>
+      <span id="weekLabel"></span>
+      <button class="btn icon" id="nextWeek" aria-label="Next week">›</button>
+      <button class="btn" id="thisWeek">This week</button>
+    </div>
+  </header>
+
+  <nav class="days" id="days" role="tablist" aria-label="Weekdays"></nav>
+  <section id="banners" aria-live="polite"></section>
+
+  <div class="toolbar">
+    <div class="chips" id="filters" aria-label="Filter by company"></div>
+    <div class="seg" role="group" aria-label="View">
+      <button type="button" data-view="company" aria-pressed="true">By company</button>
+      <button type="button" data-view="blocks" aria-pressed="false">Time blocks</button>
+    </div>
+  </div>
+
+  <main class="grid">
+    <section class="panel" id="dayPane"></section>
+    <aside>
+      <form class="panel" id="taskForm" autocomplete="off">
+        <h2 id="formTitle">Add a task</h2>
+        <label>Task
+          <input type="text" id="f-title" required placeholder="Revise contract">
+        </label>
+        <label>Company
+          <select id="f-company"></select>
+        </label>
+        <label id="newcoWrap" hidden>New company name
+          <input type="text" id="f-newco" placeholder="Company name">
+        </label>
+        <label>Day
+          <select id="f-date"></select>
+        </label>
+        <div class="row2">
+          <label>Start
+            <input type="time" id="f-start" step="900">
+          </label>
+          <label>End
+            <input type="time" id="f-end" step="900">
+          </label>
+        </div>
+        <label>Notes
+          <textarea id="f-notes" rows="2" placeholder="Optional"></textarea>
+        </label>
+        <div class="formact">
+          <button type="submit" class="btn primary" id="f-submit">Add task</button>
+          <button type="button" class="btn ghost" id="f-cancel" hidden>Cancel</button>
+          <span class="spacer"></span>
+          <button type="button" class="btn danger" id="f-delete" hidden>Delete</button>
+        </div>
+        <p class="hint">Leave the time empty for a to-do. Add a start time to put it on the time-block grid.</p>
+      </form>
+      <section class="panel summary" id="weekSummary"></section>
+    </aside>
+  </main>
+  <p class="status" id="status"></p>
+</div>
+
+<script>
+(function () {
+  const PALETTE = ["#D9901C", "#7B5BD6", "#2FA67A", "#2F7FD1", "#D1527A", "#5E7F95", "#B8632B", "#2E9CA8"];
+  const DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const DOW_LONG = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const MON_LONG = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const LS_KEY = "carietti-planner-v1";
+  const PREF_KEY = "carietti-planner-prefs";
+
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  // ---------- dates (local time) ----------
+  const pad = (n) => String(n).padStart(2, "0");
+  const iso = (d) => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  const parse = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+  const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+  const mondayOf = (d) => addDays(d, -((d.getDay() + 6) % 7));
+  const weekDates = (mon) => [0, 1, 2, 3, 4].map((i) => iso(addDays(mon, i)));
+  const toMin = (t) => { if (!t) return null; const [h, m] = t.split(":").map(Number); return h * 60 + m; };
+  const fromMin = (m) => pad(Math.floor(m / 60) % 24) + ":" + pad(m % 60);
+  const fmtTime = (t) => { const m = toMin(t); if (m == null) return ""; let h = Math.floor(m / 60), mm = m % 60; const ap = h >= 12 ? "PM" : "AM"; h = h % 12 || 12; return h + (mm ? ":" + pad(mm) : "") + " " + ap; };
+  const fmtRange = (a, b) => (a ? fmtTime(a) + (b ? "–" + fmtTime(b) : "") : "");
+  const fmtDur = (min) => { const h = Math.floor(min / 60), m = min % 60; return (h ? h + "h" : "") + (h && m ? " " : "") + (m ? m + "m" : "") || "0m"; };
+
+  function todayISO() { return iso(new Date()); }
+  function isWeekday(d) { const n = d.getDay(); return n > 0 && n < 6; }
+  function defaultWeek() {
+    const now = new Date();
+    return isWeekday(now) ? mondayOf(now) : mondayOf(addDays(now, now.getDay() === 6 ? 2 : 1));
+  }
+
+  // ---------- state ----------
+  let prefs = { view: "company", filter: "all" };
+  try { Object.assign(prefs, JSON.parse(localStorage.getItem(PREF_KEY) || "{}")); } catch (e) {}
+  const savePrefs = () => { try { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); } catch (e) {} };
+
+  const state = {
+    loaded: false,
+    tasks: {},
+    companies: [],
+    log: {},
+    week: defaultWeek(),
+    day: null,
+    editing: null,
+    confirmDelete: false,
+  };
+  state.day = isWeekday(new Date()) ? todayISO() : iso(state.week);
+
+  // ---------- storage ----------
+  const store = { db: null, pending: new Set() };
+
+  function loadLocal() {
+    try {
+      const raw = JSON.parse(localStorage.getItem(LS_KEY) || "null");
+      if (raw) { state.tasks = raw.tasks || {}; state.companies = raw.companies || []; state.log = raw.log || {}; }
+    } catch (e) {}
+  }
+  function saveLocal() {
+    try { localStorage.setItem(LS_KEY, JSON.stringify({ tasks: state.tasks, companies: state.companies, log: state.log })); } catch (e) {}
+  }
+
+  async function writeDoc(coll, id, data) {
+    if (!store.db) {
+      if (coll === "tasks") state.tasks[id] = data;
+      else if (coll === "log") state.log[id] = data;
+      saveLocal(); render(); return;
+    }
+    const key = coll + "/" + id;
+    if (store.pending.has(key)) return;
+    store.pending.add(key);
+    try { await store.db.collection(coll).doc(id).set(data); }
+    catch (e) { toast(errText(e)); }
+    finally { store.pending.delete(key); }
+  }
+  async function removeDoc(coll, id) {
+    if (!store.db) { delete state.tasks[id]; saveLocal(); render(); return; }
+    try { await store.db.collection(coll).doc(id).delete(); } catch (e) { toast(errText(e)); }
+  }
+  async function saveCompanies(list) {
+    if (!store.db) { state.companies = list; saveLocal(); render(); return; }
+    state.companies = list; render();
+    try { await store.db.doc("config/companies").set({ list }); } catch (e) { toast(errText(e)); }
+  }
+  function errText(e) {
+    if (e && e.code === "quota_exceeded") return "Storage is full. Delete some old tasks and try again.";
+    if (e && e.code === "invalid_argument") return "You have view-only access, so changes can't be saved.";
+    return "That change didn't save. Check your connection and try again.";
+  }
+
+  async function initStore() {
+    let db = null;
+    try { db = window.claude && typeof window.claude.use === "function" ? await window.claude.use("db") : null; } catch (e) { db = null; }
+    if (!db) {
+      loadLocal();
+      state.loaded = true;
+      $("#status").textContent = "Saving in this browser only. Open the planner from claude.ai to sync across devices.";
+      render();
+      return;
+    }
+    store.db = db;
+    let got = { tasks: false, config: false, log: false };
+    const ready = (k) => { got[k] = true; if (got.tasks && got.config && got.log) state.loaded = true; render(); };
+    const onErr = () => { $("#status").textContent = "Lost the connection to your saved tasks. Reload the page to reconnect."; };
+    db.collection("tasks").onSnapshot((s) => {
+      const t = {}; s.docs.forEach((d) => { t[d.id] = d.data(); }); state.tasks = t; ready("tasks");
+    }, onErr);
+    db.doc("config/companies").onSnapshot((s) => {
+      state.companies = s.exists ? (s.data().list || []) : []; ready("config");
+    }, onErr);
+    db.collection("log").onSnapshot((s) => {
+      const l = {}; s.docs.forEach((d) => { l[d.id] = d.data(); }); state.log = l; ready("log");
+    }, onErr);
+    $("#status").textContent = "Synced to your claude.ai account.";
+  }
+
+  // ---------- helpers ----------
+  function companyColor(name) {
+    const c = state.companies.find((x) => x.name === name);
+    return c ? c.color : "#8793A0";
+  }
+  function companyOrder(name) {
+    const i = state.companies.findIndex((x) => x.name === name);
+    return i < 0 ? 999 : i;
+  }
+  function tasksOn(date, filtered = true) {
+    return Object.entries(state.tasks)
+      .map(([id, t]) => Object.assign({ id }, t))
+      .filter((t) => t.date === date && (!filtered || prefs.filter === "all" || t.company === prefs.filter))
+      .sort((a, b) => {
+        const sa = toMin(a.start), sb = toMin(b.start);
+        if (sa != null && sb != null && sa !== sb) return sa - sb;
+        if ((sa == null) !== (sb == null)) return sa == null ? 1 : -1;
+        return (a.createdAt || 0) - (b.createdAt || 0);
+      });
+  }
+  const newId = () => "t" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  const CHECK_SVG = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
+
+  function toggleDone(id) {
+    const t = state.tasks[id]; if (!t) return;
+    const next = Object.assign({}, t, { done: !t.done, doneAt: !t.done ? Date.now() : null, updatedAt: Date.now() });
+    writeDoc("tasks", id, next);
+  }
+
+  // ---------- render ----------
+  function render() {
+    renderHeader();
+    renderDays();
+    renderBanners();
+    renderFilters();
+    renderDay();
+    renderSummary();
+    renderFormOptions();
+  }
+
+  function renderHeader() {
+    const mon = state.week, fri = addDays(mon, 4);
+    const same = mon.getMonth() === fri.getMonth();
+    $("#weekLabel").textContent = MON[mon.getMonth()] + " " + mon.getDate() + " – " + (same ? "" : MON[fri.getMonth()] + " ") + fri.getDate();
+    $("#thisWeek").hidden = iso(state.week) === iso(defaultWeek());
+  }
+
+  function renderDays() {
+    const today = todayISO();
+    $("#days").innerHTML = weekDates(state.week).map((d) => {
+      const dt = parse(d), list = tasksOn(d), done = list.filter((t) => t.done).length;
+      const pct = list.length ? Math.round((done / list.length) * 100) : 0;
+      return '<button class="day" role="tab" data-day="' + d + '" aria-selected="' + (d === state.day) + '">' +
+        '<span class="dname">' + DOW[dt.getDay()] + " " + dt.getDate() + (d === today ? "<small>Today</small>" : "") + "</span>" +
+        '<span class="dnum">' + (list.length ? done + "/" + list.length + " done" : "Open") + "</span>" +
+        '<span class="bar"><i style="width:' + pct + '%"></i></span>' +
+        '<span class="dots">' + list.slice(0, 12).map((t) => '<b class="' + (t.done ? "done" : "") + '" style="--co:' + companyColor(t.company) + '"></b>').join("") + "</span>" +
+        "</button>";
+    }).join("");
+  }
+
+  function renderBanners() {
+    const box = $("#banners");
+    if (!state.loaded) { box.innerHTML = ""; return; }
+    const now = new Date(), today = todayISO();
+    const out = [];
+    const weekKey = "week-" + iso(state.week);
+    const isCurrent = iso(state.week) === iso(defaultWeek());
+
+    // Weekly planning
+    if (isCurrent) {
+      if (!state.log[weekKey]) {
+        const all = weekDates(state.week).reduce((n, d) => n + tasksOn(d, false).length, 0);
+        const planningDay = !isWeekday(now) || now.getDay() === 1;
+        out.push('<div class="banner' + (planningDay ? "" : " warn") + '"><div class="btxt"><strong>Plan the week of ' + MON_LONG[state.week.getMonth()] + " " + state.week.getDate() + "</strong>" +
+          "<p>Add every task and meeting for Monday through Friday, one company at a time. Give the big ones a start time so they land on the time-block grid. " +
+          (all ? all + " task" + (all === 1 ? "" : "s") + " on the calendar so far." : "Nothing on the calendar yet.") + "</p></div>" +
+          '<div class="bact"><button class="btn primary" data-act="plan">Mark week planned</button></div></div>');
+      }
+    }
+
+    // Daily check-in
+    if (isWeekday(now) && weekDates(state.week).includes(today)) {
+      const list = tasksOn(today, false), done = list.filter((t) => t.done).length, open = list.length - done;
+      const ck = state.log["checkin-" + today];
+      if (!ck) {
+        const openNames = list.filter((t) => !t.done).slice(0, 3).map((t) => t.company + ": " + t.title);
+        out.push('<div class="banner"><div class="btxt"><strong>Daily check-in · ' + done + " of " + list.length + " done today</strong>" +
+          "<p>" + (list.length ? (open ? open + " still open" + (openNames.length ? " — " + esc(openNames.join("; ")) + (open > 3 ? "; …" : "") : "") + "." : "Everything on today's list is crossed off.") : "Nothing is on today's list yet.") + "</p></div>" +
+          '<div class="bact"><input type="text" id="ck-note" placeholder="Note for today (optional)" aria-label="Check-in note"><button class="btn primary" data-act="checkin">Check in</button></div></div>');
+      } else {
+        const at = new Date(ck.at);
+        out.push('<div class="quiet"><span>Checked in at ' + fmtTime(pad(at.getHours()) + ":" + pad(at.getMinutes())) + " with " + ck.done + " of " + ck.total + " done.</span>" +
+          (ck.note ? "<span>Note: " + esc(ck.note) + "</span>" : "") + "</div>");
+      }
+    }
+
+    // Carry-over
+    const stale = Object.entries(state.tasks).filter(([, t]) => !t.done && t.date < today && t.date >= iso(addDays(now, -28)));
+    if (stale.length && weekDates(state.week).includes(state.day) && isWeekday(now)) {
+      out.push('<div class="banner warn"><div class="btxt"><strong>' + stale.length + " unfinished task" + (stale.length === 1 ? "" : "s") + " from earlier days</strong>" +
+        "<p>Move them to today, or open those days and cross them off if they're already handled.</p></div>" +
+        '<div class="bact"><button class="btn" data-act="carry">Move to today</button></div></div>');
+    }
+    box.innerHTML = out.join("");
+  }
+
+  function renderFilters() {
+    const used = new Set(Object.values(state.tasks).map((t) => t.company));
+    const names = state.companies.map((c) => c.name);
+    used.forEach((n) => { if (n && !names.includes(n)) names.push(n); });
+    if (prefs.filter !== "all" && !names.includes(prefs.filter)) prefs.filter = "all";
+    $("#filters").innerHTML = '<button class="chip all" data-filter="all" aria-pressed="' + (prefs.filter === "all") + '">All companies</button>' +
+      names.map((n) => '<button class="chip" data-filter="' + esc(n) + '" style="--co:' + companyColor(n) + '" aria-pressed="' + (prefs.filter === n) + '">' + esc(n) + "</button>").join("");
+    document.querySelectorAll(".seg button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === prefs.view)));
+  }
+
+  function taskRow(t, showCo) {
+    const co = companyColor(t.company);
+    return '<li class="task' + (t.done ? " done" : "") + '" style="--co:' + co + '">' +
+      '<button class="check" data-toggle="' + t.id + '" aria-pressed="' + !!t.done + '" aria-label="' + (t.done ? "Mark not done: " : "Mark done: ") + esc(t.title) + '">' + CHECK_SVG + "</button>" +
+      '<div class="tbody"><span class="ttitle">' + esc(t.title) + "</span>" +
+      ((t.start || showCo) ? '<span class="tmeta">' + (showCo ? '<span class="co">' + esc(t.company) + "</span>" : "") + (t.start ? "<span>" + fmtRange(t.start, t.end) + "</span>" : "") + "</span>" : "") +
+      (t.notes ? '<span class="tnote">' + esc(t.notes) + "</span>" : "") +
+      "</div>" +
+      '<button class="edit" data-edit="' + t.id + '">Edit</button></li>';
+  }
+
+  function renderDay() {
+    const pane = $("#dayPane");
+    const dt = parse(state.day), list = tasksOn(state.day);
+    const done = list.filter((t) => t.done).length;
+    const pct = list.length ? Math.round((done / list.length) * 100) : 0;
+    let html = '<div class="dayhead"><h2>' + DOW_LONG[dt.getDay()] + ", " + MON_LONG[dt.getMonth()] + " " + dt.getDate() + "</h2>" +
+      '<span class="prog">' + (list.length ? done + " of " + list.length + " done" : "") + "</span>" +
+      '<span class="bar"><i style="width:' + pct + '%"></i></span></div>';
+
+    if (!state.loaded) { pane.innerHTML = html + '<p class="empty">Loading your week…</p>'; return; }
+
+    if (prefs.view === "company") {
+      if (!list.length) {
+        html += '<p class="empty">' + (prefs.filter === "all" ? "Nothing planned for " + DOW_LONG[dt.getDay()] + " yet. Add tasks with the form." : "No " + esc(prefs.filter) + " tasks on " + DOW_LONG[dt.getDay()] + ".") + "</p>";
+      } else {
+        const groups = {};
+        list.forEach((t) => { (groups[t.company] = groups[t.company] || []).push(t); });
+        Object.keys(groups).sort((a, b) => companyOrder(a) - companyOrder(b) || a.localeCompare(b)).forEach((name) => {
+          const g = groups[name], gd = g.filter((t) => t.done).length;
+          html += '<section class="group"><div class="ghead" style="--co:' + companyColor(name) + '">' + esc(name) + "<span>" + gd + "/" + g.length + "</span></div>" +
+            '<ul class="tasks">' + g.map((t) => taskRow(t, false)).join("") + "</ul></section>";
+        });
+      }
+    } else {
+      const unsched = list.filter((t) => !t.start), sched = list.filter((t) => t.start);
+      if (unsched.length) {
+        html += '<div class="unsched"><h3>Needs a time block · ' + unsched.length + '</h3><ul class="tasks">' + unsched.map((t) => taskRow(t, true)).join("") + "</ul></div>";
+      }
+      let startH = 7, endH = 19;
+      sched.forEach((t) => {
+        const s = toMin(t.start), e = toMin(t.end) || s + 30;
+        startH = Math.min(startH, Math.floor(s / 60)); endH = Math.max(endH, Math.ceil(Math.max(e, s + 30) / 60));
+      });
+      endH = Math.min(endH, 24);
+      const hourPx = 56;
+      // lay out overlapping blocks in side-by-side lanes
+      const items = sched.map((t) => { const s = toMin(t.start); let e = toMin(t.end); if (e == null || e <= s) e = s + 30; return { t, s, e }; }).sort((a, b) => a.s - b.s || a.e - b.e);
+      let cluster = [], clusterEnd = -1;
+      const flush = () => {
+        const lanes = [];
+        cluster.forEach((it) => { let i = lanes.findIndex((end) => end <= it.s); if (i < 0) { i = lanes.length; lanes.push(0); } lanes[i] = it.e; it.lane = i; });
+        cluster.forEach((it) => { it.lanes = lanes.length; });
+        cluster = [];
+      };
+      items.forEach((it) => { if (it.s >= clusterEnd && cluster.length) flush(); cluster.push(it); clusterEnd = Math.max(clusterEnd, it.e); });
+      if (cluster.length) flush();
+
+      let hours = "", lines = "";
+      for (let h = startH; h < endH; h++) { hours += "<div>" + fmtTime(fromMin(h * 60)).replace(" ", " ") + "</div>"; lines += '<div class="hl"></div>'; }
+      let blocks = items.map((it) => {
+        const top = ((it.s - startH * 60) / 60) * hourPx, h = Math.max(((it.e - it.s) / 60) * hourPx - 2, 24);
+        const w = 100 / it.lanes;
+        const t = it.t;
+        return '<div class="block' + (t.done ? " done" : "") + '" style="--co:' + companyColor(t.company) + ";top:" + top + "px;height:" + h + "px;left:calc(" + (w * it.lane) + "% + 4px);width:calc(" + w + '% - 8px)">' +
+          '<button class="check" data-toggle="' + t.id + '" aria-pressed="' + !!t.done + '" aria-label="' + (t.done ? "Mark not done: " : "Mark done: ") + esc(t.title) + '">' + CHECK_SVG + "</button>" +
+          '<div class="bt"><b>' + esc(t.title) + "</b><span>" + esc(t.company) + " · " + fmtRange(t.start, t.end) + "</span></div>" +
+          '<button class="edit" data-edit="' + t.id + '">Edit</button></div>';
+      }).join("");
+      let nowLine = "";
+      const nowD = new Date(), nm = nowD.getHours() * 60 + nowD.getMinutes();
+      if (state.day === todayISO() && nm >= startH * 60 && nm <= endH * 60) nowLine = '<div class="now" style="top:' + ((nm - startH * 60) / 60) * hourPx + 'px"></div>';
+      if (!sched.length && !unsched.length) html += '<p class="empty">No tasks on this day yet. Add one with a start time to block it out.</p>';
+      html += '<div class="timegrid"><div class="hours">' + hours + '</div><div class="lanes">' + lines + blocks + nowLine + "</div></div>";
+    }
+    pane.innerHTML = html;
+  }
+
+  function renderSummary() {
+    const dates = weekDates(state.week);
+    const rows = {};
+    dates.forEach((d) => tasksOn(d, false).forEach((t) => {
+      const r = rows[t.company] = rows[t.company] || { total: 0, done: 0, min: 0 };
+      r.total++; if (t.done) r.done++;
+      const s = toMin(t.start), e = toMin(t.end);
+      if (s != null) r.min += (e != null && e > s ? e - s : 30);
+    }));
+    const names = Object.keys(rows).sort((a, b) => companyOrder(a) - companyOrder(b) || a.localeCompare(b));
+    const totMin = names.reduce((n, k) => n + rows[k].min, 0);
+    $("#weekSummary").innerHTML = '<h3>This week by company</h3>' +
+      (names.length ? names.map((n) => {
+        const r = rows[n], pct = Math.round((r.done / r.total) * 100);
+        return '<div class="srow" style="--co:' + companyColor(n) + '"><span>' + esc(n) + '</span><span class="n">' + r.done + "/" + r.total + (r.min ? " · " + fmtDur(r.min) : "") + '</span><span class="bar"><i style="width:' + pct + '%"></i></span></div>';
+      }).join("") + '<p class="hint">' + (totMin ? fmtDur(totMin) + " time-blocked this week." : "No time blocks yet this week.") + "</p>"
+        : '<p class="hint">No tasks this week yet.</p>');
+  }
+
+  function renderFormOptions() {
+    const sel = $("#f-company"), cur = sel.value;
+    const names = state.companies.map((c) => c.name);
+    const editing = state.editing && state.tasks[state.editing];
+    if (editing && !names.includes(editing.company)) names.push(editing.company);
+    sel.innerHTML = names.map((n) => "<option>" + esc(n) + "</option>").join("") + '<option value="__new">+ Add a company…</option>';
+    if (cur && (names.includes(cur) || cur === "__new")) sel.value = cur;
+    else if (prefs.filter !== "all" && names.includes(prefs.filter)) sel.value = prefs.filter;
+    else if (!names.length) sel.value = "__new";
+    $("#newcoWrap").hidden = sel.value !== "__new";
+
+    const dsel = $("#f-date"), dcur = dsel.value;
+    const dates = weekDates(state.week);
+    if (editing && !dates.includes(editing.date)) dates.unshift(editing.date);
+    dsel.innerHTML = dates.map((d) => { const dt = parse(d); return '<option value="' + d + '">' + DOW_LONG[dt.getDay()] + ", " + MON[dt.getMonth()] + " " + dt.getDate() + "</option>"; }).join("");
+    dsel.value = dates.includes(dcur) && dsel.dataset.touched ? dcur : (editing ? editing.date : state.day);
+  }
+
+  // ---------- form ----------
+  function resetForm() {
+    state.editing = null; state.confirmDelete = false;
+    $("#f-title").value = ""; $("#f-start").value = ""; $("#f-end").value = ""; $("#f-notes").value = "";
+    $("#formTitle").textContent = "Add a task";
+    $("#f-submit").textContent = "Add task";
+    $("#f-cancel").hidden = true; $("#f-delete").hidden = true; $("#f-delete").textContent = "Delete";
+    delete $("#f-date").dataset.touched;
+    renderFormOptions();
+  }
+  function startEdit(id) {
+    const t = state.tasks[id]; if (!t) return;
+    state.editing = id; state.confirmDelete = false;
+    renderFormOptions();
+    $("#f-title").value = t.title; $("#f-company").value = t.company; $("#newcoWrap").hidden = true;
+    $("#f-date").value = t.date; $("#f-date").dataset.touched = "1";
+    $("#f-start").value = t.start || ""; $("#f-end").value = t.end || ""; $("#f-notes").value = t.notes || "";
+    $("#formTitle").textContent = "Edit task";
+    $("#f-submit").textContent = "Save changes";
+    $("#f-cancel").hidden = false; $("#f-delete").hidden = false; $("#f-delete").textContent = "Delete";
+    $("#taskForm").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    $("#f-title").focus({ preventScroll: true });
+  }
+
+  $("#taskForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const title = $("#f-title").value.trim();
+    if (!title) { $("#f-title").focus(); return; }
+    let company = $("#f-company").value;
+    if (company === "__new") {
+      company = $("#f-newco").value.trim();
+      if (!company) { toast("Name the new company first."); $("#f-newco").focus(); return; }
+      if (!state.companies.some((c) => c.name.toLowerCase() === company.toLowerCase())) {
+        await saveCompanies(state.companies.concat([{ name: company, color: PALETTE[state.companies.length % PALETTE.length] }]));
+      } else {
+        company = state.companies.find((c) => c.name.toLowerCase() === company.toLowerCase()).name;
+      }
+      $("#f-newco").value = "";
+    }
+    let start = $("#f-start").value, end = $("#f-end").value;
+    if (start && !end) end = fromMin(Math.min(toMin(start) + 30, 23 * 60 + 59));
+    if (!start) end = "";
+    if (start && end && toMin(end) <= toMin(start)) { toast("End time needs to be after the start time."); $("#f-end").focus(); return; }
+    const date = $("#f-date").value;
+    const base = state.editing ? state.tasks[state.editing] : null;
+    const id = state.editing || newId();
+    const data = Object.assign({}, base || { done: false, doneAt: null, createdAt: Date.now() }, {
+      title, company, date, start, end, notes: $("#f-notes").value.trim(), updatedAt: Date.now(),
+    });
+    const wasEdit = !!state.editing;
+    await writeDoc("tasks", id, data);
+    toast(wasEdit ? "Saved" : "Added to " + DOW_LONG[parse(date).getDay()]);
+    const keepCo = company, keepDate = date;
+    resetForm();
+    if (!wasEdit) { $("#f-company").value = keepCo; $("#f-date").value = keepDate; $("#f-date").dataset.touched = "1"; $("#newcoWrap").hidden = true; }
+    $("#f-title").focus({ preventScroll: true });
+  });
+  $("#f-company").addEventListener("change", () => { $("#newcoWrap").hidden = $("#f-company").value !== "__new"; if (!$("#newcoWrap").hidden) $("#f-newco").focus(); });
+  $("#f-date").addEventListener("change", () => { $("#f-date").dataset.touched = "1"; });
+  $("#f-cancel").addEventListener("click", resetForm);
+  $("#f-delete").addEventListener("click", async () => {
+    if (!state.editing) return;
+    if (!state.confirmDelete) { state.confirmDelete = true; $("#f-delete").textContent = "Confirm delete"; return; }
+    await removeDoc("tasks", state.editing);
+    toast("Deleted"); resetForm();
+  });
+
+  // ---------- events ----------
+  document.addEventListener("click", async (e) => {
+    const el = e.target.closest("button"); if (!el) return;
+    if (el.dataset.toggle) { toggleDone(el.dataset.toggle); return; }
+    if (el.dataset.edit) { startEdit(el.dataset.edit); return; }
+    if (el.dataset.day) { state.day = el.dataset.day; if (!$("#f-date").dataset.touched) renderFormOptions(); render(); return; }
+    if (el.dataset.filter) { prefs.filter = el.dataset.filter; savePrefs(); render(); return; }
+    if (el.dataset.view) { prefs.view = el.dataset.view; savePrefs(); render(); return; }
+    const act = el.dataset.act;
+    if (act === "plan") {
+      await writeDoc("log", "week-" + iso(state.week), { type: "week", week: iso(state.week), at: Date.now() });
+      toast("Week marked planned");
+    } else if (act === "checkin") {
+      const today = todayISO(), list = tasksOn(today, false);
+      const note = ($("#ck-note") && $("#ck-note").value.trim()) || "";
+      await writeDoc("log", "checkin-" + today, { type: "checkin", date: today, at: Date.now(), done: list.filter((t) => t.done).length, total: list.length, note });
+      toast("Checked in");
+    } else if (act === "carry") {
+      const today = todayISO(), now = new Date();
+      const stale = Object.entries(state.tasks).filter(([, t]) => !t.done && t.date < today && t.date >= iso(addDays(now, -28)));
+      for (const [id, t] of stale) await writeDoc("tasks", id, Object.assign({}, t, { date: today, start: "", end: "", updatedAt: Date.now() }));
+      state.week = mondayOf(now); state.day = today; render();
+      toast("Moved " + stale.length + " to today");
+    }
+  });
+  $("#prevWeek").addEventListener("click", () => shiftWeek(-7));
+  $("#nextWeek").addEventListener("click", () => shiftWeek(7));
+  $("#thisWeek").addEventListener("click", () => { state.week = defaultWeek(); state.day = isWeekday(new Date()) ? todayISO() : iso(state.week); delete $("#f-date").dataset.touched; render(); });
+  function shiftWeek(n) {
+    const idx = weekDates(state.week).indexOf(state.day);
+    state.week = addDays(state.week, n);
+    state.day = weekDates(state.week)[Math.max(0, idx)];
+    delete $("#f-date").dataset.touched;
+    render();
+  }
+
+  let toastTimer;
+  function toast(msg) {
+    let t = document.querySelector(".toast");
+    if (!t) { t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); document.body.appendChild(t); }
+    t.textContent = msg; t.hidden = false;
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2200);
+  }
+
+  // Keep the "now" line and today's banners current.
+  setInterval(() => { if (prefs.view === "blocks" && state.day === todayISO()) renderDay(); }, 60000);
+
+  render();
+  initStore();
+})();
+</script>
