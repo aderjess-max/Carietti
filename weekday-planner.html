@@ -176,6 +176,7 @@
   .seg.scope { display: flex; }
   .seg.scope button { flex: 1; padding: 7px 8px; font-size: 13px; }
   .rep { display: inline-flex; align-items: center; gap: 3px; }
+  .rolled { color: var(--warn-ink); background: var(--warn-soft); border-radius: 4px; padding: 0 5px; }
   .series { display: grid; gap: 8px; }
   .series .srs { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; }
   .series .srs::before { content: ""; flex: none; width: 10px; height: 10px; margin-top: 6px; border-radius: 3px; background: var(--co); }
@@ -284,7 +285,7 @@
           <span class="spacer"></span>
           <button type="button" class="btn danger" id="f-delete" hidden>Delete</button>
         </div>
-        <p class="hint">Leave the time empty for a to-do. Add a start time to put it on the time-block grid. Set Repeat for anything you do every week.</p>
+        <p class="hint">Leave the time empty for a to-do. Add a start time to put it on the time-block grid. Set Repeat for anything you do every week. Anything you don't finish moves to the next workday on its own.</p>
       </form>
       <section class="panel summary" id="weekSummary"></section>
       <section class="panel series" id="seriesList" hidden></section>
@@ -393,12 +394,19 @@
       state.loaded = true;
       $("#status").textContent = "Saving in this browser only. Open the planner from claude.ai to sync across devices.";
       render();
+      rollOver();
       return;
     }
     store.db = db;
     const got = { config: false };
     COLLS.forEach((c) => { got[c] = false; });
-    const ready = (k) => { got[k] = true; if (Object.values(got).every(Boolean)) state.loaded = true; render(); };
+    const ready = (k) => {
+      got[k] = true;
+      const first = !state.loaded && Object.values(got).every(Boolean);
+      if (first) state.loaded = true;
+      render();
+      if (first) rollOver();
+    };
     const onErr = () => { $("#status").textContent = "Lost the connection to your saved tasks. Reload the page to reconnect."; };
     COLLS.forEach((c) => {
       db.collection(c).onSnapshot((s) => {
@@ -459,10 +467,27 @@
         return (a.createdAt || 0) - (b.createdAt || 0);
       });
   }
-  // Unfinished one-off tasks from past days. Repeating tasks come back on their own, so they're left out.
-  function staleTasks() {
-    const today = todayISO(), floor = iso(addDays(new Date(), -28));
-    return Object.entries(state.tasks).filter(([, t]) => !t.done && !t.seriesId && t.date < today && t.date >= floor);
+  // The next workday on or after today: today on a weekday, Monday on a weekend.
+  function nextWorkday() {
+    const now = new Date();
+    return iso(isWeekday(now) ? now : addDays(now, now.getDay() === 6 ? 2 : 1));
+  }
+  // Unfinished one-off tasks from past days move to the next workday on their own.
+  // Repeating tasks come back on their next scheduled day, so they stay put.
+  // Times are cleared so the task lands in "Needs a time block" for a fresh slot.
+  let rolling = false;
+  async function rollOver() {
+    if (!state.loaded || rolling) return;
+    const target = nextWorkday(), today = todayISO();
+    const stale = Object.entries(state.tasks).filter(([, t]) => !t.done && !t.seriesId && t.date < today);
+    if (!stale.length) return;
+    rolling = true;
+    try {
+      for (const [id, t] of stale) {
+        await writeDoc("tasks", id, Object.assign({}, t, { date: target, start: "", end: "", rolledFrom: t.rolledFrom || t.date, updatedAt: Date.now() }));
+      }
+      toast("Moved " + stale.length + " unfinished task" + (stale.length === 1 ? "" : "s") + " to " + (target === today ? "today" : DOW_LONG[parse(target).getDay()]));
+    } finally { rolling = false; }
   }
   const newId = (p = "t") => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
   const CHECK_SVG = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
@@ -544,13 +569,6 @@
       }
     }
 
-    // Carry-over
-    const stale = staleTasks();
-    if (stale.length && weekDates(state.week).includes(state.day) && isWeekday(now)) {
-      out.push('<div class="banner warn"><div class="btxt"><strong>' + stale.length + " unfinished task" + (stale.length === 1 ? "" : "s") + " from earlier days</strong>" +
-        "<p>Move them to today, or open those days and cross them off if they're already handled.</p></div>" +
-        '<div class="bact"><button class="btn" data-act="carry">Move to today</button></div></div>');
-    }
     box.innerHTML = out.join("");
   }
 
@@ -569,7 +587,8 @@
     return '<li class="task' + (t.done ? " done" : "") + '" style="--co:' + co + '">' +
       '<button class="check" data-toggle="' + t.id + '" aria-pressed="' + !!t.done + '" aria-label="' + (t.done ? "Mark not done: " : "Mark done: ") + esc(t.title) + '">' + CHECK_SVG + "</button>" +
       '<div class="tbody"><span class="ttitle">' + esc(t.title) + "</span>" +
-      ((t.start || showCo || t.seriesId) ? '<span class="tmeta">' + (showCo ? '<span class="co">' + esc(t.company) + "</span>" : "") + (t.start ? "<span>" + fmtRange(t.start, t.end) + "</span>" : "") +
+      ((t.start || showCo || t.seriesId || (t.rolledFrom && !t.done)) ? '<span class="tmeta">' + (showCo ? '<span class="co">' + esc(t.company) + "</span>" : "") + (t.start ? "<span>" + fmtRange(t.start, t.end) + "</span>" : "") +
+        (t.rolledFrom && !t.done ? '<span class="rolled" title="Originally planned for ' + DOW_LONG[parse(t.rolledFrom).getDay()] + ", " + MON[parse(t.rolledFrom).getMonth()] + " " + parse(t.rolledFrom).getDate() + '">Carried over from ' + DOW[parse(t.rolledFrom).getDay()] + " " + (parse(t.rolledFrom).getMonth() + 1) + "/" + parse(t.rolledFrom).getDate() + "</span>" : "") +
         (t.seriesId && state.series[t.seriesId] ? '<span class="rep" title="' + esc(repeatText(state.series[t.seriesId])) + '">' + REP_SVG + " Repeats</span>" : "") + "</span>" : "") +
       (t.notes ? '<span class="tnote">' + esc(t.notes) + "</span>" : "") +
       "</div>" +
@@ -920,12 +939,6 @@
       const note = ($("#ck-note") && $("#ck-note").value.trim()) || "";
       await writeDoc("log", "checkin-" + today, { type: "checkin", date: today, at: Date.now(), done: list.filter((t) => t.done).length, total: list.length, note });
       toast("Checked in");
-    } else if (act === "carry") {
-      const today = todayISO(), now = new Date();
-      const stale = staleTasks();
-      for (const [id, t] of stale) await writeDoc("tasks", id, Object.assign({}, t, { date: today, start: "", end: "", updatedAt: Date.now() }));
-      state.week = mondayOf(now); state.day = today; render();
-      toast("Moved " + stale.length + " to today");
     }
   });
   $("#prevWeek").addEventListener("click", () => shiftWeek(-7));
@@ -948,7 +961,16 @@
   }
 
   // Keep the "now" line and today's banners current.
-  setInterval(() => { if (prefs.view === "blocks" && state.day === todayISO()) renderDay(); }, 60000);
+  // If the page stays open past midnight, roll unfinished tasks forward and move the view to the new day.
+  let lastDay = todayISO();
+  setInterval(() => {
+    const t = todayISO();
+    if (t !== lastDay) {
+      lastDay = t;
+      state.week = defaultWeek(); state.day = nextWorkday();
+      render(); rollOver();
+    } else if (prefs.view === "blocks" && state.day === t) renderDay();
+  }, 60000);
 
   render();
   syncRepeatUI();
