@@ -190,6 +190,34 @@
   .srow .bar { grid-column: 2 / 4; }
   .srow .bar i { background: var(--co); }
 
+  /* Report */
+  .grid.full { grid-template-columns: minmax(0, 1fr); }
+  .report { display: grid; gap: 20px; max-width: 860px; width: 100%; justify-self: center; }
+  .rctl { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+  .rctl label { flex: 1 1 180px; }
+  .ract { display: flex; gap: 8px; }
+  .rhead { display: grid; gap: 4px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .rhead .eyebrow { display: flex; align-items: center; gap: 8px; }
+  .rhead .eyebrow::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--co); }
+  .rhead h2 { margin: 0; font-size: 24px; font-weight: 700; text-wrap: balance; }
+  .rhead p { margin: 0; color: var(--muted); font-family: var(--mono); font-size: 13px; }
+  .tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
+  @media (max-width: 640px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .tile { background: var(--surface-2); border-radius: 10px; padding: 12px; display: grid; gap: 2px; }
+  .tile b { font-size: 26px; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .tile span { font-size: 12px; color: var(--muted); }
+  .rsec { display: grid; gap: 8px; padding-top: 18px; }
+  .rsec ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .rsec li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; font-size: 14px; }
+  .rsec li .d { font: 400 12px/1.6 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+  .rsec li .n { display: block; color: var(--muted); font-size: 13px; }
+  .rsec .none { color: var(--muted); font-size: 14px; margin: 0; }
+  .streak { display: flex; gap: 3px; margin-top: 3px; }
+  .streak i { width: 14px; height: 6px; border-radius: 2px; background: var(--surface-2); }
+  .streak i.on { background: var(--co); }
+  .rnotes { display: grid; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
+  #r-text { font-family: var(--mono); font-size: 13px; }
+
   .status { margin: 0; font-size: 12px; color: var(--muted); text-align: center; }
   .toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 9px 16px; border-radius: 8px; font-size: 14px; z-index: 20; max-width: calc(100% - 32px); }
 
@@ -225,11 +253,45 @@
     <div class="seg" role="group" aria-label="View">
       <button type="button" data-view="company" aria-pressed="true">By company</button>
       <button type="button" data-view="blocks" aria-pressed="false">Time blocks</button>
+      <button type="button" data-view="report" aria-pressed="false">Report</button>
     </div>
   </div>
 
-  <main class="grid">
+  <main class="grid" id="mainGrid">
     <section class="panel" id="dayPane"></section>
+    <section class="panel report" id="reportPane" hidden>
+      <div class="rctl">
+        <label>Company
+          <select id="r-company"></select>
+        </label>
+        <label>Period
+          <select id="r-period">
+            <option value="this-week">This week</option>
+            <option value="last-week">Last week</option>
+            <option value="two-weeks">Last 2 weeks</option>
+            <option value="this-month">This month</option>
+            <option value="last-month">Last month</option>
+          </select>
+        </label>
+        <div class="ract">
+          <button type="button" class="btn primary" id="r-copy">Copy for email</button>
+        </div>
+      </div>
+      <div id="reportBody"></div>
+      <div class="rnotes">
+        <label>Highlights and wins
+          <textarea id="r-highlights" rows="3" placeholder="Booked a first meeting with a 2,000-employee contractor. HRCI list is 60% worked."></textarea>
+        </label>
+        <label>Needs from you
+          <textarea id="r-asks" rows="2" placeholder="Intro to the broker at … · Sign-off on the pilot pricing sheet"></textarea>
+        </label>
+        <p class="hint" id="r-saved">These two notes go at the top of the email. They save for this company and period.</p>
+      </div>
+      <div id="r-fallback" hidden>
+        <p class="hint">Your browser blocked copying. Select the text below and copy it.</p>
+        <textarea id="r-text" rows="14" readonly aria-label="Report text"></textarea>
+      </div>
+    </section>
     <aside>
       <form class="panel" id="taskForm" autocomplete="off">
         <h2 id="formTitle">Add a task</h2>
@@ -500,6 +562,178 @@
     writeDoc("tasks", id, next);
   }
 
+  // ---------- report ----------
+  const fmtMD = (d) => DOW[parse(d).getDay()] + " " + (parse(d).getMonth() + 1) + "/" + parse(d).getDate();
+  const fmtLong = (d) => MON[parse(d).getMonth()] + " " + parse(d).getDate();
+  function periodRange(key) {
+    const now = new Date(), mon = mondayOf(isWeekday(now) ? now : addDays(now, -2));
+    let a, b;
+    if (key === "last-week") { a = addDays(mon, -7); b = addDays(mon, -3); }
+    else if (key === "two-weeks") { a = addDays(mon, -7); b = addDays(mon, 4); }
+    else if (key === "this-month") { a = new Date(now.getFullYear(), now.getMonth(), 1); b = new Date(now.getFullYear(), now.getMonth() + 1, 0); }
+    else if (key === "last-month") { a = new Date(now.getFullYear(), now.getMonth() - 1, 1); b = new Date(now.getFullYear(), now.getMonth(), 0); }
+    else { a = mon; b = addDays(mon, 4); }
+    const start = iso(a), end = iso(b);
+    const yr = b.getFullYear();
+    const label = key.includes("month") ? MON_LONG[a.getMonth()] + " " + yr : fmtLong(start) + " – " + fmtLong(end) + ", " + yr;
+    return { start, end, label };
+  }
+  function weekdaysBetween(start, end) {
+    const out = [];
+    for (let d = parse(start); iso(d) <= end; d = addDays(d, 1)) if (isWeekday(d)) out.push(iso(d));
+    return out;
+  }
+  const slug = (n) => String(n).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "co";
+  const reportKey = (co, start) => "report-" + slug(co) + "-" + start;
+
+  function buildReport(co, period) {
+    const { start, end, label } = periodRange(period);
+    const today = todayISO();
+    const entries = Object.entries(state.tasks).map(([id, t]) => Object.assign({ id }, t)).filter((t) => t.company === co);
+    const doneDay = (t) => (t.doneAt ? iso(new Date(t.doneAt)) : t.date);
+
+    const completed = entries.filter((t) => t.done && !t.seriesId && doneDay(t) >= start && doneDay(t) <= end)
+      .sort((x, y) => doneDay(x).localeCompare(doneDay(y)) || (x.doneAt || 0) - (y.doneAt || 0));
+
+    // Repeating work: how many scheduled days in the period were crossed off
+    const pastDays = weekdaysBetween(start, end < today ? end : today);
+    const recurring = Object.entries(state.series).filter(([, x]) => x.company === co).map(([sid, x]) => {
+      // Today only counts once it's crossed off, so an unfinished morning doesn't read as a miss.
+      const isDone = (d) => { const t = state.tasks[occId(sid, d)]; return !!(t && t.done); };
+      const days = pastDays.filter((d) => seriesRunsOn(x, d) && (d < today || isDone(d)));
+      const hits = days.map(isDone);
+      const doneCount = hits.filter(Boolean).length;
+      return { title: x.title, pattern: repeatText(x), days, hits, done: doneCount };
+    }).filter((r) => r.days.length);
+    const recurringDone = recurring.reduce((n, r) => n + r.done, 0);
+
+    const open = entries.filter((t) => !t.done && !t.seriesId && t.date <= today)
+      .sort((x, y) => (x.rolledFrom || x.date).localeCompare(y.rolledFrom || y.date));
+    const carried = open.filter((t) => t.rolledFrom).length;
+
+    const horizon = iso(addDays(new Date(), 14));
+    const upcoming = entries.filter((t) => !t.done && !t.seriesId && t.date > today && t.date <= horizon)
+      .sort((x, y) => x.date.localeCompare(y.date) || (toMin(x.start) ?? 9999) - (toMin(y.start) ?? 9999));
+
+    let minutes = 0;
+    weekdaysBetween(start, end).forEach((d) => tasksOn(d, false).forEach((t) => {
+      if (t.company !== co) return;
+      const a = toMin(t.start), b = toMin(t.end);
+      if (a != null) minutes += (b != null && b > a ? b - a : 30);
+    }));
+
+    return { co, start, end, label, completed, recurring, recurringDone, open, carried, upcoming, minutes, doneDay };
+  }
+
+  function reportText(r, highlights, asks) {
+    const L = [];
+    const bullets = (txt) => txt.split(/\n+/).map((x) => x.trim()).filter(Boolean).map((x) => "- " + x.replace(/^[-•*]\s*/, ""));
+    L.push(r.co + " activity update");
+    L.push(r.label);
+    L.push("");
+    L.push("At a glance: " + (r.completed.length + r.recurringDone) + " completed · " + r.open.length + " open" + (r.minutes ? " · " + fmtDur(r.minutes) + " time-blocked" : ""));
+    if (highlights.trim()) { L.push(""); L.push("HIGHLIGHTS"); L.push(...bullets(highlights)); }
+    L.push(""); L.push("COMPLETED (" + r.completed.length + ")");
+    if (r.completed.length) r.completed.forEach((t) => L.push("- " + fmtMD(r.doneDay(t)) + ": " + t.title + (t.notes ? " (" + t.notes + ")" : "")));
+    else L.push("- No one-off tasks completed in this period.");
+    if (r.recurring.length) {
+      L.push(""); L.push("ONGOING WORK");
+      r.recurring.forEach((x) => L.push("- " + x.title + ": done " + x.done + " of " + x.days.length + " scheduled days (" + x.pattern.toLowerCase() + ")"));
+    }
+    L.push(""); L.push("IN PROGRESS (" + r.open.length + ")");
+    if (r.open.length) r.open.forEach((t) => L.push("- " + t.title + (t.rolledFrom ? " (open since " + fmtMD(t.rolledFrom) + ")" : "") + (t.notes ? " (" + t.notes + ")" : "")));
+    else L.push("- Nothing outstanding.");
+    if (r.upcoming.length) {
+      L.push(""); L.push("COMING UP");
+      r.upcoming.forEach((t) => L.push("- " + fmtMD(t.date) + ": " + t.title + (t.start ? " at " + fmtTime(t.start) : "")));
+    }
+    if (asks.trim()) { L.push(""); L.push("NEEDS FROM YOU"); L.push(...bullets(asks)); }
+    L.push(""); L.push("Jess");
+    return L.join("\n");
+  }
+
+  function renderReport() {
+    const full = prefs.view === "report";
+    $("#reportPane").hidden = !full;
+    $("#dayPane").hidden = full;
+    document.querySelector("#mainGrid > aside").hidden = full;
+    $("#mainGrid").classList.toggle("full", full);
+    $("#filters").style.visibility = full ? "hidden" : "";
+    if (!full) return;
+
+    const names = state.companies.map((c) => c.name);
+    const sel = $("#r-company");
+    if (!prefs.reportCo || !names.includes(prefs.reportCo)) prefs.reportCo = names.find((n) => /sobrynth/i.test(n)) || names[0] || "";
+    sel.innerHTML = names.map((n) => "<option>" + esc(n) + "</option>").join("");
+    sel.value = prefs.reportCo;
+    $("#r-period").value = prefs.reportPeriod || "this-week";
+    if (!state.loaded) { $("#reportBody").innerHTML = '<p class="empty">Loading…</p>'; return; }
+
+    const r = buildReport(prefs.reportCo, $("#r-period").value);
+    const co = companyColor(r.co);
+    const li = (d, title, note) => "<li><span class=\"d\">" + d + "</span><span>" + esc(title) + (note ? '<span class="n">' + esc(note) + "</span>" : "") + "</span></li>";
+    let h = '<header class="rhead" style="--co:' + co + '"><p class="eyebrow">Activity update</p><h2>' + esc(r.co) + "</h2><p>" + esc(r.label) + "</p></header>";
+    h += '<div class="tiles">' +
+      '<div class="tile"><b>' + (r.completed.length + r.recurringDone) + "</b><span>Completed" + (r.recurringDone ? " (incl. " + r.recurringDone + " repeating)" : "") + "</span></div>" +
+      '<div class="tile"><b>' + r.open.length + "</b><span>Open now</span></div>" +
+      '<div class="tile"><b>' + r.carried + "</b><span>Carried over</span></div>" +
+      '<div class="tile"><b>' + (r.minutes ? fmtDur(r.minutes) : "0h") + "</b><span>Time-blocked</span></div></div>";
+    h += '<section class="rsec"><h3>Completed · ' + r.completed.length + "</h3>" +
+      (r.completed.length ? "<ul>" + r.completed.map((t) => li(fmtMD(r.doneDay(t)), t.title, t.notes)).join("") + "</ul>" : '<p class="none">No one-off tasks completed in this period.</p>') + "</section>";
+    if (r.recurring.length) {
+      h += '<section class="rsec"><h3>Ongoing work</h3><ul>' + r.recurring.map((x) =>
+        '<li><span class="d">' + x.done + "/" + x.days.length + " days</span><span>" + esc(x.title) + '<span class="n">' + esc(x.pattern) + '</span><span class="streak" style="--co:' + co + '" aria-hidden="true">' +
+        x.hits.map((on) => '<i class="' + (on ? "on" : "") + '"></i>').join("") + "</span></span></li>").join("") + "</ul></section>";
+    }
+    h += '<section class="rsec"><h3>In progress · ' + r.open.length + "</h3>" +
+      (r.open.length ? "<ul>" + r.open.map((t) => li(t.rolledFrom ? "since " + fmtMD(t.rolledFrom).slice(4) : "today", t.title, t.notes)).join("") + "</ul>" : '<p class="none">Nothing outstanding.</p>') + "</section>";
+    if (r.upcoming.length) {
+      h += '<section class="rsec"><h3>Coming up · next 2 weeks</h3><ul>' + r.upcoming.map((t) => li(fmtMD(t.date), t.title + (t.start ? " · " + fmtTime(t.start) : ""), t.notes)).join("") + "</ul></section>";
+    }
+    $("#reportBody").innerHTML = h;
+
+    // Load saved notes for this company and period, unless the viewer is typing in them
+    const key = reportKey(r.co, r.start);
+    const saved = state.log[key] || {};
+    const hl = $("#r-highlights"), ak = $("#r-asks");
+    const switched = hl.dataset.key !== key;
+    const typing = document.activeElement === hl || document.activeElement === ak;
+    if (switched || (!typing && !notesDirty)) { hl.value = saved.highlights || ""; ak.value = saved.asks || ""; }
+    $("#r-highlights").dataset.key = key; $("#r-asks").dataset.key = key;
+  }
+
+  let notesDirty = false, notesTimer;
+  function queueNotesSave() {
+    notesDirty = true;
+    clearTimeout(notesTimer);
+    notesTimer = setTimeout(saveNotes, 900);
+  }
+  async function saveNotes() {
+    clearTimeout(notesTimer);
+    if (!notesDirty) return;
+    const key = $("#r-highlights").dataset.key; if (!key) return;
+    notesDirty = false;
+    await writeDoc("log", key, { type: "report", company: prefs.reportCo, period: $("#r-period").value, highlights: $("#r-highlights").value, asks: $("#r-asks").value, at: Date.now() });
+    $("#r-saved").textContent = "Notes saved.";
+  }
+  ["#r-highlights", "#r-asks"].forEach((sel) => {
+    $(sel).addEventListener("input", queueNotesSave);
+    $(sel).addEventListener("blur", saveNotes);
+  });
+  $("#r-company").addEventListener("change", async () => { await saveNotes(); prefs.reportCo = $("#r-company").value; savePrefs(); renderReport(); });
+  $("#r-period").addEventListener("change", async () => { await saveNotes(); prefs.reportPeriod = $("#r-period").value; savePrefs(); renderReport(); });
+  $("#r-copy").addEventListener("click", () => {
+    const r = buildReport(prefs.reportCo, $("#r-period").value);
+    const text = reportText(r, $("#r-highlights").value, $("#r-asks").value);
+    saveNotes();
+    const fallback = () => {
+      $("#r-fallback").hidden = false; $("#r-text").value = text; $("#r-text").focus(); $("#r-text").select();
+    };
+    try {
+      navigator.clipboard.writeText(text).then(() => { $("#r-fallback").hidden = true; toast("Copied. Paste it into your email to the CEO."); }, fallback);
+    } catch (e) { fallback(); }
+  });
+
   // ---------- render ----------
   function render() {
     renderHeader();
@@ -510,6 +744,7 @@
     renderSummary();
     renderSeries();
     renderFormOptions();
+    renderReport();
   }
 
   function renderHeader() {
