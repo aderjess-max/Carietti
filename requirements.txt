@@ -3,3 +3,7 @@
 google-api-python-client>=2.120.0
 google-auth-oauthlib>=1.2.0
 google-auth>=2.28.0
+
+# Calendar sync (scripts/sync_calendars.py)
+icalendar>=6.0
+recurring-ical-events>=3.0

@@ -190,6 +190,16 @@
   .srow .bar { grid-column: 2 / 4; }
   .srow .bar i { background: var(--co); }
 
+  /* Calendar meetings */
+  .evicon { flex: none; width: 24px; height: 24px; display: grid; place-items: center; color: var(--co, var(--muted)); }
+  .evrow .ttitle { font-style: normal; }
+  .block.evt { background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--co) 10%, var(--surface)) 0 6px, var(--surface) 6px 12px); border-style: dashed; }
+  .block.evt .evicon { width: 20px; height: 20px; }
+  .block.evt.free { opacity: .6; }
+  .allday { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .allday span { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; padding: 3px 10px; border-radius: 6px; border: 1px dashed color-mix(in srgb, var(--co) 60%, transparent); color: var(--ink); }
+  .allday svg { color: var(--co); }
+
   /* Report */
   .grid.full { grid-template-columns: minmax(0, 1fr); }
   .report { display: grid; gap: 20px; max-width: 860px; width: 100%; justify-self: center; }
@@ -400,6 +410,8 @@
     companies: [],
     log: {},
     series: {},
+    events: {},
+    calsync: null,
     week: defaultWeek(),
     day: null,
     editing: null,
@@ -412,7 +424,7 @@
 
   // ---------- storage ----------
   const store = { db: null, pending: new Set() };
-  const COLLS = ["tasks", "log", "series"];
+  const COLLS = ["tasks", "log", "series", "events"];
 
   function loadLocal() {
     try {
@@ -478,7 +490,9 @@
     db.doc("config/companies").onSnapshot((s) => {
       state.companies = s.exists ? (s.data().list || []) : []; ready("config");
     }, onErr);
-    $("#status").textContent = "Synced to your claude.ai account.";
+    db.doc("config/calsync").onSnapshot((s) => { state.calsync = s.exists ? s.data() : null; renderStatus(); }, onErr);
+    store.synced = true;
+    renderStatus();
   }
 
   // ---------- helpers ----------
@@ -515,6 +529,43 @@
     const pat = d.length === 5 ? "Every weekday" : d.length === 1 ? "Every " + DOW_LONG[d[0]] : "Every " + d.map((n) => DOW[n]).join(", ");
     return pat + (s.until ? " until " + MON[parse(s.until).getMonth()] + " " + parse(s.until).getDate() : "");
   }
+  // Calendar meetings, synced from published feeds into one doc per calendar per week.
+  function eventsOn(date, filtered = true) {
+    const wk = iso(mondayOf(parse(date))), seen = new Set(), out = [];
+    Object.values(state.events).forEach((doc) => {
+      if (doc.week !== wk) return;
+      (doc.events || []).forEach((e, i) => {
+        if (e.date !== date) return;
+        const key = e.title + "|" + e.start + "|" + e.end;
+        if (seen.has(key)) return; // the same invite on two calendars
+        seen.add(key);
+        out.push(Object.assign({ id: "e-" + doc.calendar + "-" + date + "-" + i, company: doc.company || "", calLabel: doc.label || "", isEvent: true }, e));
+      });
+    });
+    return out.filter((e) => !filtered || prefs.filter === "all" || e.company === prefs.filter)
+      .sort((a, b) => (a.allDay ? -1 : 0) - (b.allDay ? -1 : 0) || (a.start || "").localeCompare(b.start || ""));
+  }
+  const evMinutes = (e) => { if (e.allDay || e.free) return 0; const a = toMin(e.start), b = toMin(e.end); return a != null && b != null && b > a ? b - a : 0; };
+  const CAL_SVG = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3"/></svg>';
+  function eventRow(e, showCo) {
+    return '<li class="task evrow" style="--co:' + companyColor(e.company) + '"><span class="evicon">' + CAL_SVG + "</span>" +
+      '<div class="tbody"><span class="ttitle">' + esc(e.title) + '</span><span class="tmeta">' + (showCo && e.company ? '<span class="co">' + esc(e.company) + "</span>" : "") +
+      "<span>" + (e.allDay ? "All day" : fmtRange(e.start, e.end)) + "</span>" + (e.location ? "<span>" + esc(e.location) + "</span>" : "") + "</span></div></li>";
+  }
+  function renderStatus() {
+    const el = $("#status");
+    if (!store.synced) return;
+    const cs = state.calsync;
+    let txt = "Synced to your claude.ai account.";
+    if (cs && cs.at) {
+      const at = new Date(cs.at), cals = Object.values(cs.calendars || {});
+      const bad = cals.filter((c) => !c.ok);
+      txt += " Calendars updated " + (iso(at) === todayISO() ? "" : DOW[at.getDay()] + " ") + fmtTime(pad(at.getHours()) + ":" + pad(at.getMinutes())) + ".";
+      if (bad.length) txt += " Couldn't reach: " + bad.map((c) => c.label).join(", ") + ".";
+    }
+    el.textContent = txt;
+  }
+
   function tasksOn(date, filtered = true) {
     const list = Object.entries(state.tasks).map(([id, t]) => Object.assign({ id }, t)).filter((t) => t.date === date);
     Object.keys(state.series).forEach((sid) => {
@@ -622,7 +673,11 @@
       if (a != null) minutes += (b != null && b > a ? b - a : 30);
     }));
 
-    return { co, start, end, label, completed, recurring, recurringDone, open, carried, upcoming, minutes, doneDay };
+    const meetings = [];
+    weekdaysBetween(start, end < today ? end : today).forEach((d) => eventsOn(d, false).forEach((e) => { if (e.company === co && !e.free) meetings.push(e); }));
+    const meetingMin = meetings.reduce((n, e) => n + evMinutes(e), 0);
+
+    return { co, start, end, label, completed, recurring, recurringDone, open, carried, upcoming, minutes, doneDay, meetings, meetingMin };
   }
 
   function reportText(r, highlights, asks) {
@@ -631,11 +686,15 @@
     L.push(r.co + " activity update");
     L.push(r.label);
     L.push("");
-    L.push("At a glance: " + (r.completed.length + r.recurringDone) + " completed · " + r.open.length + " open" + (r.minutes ? " · " + fmtDur(r.minutes) + " time-blocked" : ""));
+    L.push("At a glance: " + (r.completed.length + r.recurringDone) + " completed · " + r.open.length + " open" + (r.meetings.length ? " · " + r.meetings.length + " meeting" + (r.meetings.length === 1 ? "" : "s") + (r.meetingMin ? " (" + fmtDur(r.meetingMin) + ")" : "") : "") + (r.minutes ? " · " + fmtDur(r.minutes) + " time-blocked" : ""));
     if (highlights.trim()) { L.push(""); L.push("HIGHLIGHTS"); L.push(...bullets(highlights)); }
     L.push(""); L.push("COMPLETED (" + r.completed.length + ")");
     if (r.completed.length) r.completed.forEach((t) => L.push("- " + fmtMD(r.doneDay(t)) + ": " + t.title + (t.notes ? " (" + t.notes + ")" : "")));
     else L.push("- No one-off tasks completed in this period.");
+    if (r.meetings.length) {
+      L.push(""); L.push("MEETINGS (" + r.meetings.length + ")");
+      r.meetings.forEach((e) => L.push("- " + fmtMD(e.date) + ": " + e.title + (e.allDay ? "" : " at " + fmtTime(e.start))));
+    }
     if (r.recurring.length) {
       L.push(""); L.push("ONGOING WORK");
       r.recurring.forEach((x) => L.push("- " + x.title + ": done " + x.done + " of " + x.days.length + " scheduled days (" + x.pattern.toLowerCase() + ")"));
@@ -676,10 +735,13 @@
     h += '<div class="tiles">' +
       '<div class="tile"><b>' + (r.completed.length + r.recurringDone) + "</b><span>Completed" + (r.recurringDone ? " (incl. " + r.recurringDone + " repeating)" : "") + "</span></div>" +
       '<div class="tile"><b>' + r.open.length + "</b><span>Open now</span></div>" +
-      '<div class="tile"><b>' + r.carried + "</b><span>Carried over</span></div>" +
+      '<div class="tile"><b>' + r.meetings.length + "</b><span>Meetings" + (r.meetingMin ? " · " + fmtDur(r.meetingMin) : "") + "</span></div>" +
       '<div class="tile"><b>' + (r.minutes ? fmtDur(r.minutes) : "0h") + "</b><span>Time-blocked</span></div></div>";
     h += '<section class="rsec"><h3>Completed · ' + r.completed.length + "</h3>" +
       (r.completed.length ? "<ul>" + r.completed.map((t) => li(fmtMD(r.doneDay(t)), t.title, t.notes)).join("") + "</ul>" : '<p class="none">No one-off tasks completed in this period.</p>') + "</section>";
+    if (r.meetings.length) {
+      h += '<section class="rsec"><h3>Meetings · ' + r.meetings.length + "</h3><ul>" + r.meetings.map((e) => li(fmtMD(e.date), e.title + (e.allDay ? "" : " · " + fmtTime(e.start)), e.location)).join("") + "</ul></section>";
+    }
     if (r.recurring.length) {
       h += '<section class="rsec"><h3>Ongoing work</h3><ul>' + r.recurring.map((x) =>
         '<li><span class="d">' + x.done + "/" + x.days.length + " days</span><span>" + esc(x.title) + '<span class="n">' + esc(x.pattern) + '</span><span class="streak" style="--co:' + co + '" aria-hidden="true">' +
@@ -761,7 +823,7 @@
       const pct = list.length ? Math.round((done / list.length) * 100) : 0;
       return '<button class="day" role="tab" data-day="' + d + '" aria-selected="' + (d === state.day) + '">' +
         '<span class="dname">' + DOW[dt.getDay()] + " " + dt.getDate() + (d === today ? "<small>Today</small>" : "") + "</span>" +
-        '<span class="dnum">' + (list.length ? done + "/" + list.length + " done" : "Open") + "</span>" +
+        '<span class="dnum">' + (list.length ? done + "/" + list.length + " done" : "Open") + (eventsOn(d).length ? " · " + eventsOn(d).length + " mtg" + (eventsOn(d).length === 1 ? "" : "s") : "") + "</span>" +
         '<span class="bar"><i style="width:' + pct + '%"></i></span>' +
         '<span class="dots">' + list.slice(0, 12).map((t) => '<b class="' + (t.done ? "done" : "") + '" style="--co:' + companyColor(t.company) + '"></b>').join("") + "</span>" +
         "</button>";
@@ -841,32 +903,36 @@
 
     if (!state.loaded) { pane.innerHTML = html + '<p class="empty">Loading your week…</p>'; return; }
 
+    const evs = eventsOn(state.day);
     if (prefs.view === "company") {
-      if (!list.length) {
+      if (!list.length && !evs.length) {
         html += '<p class="empty">' + (prefs.filter === "all" ? "Nothing planned for " + DOW_LONG[dt.getDay()] + " yet. Add tasks with the form." : "No " + esc(prefs.filter) + " tasks on " + DOW_LONG[dt.getDay()] + ".") + "</p>";
       } else {
-        const groups = {};
+        const groups = {}, mgroups = {};
         list.forEach((t) => { (groups[t.company] = groups[t.company] || []).push(t); });
+        evs.forEach((e) => { (mgroups[e.company] = mgroups[e.company] || []).push(e); groups[e.company] = groups[e.company] || []; });
         Object.keys(groups).sort((a, b) => companyOrder(a) - companyOrder(b) || a.localeCompare(b)).forEach((name) => {
-          const g = groups[name], gd = g.filter((t) => t.done).length;
-          html += '<section class="group"><div class="ghead" style="--co:' + companyColor(name) + '">' + esc(name) + "<span>" + gd + "/" + g.length + "</span></div>" +
-            '<ul class="tasks">' + g.map((t) => taskRow(t, false)).join("") + "</ul></section>";
+          const g = groups[name], gd = g.filter((t) => t.done).length, m = mgroups[name] || [];
+          html += '<section class="group"><div class="ghead" style="--co:' + companyColor(name) + '">' + esc(name || "Other calendar") + "<span>" + (g.length ? gd + "/" + g.length : "") + (m.length ? (g.length ? " · " : "") + m.length + " mtg" + (m.length === 1 ? "" : "s") : "") + "</span></div>" +
+            '<ul class="tasks">' + m.map((e) => eventRow(e, false)).join("") + g.map((t) => taskRow(t, false)).join("") + "</ul></section>";
         });
       }
     } else {
       const unsched = list.filter((t) => !t.start), sched = list.filter((t) => t.start);
+      const allDay = evs.filter((e) => e.allDay), timedEv = evs.filter((e) => !e.allDay);
+      if (allDay.length) html += '<div class="allday">' + allDay.map((e) => '<span style="--co:' + companyColor(e.company) + '">' + CAL_SVG + " " + esc(e.title) + "</span>").join("") + "</div>";
       if (unsched.length) {
         html += '<div class="unsched"><h3>Needs a time block · ' + unsched.length + '</h3><ul class="tasks">' + unsched.map((t) => taskRow(t, true)).join("") + "</ul></div>";
       }
       let startH = 7, endH = 19;
-      sched.forEach((t) => {
+      sched.concat(timedEv).forEach((t) => {
         const s = toMin(t.start), e = toMin(t.end) || s + 30;
         startH = Math.min(startH, Math.floor(s / 60)); endH = Math.max(endH, Math.ceil(Math.max(e, s + 30) / 60));
       });
       endH = Math.min(endH, 24);
       const hourPx = 56;
       // lay out overlapping blocks in side-by-side lanes
-      const items = sched.map((t) => { const s = toMin(t.start); let e = toMin(t.end); if (e == null || e <= s) e = s + 30; return { t, s, e }; }).sort((a, b) => a.s - b.s || a.e - b.e);
+      const items = sched.concat(timedEv).map((t) => { const s = toMin(t.start); let e = toMin(t.end); if (e == null || e <= s) e = s + 30; return { t, s, e }; }).sort((a, b) => a.s - b.s || a.e - b.e);
       let cluster = [], clusterEnd = -1;
       const flush = () => {
         const lanes = [];
@@ -883,6 +949,10 @@
         const top = ((it.s - startH * 60) / 60) * hourPx, h = Math.max(((it.e - it.s) / 60) * hourPx - 2, 24);
         const w = 100 / it.lanes;
         const t = it.t;
+        if (t.isEvent) {
+          return '<div class="block evt' + (t.free ? " free" : "") + '" style="--co:' + companyColor(t.company) + ";top:" + top + "px;height:" + h + "px;left:calc(" + (w * it.lane) + "% + 4px);width:calc(" + w + '% - 8px)">' +
+            '<span class="evicon">' + CAL_SVG + '</span><div class="bt"><b>' + esc(t.title) + "</b><span>" + (t.company ? esc(t.company) + " · " : "") + fmtRange(t.start, t.end) + "</span></div></div>";
+        }
         return '<div class="block' + (t.done ? " done" : "") + '" style="--co:' + companyColor(t.company) + ";top:" + top + "px;height:" + h + "px;left:calc(" + (w * it.lane) + "% + 4px);width:calc(" + w + '% - 8px)">' +
           '<button class="check" data-toggle="' + t.id + '" aria-pressed="' + !!t.done + '" aria-label="' + (t.done ? "Mark not done: " : "Mark done: ") + esc(t.title) + '">' + CHECK_SVG + "</button>" +
           '<div class="bt"><b>' + esc(t.title) + "</b><span>" + (t.seriesId ? REP_SVG + " " : "") + esc(t.company) + " · " + fmtRange(t.start, t.end) + "</span></div>" +
@@ -891,7 +961,7 @@
       let nowLine = "";
       const nowD = new Date(), nm = nowD.getHours() * 60 + nowD.getMinutes();
       if (state.day === todayISO() && nm >= startH * 60 && nm <= endH * 60) nowLine = '<div class="now" style="top:' + ((nm - startH * 60) / 60) * hourPx + 'px"></div>';
-      if (!sched.length && !unsched.length) html += '<p class="empty">No tasks on this day yet. Add one with a start time to block it out.</p>';
+      if (!sched.length && !unsched.length && !evs.length) html += '<p class="empty">No tasks on this day yet. Add one with a start time to block it out.</p>';
       html += '<div class="timegrid"><div class="hours">' + hours + '</div><div class="lanes">' + lines + blocks + nowLine + "</div></div>";
     }
     pane.innerHTML = html;
@@ -900,8 +970,12 @@
   function renderSummary() {
     const dates = weekDates(state.week);
     const rows = {};
+    dates.forEach((d) => eventsOn(d, false).forEach((e) => {
+      const r = rows[e.company] = rows[e.company] || { total: 0, done: 0, min: 0, mtg: 0, mtgMin: 0 };
+      r.mtg++; r.mtgMin += evMinutes(e);
+    }));
     dates.forEach((d) => tasksOn(d, false).forEach((t) => {
-      const r = rows[t.company] = rows[t.company] || { total: 0, done: 0, min: 0 };
+      const r = rows[t.company] = rows[t.company] || { total: 0, done: 0, min: 0, mtg: 0, mtgMin: 0 };
       r.total++; if (t.done) r.done++;
       const s = toMin(t.start), e = toMin(t.end);
       if (s != null) r.min += (e != null && e > s ? e - s : 30);
@@ -910,8 +984,8 @@
     const totMin = names.reduce((n, k) => n + rows[k].min, 0);
     $("#weekSummary").innerHTML = '<h3>This week by company</h3>' +
       (names.length ? names.map((n) => {
-        const r = rows[n], pct = Math.round((r.done / r.total) * 100);
-        return '<div class="srow" style="--co:' + companyColor(n) + '"><span>' + esc(n) + '</span><span class="n">' + r.done + "/" + r.total + (r.min ? " · " + fmtDur(r.min) : "") + '</span><span class="bar"><i style="width:' + pct + '%"></i></span></div>';
+        const r = rows[n], pct = r.total ? Math.round((r.done / r.total) * 100) : 0;
+        return '<div class="srow" style="--co:' + companyColor(n) + '"><span>' + esc(n || "Other calendar") + '</span><span class="n">' + (r.total ? r.done + "/" + r.total : "") + (r.min ? " · " + fmtDur(r.min) : "") + (r.mtg ? (r.total ? " · " : "") + r.mtg + " mtg" + (r.mtg === 1 ? "" : "s") : "") + '</span><span class="bar"><i style="width:' + pct + '%"></i></span></div>';
       }).join("") + '<p class="hint">' + (totMin ? fmtDur(totMin) + " time-blocked this week." : "No time blocks yet this week.") + "</p>"
         : '<p class="hint">No tasks this week yet.</p>');
   }
@@ -933,7 +1007,7 @@
     const editing = state.editing ? getItem(state.editing) : null;
     if (editing && !names.includes(editing.company)) names.push(editing.company);
     sel.innerHTML = names.map((n) => "<option>" + esc(n) + "</option>").join("") + '<option value="__new">+ Add a company…</option>';
-    if (cur && (names.includes(cur) || cur === "__new")) sel.value = cur;
+    if (cur && (names.includes(cur) || (cur === "__new" && (sel.dataset.chosenNew || !names.length)))) sel.value = cur;
     else if (prefs.filter !== "all" && names.includes(prefs.filter)) sel.value = prefs.filter;
     else if (!names.length) sel.value = "__new";
     $("#newcoWrap").hidden = sel.value !== "__new";
@@ -1118,7 +1192,8 @@
     if (!wasEdit) { $("#f-company").value = keepCo; $("#f-date").value = keepDate; $("#f-date").dataset.touched = "1"; $("#newcoWrap").hidden = true; updateWeeklyLabel(); }
     $("#f-title").focus({ preventScroll: true });
   });
-  $("#f-company").addEventListener("change", () => { $("#newcoWrap").hidden = $("#f-company").value !== "__new"; if (!$("#newcoWrap").hidden) $("#f-newco").focus(); });
+  $("#f-company").addEventListener("change", () => {
+    if ($("#f-company").value === "__new") $("#f-company").dataset.chosenNew = "1"; else delete $("#f-company").dataset.chosenNew; $("#newcoWrap").hidden = $("#f-company").value !== "__new"; if (!$("#newcoWrap").hidden) $("#f-newco").focus(); });
   $("#f-date").addEventListener("change", () => { $("#f-date").dataset.touched = "1"; updateWeeklyLabel(); });
   $("#f-repeat").addEventListener("change", () => {
     if ($("#f-repeat").value === "custom" && !DAY_BOXES.some((b) => b.checked) && $("#f-date").value) {
