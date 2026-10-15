@@ -33,6 +33,9 @@ NYC metro / Long Island. Works **fully remote** — national reach, NY metro is 
 Pre-2012 (off-profile): Ferrandino & Son, Director of Regional Sales (~2008, facilities and
 commercial construction) · Prudential Douglas Elliman (~2005).
 
+**Update 2026-10-15: Jess has left Sobrynth.** The bridge figures, the Sobrynth conversion play (3a) and the
+financial parameters below still assume it and need re-cutting. Removed from the planner's company list.
+
 Bridge engagements = **Sobrynth + VIVIO Health**, both contract, both "x hours/week, no end date",
 together ~$12.5K/mo. Carietti Group is the entity she bills through, not a third client.
 

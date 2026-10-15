@@ -870,7 +870,9 @@
   }
 
   function renderFilters() {
-    const used = new Set(Object.values(state.tasks).concat(Object.values(state.series)).map((t) => t.company));
+    // Listed companies, plus any removed company that still has tasks in the week on screen (history stays visible).
+    const used = new Set();
+    weekDates(state.week).forEach((d) => tasksOn(d, false).concat(eventsOn(d, false)).forEach((t) => used.add(t.company)));
     const names = state.companies.map((c) => c.name);
     used.forEach((n) => { if (n && !names.includes(n)) names.push(n); });
     if (prefs.filter !== "all" && !names.includes(prefs.filter)) prefs.filter = "all";
