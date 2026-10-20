@@ -6,6 +6,7 @@ token.json
 
 # Staged drafts may contain contact details
 pipeline/drafts/
+pipeline/audits/
 
 # Python
 __pycache__/
