@@ -212,6 +212,12 @@ Channel targets: VC/PE platform partners 2–3 deals · warm network 1–2 · re
 5. Placement fee read as a conflict (mitigate: disclose in MSA)
 6. Slow client hiring holding the final 30% (mitigate: date ceiling)
 
+## Other engagements
+
+- **Meerkat** (Minneapolis creative agency) — Jess consults for them on healthcare targeting.
+  POV she sent 2026-10-28, her warm relationships, and voice notes in `engagements/meerkat.md`.
+  Terms not yet logged; fold into financial parameters once known.
+
 ## Artifacts
 
 - **Strategy, research and pricing**: https://claude.ai/code/artifact/7985cfd3-122f-446a-af21-4bae3f71694c
