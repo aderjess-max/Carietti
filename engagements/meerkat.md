@@ -103,3 +103,19 @@ These are also live doors for the Carietti practice and the prospecting agent.
 - **States her own ranking** ("in order of my perceived importance") — owns the judgment.
 - Kept my category structure and one-line descriptors; rewrote all the prose. Next time: give her
   the structured list and a 2–3 sentence plain framing, not a polished persuasive paragraph.
+
+## Update 2026-11-05 — Preston Spire *is* Meerkat; outreach plan
+
+- **Preston Spire rebranded to Meerkat on 2026-10-12** ("Minnesota's oldest independent agency takes
+  a name with teeth"). prestonspire.com redirects to hellomeerkat.com. Founded 1950, employee-owned,
+  105 S 5th Ave, Minneapolis. Process: Scan → Spot → Rally → Score.
+- Leadership: Jennifer Spire (Partner/CEO), Dustin Black (Partner/CCO), Jeannette Tschida (SVP Group
+  Media), Alli Bolger (SVP Group Strategy), Kate Frank (Exec Dir, Account & PM; ex-Colle McVoy),
+  **Eric VanderVorste (New Business Director; ex-BBDO)** — the person who runs outreach.
+- **They already have deep healthcare proof**, which undercuts the "healthcare isn't us" hesitation:
+  Medtronic Symplicity DTC launch, Neuros Altius device launch, Mayo Clinic podcast, UCare (No. 4 → No. 1
+  MA plan), HealthPartners, Gundersen "Love + Medicine" (Gundersen is now part of Emplify — warm path),
+  CHI Franciscan, BCBS ND, MakeItOK (mental health stigma), MN Alliance on Problem Gambling.
+  Healthcare is in the work filter but missing from the site's footer industry list.
+- **Creative outreach plan** (tiers, mailers, video, events, warm intros, guardrails, 90 days) lives in
+  the doc *Meerkat Healthcare Outreach Plan*: https://claude.ai/artifact/2aBFJrR3EbzzCuWWyRZD9o

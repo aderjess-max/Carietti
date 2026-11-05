@@ -215,7 +215,8 @@ Channel targets: VC/PE platform partners 2–3 deals · warm network 1–2 · re
 ## Other engagements
 
 - **Meerkat** (Minneapolis creative agency) — Jess consults for them on healthcare targeting.
-  POV she sent 2026-10-28, her warm relationships, and voice notes in `engagements/meerkat.md`.
+  Meerkat = Preston Spire, renamed 2026-10-12. POV she sent 2026-10-28, her warm relationships,
+  voice notes and the outreach plan doc link in `engagements/meerkat.md`.
   Terms not yet logged; fold into financial parameters once known.
 
 ## Artifacts
