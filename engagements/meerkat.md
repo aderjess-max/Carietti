@@ -119,3 +119,18 @@ These are also live doors for the Carietti practice and the prospecting agent.
   Healthcare is in the work filter but missing from the site's footer industry list.
 - **Creative outreach plan** (tiers, mailers, video, events, warm intros, guardrails, 90 days) lives in
   the doc *Meerkat Healthcare Outreach Plan*: https://claude.ai/artifact/2aBFJrR3EbzzCuWWyRZD9o
+
+## Outreach email rules — Meerkat reviewer feedback, 2026-11-09
+
+Jess sent 5 cold emails to health system marketing leaders (CentraCare, Children's Minnesota,
+AtlantiCare, Baptist Memorial, Emory). Meerkat's feedback, to apply to all future outreach copy:
+
+- **80–100 words.** One hook in the opener, not several. Listing multiple company developments or
+  someone's exact tenure reads as being tracked.
+- **One ask.** Don't follow "I'd love to learn…" with "Would you be open…".
+- **Drop "formerly Preston Spire."** Prospects don't know the old name.
+- **Proof, not adjectives.** No "deep healthcare experience" / "fresh ideas." Name one Meerkat case
+  study that matches the hook (case studies on hellomeerkat.com/work). Link "Meerkat" to the site.
+- Signed "Jess". Emails can follow up on a mailer.
+- Note: naming Meerkat's clients as proof is fine in emails; it was only the outreach-ideas doc
+  that she wanted free of client names.
