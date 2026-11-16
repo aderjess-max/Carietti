@@ -1,0 +1,221 @@
+track,step,date_or_trigger,channel,subject_a,subject_b,body,why
+A - already emailed,Day 0,Tue Nov 17,Email 3,before the holidays,leftover recognition budget,"Hi {{first_name}},
+
+One timely thought.
+
+If there's anything left in this year's recognition or holiday budget, Type is a better use of it than another pizza party. It's a gift your team will carry every shift, long after the holidays.
+
+Order by [Dec X] and it lands on the unit before [Dec Y].
+
+How many people are on your team? Reply with a number and I'll send pricing the same day.
+
+Jess",A reason to buy this month. Holiday and leftover recognition money is the only budget that's live right now.
+A - already emailed,Day 1,Wed Nov 18,LinkedIn,Connection request,,"Hi {{first_name}}, I've been writing to you about Type, the bag a physician designed for 12-hour shifts. Thought I'd connect here too. Grateful for what your team does.","Second channel, no pitch. People open email from a name they've just seen."
+A - already emailed,Day 14,Tue Dec 1,Email 4,wrong person?,who plans Nurses Week?,"Hi {{first_name}},
+
+I may be writing to the wrong person, so I'll just ask.
+
+Who plans staff gifts for Nurses Week at {{company}}? Sometimes it's the unit manager, sometimes a recognition committee, the practice council or the hospital foundation.
+
+If it isn't you, a name is all I need.
+
+Jess","The referral ask. Often the highest-reply email in the sequence, because 'not me, try Pat' is easy to send."
+A - already emailed,Day 15,Wed Dec 2,Call,,,"Call the unit or office line. Use the voicemail script in section 07. If someone answers, ask the Email 4 question out loud: who plans Nurses Week gifts?","One call attempt. Leave the voicemail in section 07, then send nothing extra."
+A - already emailed,Day 21,Tue Dec 8,Email 5,one for the break room,can I send you one?,"Hi {{first_name}},
+
+Easier than another email: let me send you a Type bag.
+
+Put it in the break room for a shift. If the team fights over it, we'll talk. If nobody notices, you've got a free bag and I'll stop writing.
+
+Reply with a shipping address and it goes out this week.
+
+Jess","The sample offer, made the whole email. The smallest possible yes."
+A - already emailed,Day 49,Tue Jan 5,Email 6,"Nurses Week, four months out",before the May rush,"Hi {{first_name}},
+
+Happy new year. Nurses Week is May 6–12, and most hospitals lock in their gift in February or March, before budgets get spoken for.
+
+Here's how it works with us, so there's nothing to figure out:
+
+- You tell me the headcount and the date you need them by.
+- I send a quote the same day. [Starter packs fit on a P-card, no PO needed.]
+- We ship to the unit [boxed per person, with a card from you].
+
+Want me to hold a delivery slot for the week before Nurses Week?
+
+Jess","Back after the holidays, timed to when Nurses Week budgets get set. Shows exactly how ordering works."
+A - already emailed,Day 51,Thu Jan 7,LinkedIn,LinkedIn message,,"Happy new year, {{first_name}}. Planning for Nurses Week usually starts around now. If gifts for your team are on the list, I'm happy to send a sample bag to the unit first. Just send an address.",Message only if they accepted the connection.
+A - already emailed,Day 63,Tue Jan 19,Email 7,a smaller place to start,for your certified nurses,"Hi {{first_name}},
+
+If a whole-unit order is a big ask, here's a smaller place to start.
+
+Certified Nurses Day is March 19. A Type bag for each certified nurse on your team is a short list, a small budget, and a real thank-you for the extra work certification takes. [For physician leaders: Doctors' Day is March 30, same idea for your medical staff.]
+
+How many certified nurses do you have? I'll send a quote for just that group.
+
+Jess",A smaller first order. A manager who can't fund 60 bags can usually fund 12.
+A - already emailed,Day 77,Tue Feb 2,Email 8,close the loop?,"1, 2 or 3?","Hi {{first_name}},
+
+I haven't heard back, which usually means one of three things. Reply with a number and I'll take it from there:
+
+1. Interested, just buried. Check back in March.
+2. Not me. Talk to ______.
+3. Not a fit. Close the file.
+
+Either way, thank you for everything your team does.
+
+Jess","The close-out. Numbered replies take two seconds, and each one routes them somewhere useful."
+A - seasonal,Mar 2,Nurses Week,Seasonal,last order date for Nurses Week,,"Hi {{first_name}},
+
+To have Type on your unit for Nurses Week (May 6), the last order date is [Apr X]. Want me to send a quote for your team? Just reply with a headcount.
+
+Jess",Final call with a real deadline.
+A - seasonal,Jun 1,New grads & interns,Seasonal,for your new grads,,"Hi {{first_name}},
+
+New grads and new interns start this summer. A Type bag on day one tells them how their first 12-hour shift is going to go: organized. Who runs onboarding for your new hires?
+
+Jess",Cohort starts. Route to the educator if your contact isn't one.
+A - seasonal,Aug 24,Fall weeks,Seasonal,October is full of these,,"Hi {{first_name}},
+
+October has Emergency Nurses Week, PA Week and Respiratory Care Week, all in about three weeks. If any of those teams are yours, the order date to make it is [Sep X]. Want a quote?
+
+Jess","Emergency Nurses Week, PA Week, Respiratory Care Week all fall in October."
+A - seasonal,Sep 21,NP Week & holidays,Seasonal,NP Week and the holidays,,"Hi {{first_name}},
+
+NP Week is in November and the holidays follow right after. Last year's timing was tight for a lot of teams, so I'm writing early. Order by [Oct X] for NP Week. Headcount?
+
+Jess",The cycle restarts. Anyone who said 'next year' gets this.
+B - hand-raisers,Day 0,Same day,Email,Re: (keep their thread),,"Hi {{first_name}},
+
+On its way. Tracking: [link]. I put a card inside for whoever ends up wearing it.
+
+Two quick questions so I can have pricing ready when it lands:
+
+1. Roughly how many people are on the team?
+2. Is there a date you'd need them by?
+
+Jess",Ship the sample the day they ask. Collect the two facts you need to quote while it's in transit.
+B - hand-raisers,Day 3,Delivery day,Email,it should be there today,,"Hi {{first_name}},
+
+The bag should have landed today. One favor: give it to whoever on your team carries the most in their pockets, and ask them how it went after one shift.
+
+Their answer is the only review that matters.
+
+Jess",Tell them what to do with it. A bag that sits in its box never sells.
+B - hand-raisers,Day 8,,Email,the verdict,what did your team say?,"Hi {{first_name}},
+
+What did your team say about the bag?
+
+If they liked it, I can have a quote for the whole team to you today. If something didn't work, I'd like to know that too.
+
+Jess","Ask for the verdict. Whatever they say, the next email is a quote."
+B - hand-raisers,Day 9,On a yes,Quote,Type for {{unit}}: three options,,"Hi {{first_name}},
+
+Here's what it would look like for your team:
+
+- Whole unit, {{headcount}} bags: [$ total]. [Boxed per person, with a card from you.]
+- Starter, just your [charge nurses / certified nurses / preceptors], about [N] bags: [$ total]. Fits on a P-card.
+- Unit plus extras for new hires through the year: [$ total].
+
+To have them on the unit by [date], I need the go-ahead by [date]. Card, P-card, PO or invoice all work.
+
+If this needs someone else's sign-off, I've written a short note you can forward. Want it?
+
+Jess","Three options, one deadline. Lead with the middle option."
+B - hand-raisers,Day 14,,Email,something to forward,,"Hi {{first_name}},
+
+In case it's sitting with someone else, here's a note you can forward as is:
+
+[paste the approval note from section 03, filled in]
+
+I've also attached our W-9 and insurance certificate in case procurement asks.
+
+Jess",Most stalls are approvals. Do the approver's paperwork for them.
+B - hand-raisers,Day 21,,Email,the [date] cutoff,,"Hi {{first_name}},
+
+Quick reminder that [date] is the last day to order for delivery by [event date].
+
+If the full unit isn't approved yet, we could start with the starter group now and add the rest later at the same per-bag price.
+
+Jess","Deadline reminder with the smaller option, so the answer can be yes to something."
+B - hand-raisers,After delivery,+14 days,Email,how did it land?,,"Hi {{first_name}},
+
+Hope the team liked them. Two small asks:
+
+1. If anyone took a photo, could I share it? [With your permission, first names only.]
+2. Who else in {{company}} plans recognition for their team? A name is all I need.
+
+I'll check in before [next event] in case you want bags for new hires.
+
+Jess","Turn one order into the next one: a photo, a referral, and a reorder date."
+C - new prospect openers,Hospital,Nurse leaders,Email 1,"12 hours, 6 pockets",where does it all go?,"Hi {{first_name}},
+
+Quick question: where does your team keep their stuff during a 12-hour shift?
+
+Usually it's scrub pockets, a stethoscope around the neck and a badge clipped wherever. A physician got fed up with that and designed Type, a bag worn by thousands of clinicians.
+
+Nurses Week is May 6. Who on your team plans the gift? I'd like to send them a sample.
+
+Jess
+
+PS. Every purchase supports Operation Happy Nurse, a nonprofit started by a nurse to support nurses' mental health.","For nurse managers, directors and CNOs. The pocket line is your best opener; keep it."
+C - new prospect openers,Agency,Travel & staffing,Email 1,first day on a new unit,for your travelers,"Hi {{first_name}},
+
+A traveler's first shift on a new unit is the one where they don't know where anything is, including where to put their own things.
+
+Type is a bag a physician designed for exactly that: stethoscope, shears, phone, badge, keys, all on them, all shift. Agencies use it as a welcome gift that clinicians actually keep using.
+
+How many new travelers do you start in a typical month? I'll send a sample and pricing for that number.
+
+Jess",Sell retention and first-day experience. The agency's clinician is the end user.
+C - new prospect openers,School,Nursing schools,Email 1,a pinning gift they'll use,for your graduates,"Hi {{first_name}},
+
+Your graduates are about to start their first 12-hour shifts. Most of them will learn the hard way how little fits in scrub pockets.
+
+Type is a bag a physician designed for that first year and every one after. Schools give it at pinning, and students use it the next week.
+
+When is your next pinning ceremony, and roughly how many graduates? I'll send a sample to your office.
+
+Jess",Pinning is a moment that already has a gift attached. Timing matters: December and May.
+C - new prospect openers,Residency,GME & programs,Email 1,July 1,for your incoming interns,"Hi {{first_name}},
+
+Type was designed by a physician who was tired of losing things in white coat pockets on long shifts. It's now carried by thousands of clinicians.
+
+Programs give it to incoming interns on July 1. It's a welcome gift they'll use on their first call night.
+
+How big is your incoming class? I'll send a sample and pricing.
+
+Jess",Physician-to-physician story. July 1 is a fixed date every year.
+C - new prospect openers,EMS,EMS & fire,Email 1,"shears, gloves, radio",for EMS Week,"Hi {{first_name}},
+
+Shears, gloves, penlight, phone, radio. On most crews that's spread across five pockets and a jump bag.
+
+Type is a bag a physician designed to keep all of it on you. EMS Week is in May. Want me to send one to the station so the crew can try it on a shift?
+
+Jess","EMS Week is in May. Shears, gloves and a radio are the pitch."
+C - new prospect follow-ups,Day 3,,LinkedIn,Connection request,,"Hi {{first_name}}, I sent you a note about Type, the bag a physician designed for 12-hour shifts. Thought I'd connect here too.","Connection request, same note as Track A day 1."
+C - new prospect follow-ups,Day 5,,Email 2,a 12-hour shift in one bag,worth a thousand words,"Hi {{first_name}},
+
+They say a picture is worth a thousand words, so here's a full 12-hour shift, packed into one bag: [link to GIF]
+
+Stethoscope, shears, phone, badge, keys, glasses. All there, all day. No more overloaded scrub pockets or bags left at the nurses' station.
+
+Can I send you one to try? Just reply with an address.
+
+Jess","Your GIF email. Keep the copy; swap the embedded GIF for a linked still or a link, and end on the sample."
+C - new prospect follow-ups,Day 10,,Email 3,wrong person?,,"Use Track A Email 4, with the event swapped for the segment's window (pinning, July 1, EMS Week, new-traveler welcome).",The referral ask from Track A.
+C - new prospect follow-ups,Day 12,,Call,,,Use the voicemail script in section 07.,One attempt plus voicemail.
+C - new prospect follow-ups,Day 17,,Email 4,one for the break room,,"Use Track A Email 5. For agencies, change 'break room' to 'your next traveler'. For schools, 'your office'.",The sample email from Track A.
+C - new prospect follow-ups,Day 30,,Email 5,close the loop?,,Use Track A Email 8. Anyone who doesn't answer 3 joins the seasonal touches.,"The 1/2/3 close-out from Track A, then into the seasonal touches."
+Phone & LinkedIn scripts,Voicemail,20 seconds,Phone,,,"Hi {{first_name}}, it's Jess with Type. I've sent a couple of emails about Nurses Week gifts for your team. Quick question: who plans those at {{company}}? You can reach me at [number]. Again, Jess, [number]. Thanks.","Name, reason, one question, number twice. No pitch."
+Phone & LinkedIn scripts,Live,If they answer,Phone,,,"""Hi, this is Jess with Type. I'll be quick, I know you're between things. I've been emailing about a bag for your team for Nurses Week. Are you the right person for that, or is it someone else?""
+
+If right person: ""Can I send you one to try? What's the best address?""
+If not: ""Who should I talk to? Can I say you sent me?""","Get a name or an address, then get off the phone."
+Phone & LinkedIn scripts,Comment,Before any DM,LinkedIn,,,"Comment on the substance of their post, never the product. A congratulations on a Magnet designation, a DAISY award or a new unit opening is enough.","When a contact posts about their team, comment first. It makes the next email familiar."
+Reply playbook,No budget,,Reply,,,"Totally understand. A lot of teams fund this through the hospital foundation, the auxiliary or a practice council rather than the unit budget. Would it help if I wrote a short note you could send them? And if timing is the issue, when does your next fiscal year start?","Budget usually exists, just not in their hands."
+Reply playbook,Send info,,Reply,,,"Here you go: [one-page sheet]. The quickest way to see if it's a fit is to try one, so I'm happy to send a sample. Roughly how many people are on the team?","Send it, then ask the question that turns it into a quote."
+Reply playbook,Have a gift,Already planned,Reply,,,"Great, glad the team's being looked after. Could I put you on the list for [next event: new grads in June / Certified Nurses Day next year]? I'll write once, closer to the date.",Move to the next window rather than compete with this one.
+Reply playbook,Too much,Price,Reply,,,"Fair. It works out to about [$ per shift] across a year of shifts, and it lasts longer than that. If the whole unit is too much right now, plenty of managers start with just the charge nurses or certified nurses. Want a quote for that group?","Per shift, and a smaller group."
+Reply playbook,Procurement,Vendor setup,Reply,,,"No problem, here's our W-9 and certificate of insurance. We can invoice on net 30 against a PO, or take a P-card for smaller orders. Who in procurement should I send the vendor forms to?",Make the paperwork disappear.
+Reply playbook,Cleaning,Infection control,Reply,,,[Material] can be [wiped with standard hospital disinfectant wipes / machine washed]. [Confirm and paste the exact guidance.],A real question on clinical units. Have a direct answer.
+Reply playbook,Not me,Referral,Reply,,,Thanks for pointing me the right way. Is it all right if I mention you sent me?,Get a name and permission to use theirs.

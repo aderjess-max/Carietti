@@ -1,0 +1,350 @@
+<title>Type Shift Campaign</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column like a shift handoff sheet. Each sequence step is a row on a
+   timeline: day stamp on the left, the message on the right. */
+:root{
+  --bg:#F5F7F7; --surface:#FFFFFF; --ink:#14232B; --muted:#5A6B72; --line:#D9E1E3;
+  --scrub:#1E6B73; --scrub-soft:#E2EFF0; --flag:#B5502D; --flag-soft:#F7E7E0;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Figtree", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F181C; --surface:#16232A; --ink:#E6EEF0; --muted:#97A9AF; --line:#2A3A41;
+  --scrub:#5FB8C0; --scrub-soft:#173238; --flag:#E58A66; --flag-soft:#3A2219; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F181C; --surface:#16232A; --ink:#E6EEF0; --muted:#97A9AF; --line:#2A3A41;
+  --scrub:#5FB8C0; --scrub-soft:#173238; --flag:#E58A66; --flag-soft:#3A2219; color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+.wrap{max-width:880px;margin:0 auto;padding-block:40px 80px;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(34px,6vw,52px);font-weight:700;letter-spacing:-.02em}
+h2{font-size:28px;font-weight:700;margin-bottom:6px}
+h3{font-size:19px;font-weight:600}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--scrub)}
+.lede{font-size:19px;color:var(--muted);max-width:62ch}
+section{display:flex;flex-direction:column;gap:18px;padding-top:56px}
+.stack{display:flex;flex-direction:column;gap:12px}
+.prose{max-width:66ch;display:flex;flex-direction:column;gap:12px}
+.note{border-left:3px solid var(--flag);background:var(--flag-soft);padding:12px 16px;border-radius:0 6px 6px 0;font-size:15px}
+.note b{color:var(--flag)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card h3{font-size:17px}
+.small{font-size:14px;color:var(--muted)}
+ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:620px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+tr:last-child td{border-bottom:0}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:99px;background:var(--scrub-soft);color:var(--scrub);white-space:nowrap}
+.pill.hot{background:var(--flag-soft);color:var(--flag)}
+
+/* Timeline of steps */
+.track{display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:96px 1fr;gap:18px;padding:18px 0;border-top:1px solid var(--line)}
+.stamp{display:flex;flex-direction:column;gap:4px;font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums}
+.stamp .day{font-size:20px;font-weight:500;color:var(--scrub)}
+.stamp .date{color:var(--muted)}
+.msg{display:flex;flex-direction:column;gap:10px;min-width:0}
+.msghead{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.why{font-size:14px;color:var(--muted)}
+.subj{font-family:var(--mono);font-size:13.5px;display:flex;flex-wrap:wrap;gap:6px 14px}
+.subj span b{color:var(--muted);font-weight:400}
+.body{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;white-space:pre-wrap;font-size:15.5px;line-height:1.55;overflow-wrap:anywhere}
+.copy{align-self:flex-start;font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;background:transparent;color:var(--scrub);border:1px solid var(--scrub);border-radius:6px;padding:5px 10px;cursor:pointer}
+.copy:hover{background:var(--scrub-soft)}
+.copy:focus-visible{outline:2px solid var(--scrub);outline-offset:2px}
+.ph{background:var(--flag-soft);color:var(--flag);border-radius:3px;padding:0 3px}
+.toc{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;margin-top:20px}
+.toc a{color:var(--scrub);text-decoration:none;border-bottom:1px solid var(--scrub-soft)}
+.toc a:hover{border-color:var(--scrub)}
+@media (max-width:560px){.step{grid-template-columns:1fr;gap:8px}.stamp{flex-direction:row;gap:12px;align-items:baseline}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header class="stack">
+  <div class="eyebrow">carrytype.com · outbound program · built 16 Nov 2026</div>
+  <h1>Type Shift Campaign</h1>
+  <p class="lede">Every message, cadence and call script for getting Type into clinicians' hands by the unit-load: one sequence for the people you've already emailed, one for anyone who raises a hand, one for new segments, and a list of who else to go after.</p>
+  <nav class="toc" aria-label="Sections">
+    <a href="#diagnosis">What changes</a><a href="#calendar">Buying calendar</a><a href="#offer">The offer</a>
+    <a href="#track-a">Track A · already emailed</a><a href="#track-b">Track B · hand-raisers</a><a href="#track-c">Track C · new prospects</a>
+    <a href="#scripts">LinkedIn &amp; phone</a><a href="#replies">Reply playbook</a><a href="#who-else">Who else</a><a href="#ops">Deliverability &amp; numbers</a><a href="#before">Before you send</a>
+  </nav>
+  <div class="note"><b>Fill the orange brackets before loading anything.</b> Your contact list didn't come through with the request, and carrytype.com couldn't be reached from this session, so prices, minimums, lead times, testimonials and customization details are left as <span class="ph">[placeholders]</span>. Everything else is ready to load.</div>
+</header>
+
+<section id="diagnosis">
+  <div class="eyebrow">01 · Diagnosis</div>
+  <h2>What changes from the first two emails</h2>
+  <div class="prose">
+    <p>The first two emails are good at the hard part: the problem is vivid and the product is easy to picture. What's missing is a reason to reply today and a next step small enough to say yes to. "How about we team up" and "would you be open to taking a look" both ask the reader to figure out what happens next. Nurse managers won't do that work between huddles.</p>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>Ask one easy question</h3><p class="small">Every follow-up ends with something answerable in one line: a headcount, a name, an address, a number 1–3. Replies drive both orders and inbox placement.</p></div>
+    <div class="card"><h3>Lead with the sample</h3><p class="small">A bag in the break room sells itself to the people who'll lobby for it. The sample becomes the main conversion step, not a PS.</p></div>
+    <div class="card"><h3>Name the buyer, not just the user</h3><p class="small">The person you emailed often loves it but doesn't hold the money. Recognition committees, practice councils and hospital foundations usually do. Ask for them by name.</p></div>
+    <div class="card"><h3>Sell a date, not a holiday</h3><p class="small">Swap "Nurses Week is coming up" for "order by <span class="ph">[date]</span> to have them on the unit May 6." A deadline is something they can act on.</p></div>
+  </div>
+  <div class="note"><b>Calendar fix:</b> NP Week ran Nov 8–14, so it's past. Drop it from anything going out now. The live windows are the holiday and year-end recognition budget (now), then Nurses Week planning, which mostly happens in February and March.</div>
+</section>
+
+<section id="calendar">
+  <div class="eyebrow">02 · When they buy</div>
+  <h2>The buying calendar</h2>
+  <p class="prose">The event is when the gift arrives. The order happens 6–10 weeks earlier, and the budget decision earlier than that. Every step below is timed to the decision, not the event.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Window</th><th>Event date</th><th>When they decide</th><th>Who it fits</th></tr></thead>
+    <tbody>
+      <tr><td>Holiday &amp; leftover recognition budget</td><td class="num">Dec 2026</td><td class="num">Now – early Dec</td><td>Managers with money left in a calendar-year budget</td></tr>
+      <tr><td>December nursing pinning ceremonies</td><td class="num">Mid-Dec</td><td class="num">Now</td><td>Nursing schools, student nurse associations</td></tr>
+      <tr><td>CRNA Week</td><td class="num">Late Jan 2027</td><td class="num">Early Jan</td><td>Anesthesia department leaders</td></tr>
+      <tr><td>Certified Nurses Day</td><td class="num">Mar 19</td><td class="num">Feb</td><td>Small first order: certified nurses only</td></tr>
+      <tr><td>National Doctors' Day</td><td class="num">Mar 30</td><td class="num">Feb</td><td>CMOs, medical staff offices, physician groups</td></tr>
+      <tr><td>World Health Day</td><td class="num">Apr 7</td><td class="num">Feb – Mar</td><td>Health systems, public health departments</td></tr>
+      <tr><td><b>National Nurses Week</b></td><td class="num"><b>May 6–12</b></td><td class="num"><b>Feb – Mar</b></td><td>The big one. Every hospital, clinic, agency</td></tr>
+      <tr><td>Hospital Week · EMS Week</td><td class="num">Mid-May</td><td class="num">Mar</td><td>Hospital HR, EMS agencies, fire departments</td></tr>
+      <tr><td>Spring pinning · new-grad cohorts</td><td class="num">May – Jun</td><td class="num">Mar – Apr</td><td>Nursing schools, nurse residency programs</td></tr>
+      <tr><td>New intern &amp; resident start</td><td class="num">Jul 1</td><td class="num">Apr – May</td><td>GME offices, residency program coordinators</td></tr>
+      <tr><td>Fall weeks: ER nurses, PAs, respiratory, vet techs</td><td class="num">Oct</td><td class="num">Aug</td><td>Specialty departments, vet hospital groups</td></tr>
+      <tr><td>NP Week 2027</td><td class="num">Nov</td><td class="num">Sep</td><td>NP-led practices, retail clinics, urgent care</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="offer">
+  <div class="eyebrow">03 · The offer</div>
+  <h2>Make the order easy to place</h2>
+  <p class="prose">Prospects need to see exactly what they're buying before they'll reply to a quote request. Set up three packs and one order page, then link the page from every sequence after the first reply.</p>
+  <div class="grid2">
+    <div class="card"><span class="pill">Starter</span><h3>Recognition Pack</h3><p class="small">For a small, specific group: charge nurses, certified nurses, preceptors, a night shift. <span class="ph">[10–24 bags · $X each]</span>. Price the whole pack under a typical manager's P-card limit so it can be bought without a PO.</p></div>
+    <div class="card"><span class="pill">Core</span><h3>Unit Pack</h3><p class="small">Every person on the unit. <span class="ph">[25–99 bags · $Y each]</span>. Boxed per person with a card from the manager <span class="ph">[if available]</span>. This is the default quote.</p></div>
+    <div class="card"><span class="pill">System</span><h3>Department or System</h3><p class="small">Nurses Week across a hospital or system. <span class="ph">[100+ · custom pricing]</span>. Split shipping to multiple units, invoice on net 30, vendor setup handled.</p></div>
+  </div>
+  <div class="card">
+    <h3>Remove the procurement stall up front</h3>
+    <ul class="small">
+      <li>Have a vendor packet ready to attach: W-9, certificate of insurance, remit-to details, and a one-page product sheet.</li>
+      <li>Accept credit card, P-card, PO and invoice. Say so in the quote.</li>
+      <li>Publish a "need it by" table: the last order date for Nurses Week delivery, Doctors' Day delivery, and so on.</li>
+      <li>Have an answer for cleaning and infection control. Unit leaders will ask whether it can be wiped down or washed. <span class="ph">[confirm material and cleaning guidance]</span></li>
+      <li>Per-shift math for the "too expensive" reply: three 12s a week for 50 weeks is 150 shifts a year. <span class="ph">[$price]</span> ÷ 150 = <span class="ph">[$ per shift]</span>.</li>
+    </ul>
+  </div>
+  <div class="stack">
+    <h3>The forwardable approval note</h3>
+    <p class="small">Your contact often has to sell this upstairs. Write the justification for them. Send it in Track B when they ask about pricing, and offer it whenever someone says "I'd have to run it by…".</p>
+    <div class="body" id="approval-note">Subject: Nurses Week gift for [unit] — quick approval
+
+For Nurses Week I'd like to give everyone on [unit] a Type bag. It's a crossbody bag designed by a physician to hold what we carry every shift: stethoscope, shears, phone, badge, keys, glasses. It replaces overloaded scrub pockets and the bags that get left at the station.
+
+It's something the team will use every shift, not a one-day treat. At [$ per person] for [headcount] people, the total is [$ total], and it arrives by [date] if we order by [date].
+
+Every purchase also supports Operation Happy Nurse, a nonprofit started by a nurse to support nurses' mental health.
+
+Can I go ahead?</div>
+    <button class="copy" type="button" data-copy="approval-note">Copy note</button>
+  </div>
+</section>
+
+<section id="track-a">
+  <div class="eyebrow">04 · Track A</div>
+  <h2>Already emailed: steps 3 to 8, then seasonal</h2>
+  <p class="prose">For everyone who got both earlier emails and hasn't replied. Starts tomorrow, Tue Nov 17. Day counts run from that date. Anyone who replies, asks for a sample or clicks the GIF leaves this track and moves to Track B the same day.</p>
+  <div class="track" data-track="A"></div>
+  <h3 style="margin-top:12px">After step 8: seasonal touches</h3>
+  <p class="prose small">Everyone who didn't answer "3" gets one short email per buying window, for a year. Each is three or four lines, built from the same frame: the date, the deadline, one question.</p>
+  <div class="track" data-track="A2"></div>
+</section>
+
+<section id="track-b">
+  <div class="eyebrow">05 · Track B</div>
+  <h2>Hand-raisers: sample to order</h2>
+  <p class="prose">Triggered by any positive reply, a sample request, a referral to the right person, or a GIF click. This is where orders happen, so run it by hand, not on autopilot. Day 0 is the day they raise a hand.</p>
+  <div class="track" data-track="B"></div>
+</section>
+
+<section id="track-c">
+  <div class="eyebrow">06 · Track C</div>
+  <h2>New prospects: a 30-day sequence</h2>
+  <p class="prose">For every new contact from the segments in section 09. Pick the opener for their segment, then run the shared steps. Five emails, two LinkedIn touches and a call, over 30 days.</p>
+  <h3>Openers by segment</h3>
+  <div class="track" data-track="C-open"></div>
+  <h3 style="margin-top:12px">Shared follow-up steps</h3>
+  <div class="track" data-track="C"></div>
+</section>
+
+<section id="scripts">
+  <div class="eyebrow">07 · Other channels</div>
+  <h2>LinkedIn and phone</h2>
+  <div class="track" data-track="S"></div>
+</section>
+
+<section id="replies">
+  <div class="eyebrow">08 · Reply playbook</div>
+  <h2>What to say when they answer</h2>
+  <p class="prose">Answer within two hours on a workday. Speed matters more than polish here. Every reply ends by moving one step forward: a headcount, a date, a name, an address.</p>
+  <div class="track" data-track="R"></div>
+</section>
+
+<section id="who-else">
+  <div class="eyebrow">09 · Who else</div>
+  <h2>Who else to go after, ranked</h2>
+  <p class="prose">Ranked by order size multiplied by how often they reorder. The top three buy more than once a year, which is what turns this from a Nurses Week spike into steady orders.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>#</th><th>Segment</th><th>Who to email</th><th>Why they buy</th><th>When</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td><b>Travel nurse &amp; staffing agencies</b> <span class="pill hot">repeat</span></td><td>VP Clinician Experience, Recruitment Marketing, Retention lead</td><td>Welcome kits for every new traveler, retention gifts at extension. Clinicians they place are exactly Type's user, and recruiting budgets are large.</td><td>Year-round</td></tr>
+      <tr><td class="num">2</td><td><b>Nurse residency &amp; new-grad programs</b> <span class="pill hot">repeat</span></td><td>Nurse Residency Program Coordinator, Clinical Educator, Director of Nursing Professional Development</td><td>A new cohort starts 2–4 times a year and each needs a first-day gift. Educators also hold a budget separate from the unit.</td><td>Each cohort</td></tr>
+      <tr><td class="num">3</td><td><b>Nursing schools</b> <span class="pill hot">repeat</span></td><td>Dean, Associate Dean of Student Affairs, Student Nurses Association advisor, Alumni Relations</td><td>Pinning ceremonies in May and December, clinical-rotation starter kits, alumni giving gifts.</td><td>Now (Dec pinning), Mar–Apr</td></tr>
+      <tr><td class="num">4</td><td>Hospital foundations &amp; auxiliaries</td><td>Foundation Executive Director, Employee Giving Manager, Auxiliary President</td><td>They fund staff appreciation the unit budget can't cover. One yes can cover a whole hospital.</td><td>Jan–Mar</td></tr>
+      <tr><td class="num">5</td><td>Residency programs &amp; GME offices</td><td>GME Director, Residency Program Coordinator, Chief Residents</td><td>Intern welcome gifts for July 1, plus Doctors' Day. Type's physician-founder story lands best here.</td><td>Feb–May</td></tr>
+      <tr><td class="num">6</td><td>Home health &amp; hospice agencies</td><td>Director of Clinical Services, HR / Retention</td><td>Field clinicians carry everything between patient homes and the car. A strong fit for the product, and these agencies fight hard on retention.</td><td>Year-round</td></tr>
+      <tr><td class="num">7</td><td>EMS agencies &amp; fire departments</td><td>EMS Chief, Operations Manager, Union local</td><td>EMS Week in May. Shears, gloves, penlight and radio all need a home.</td><td>Mar</td></tr>
+      <tr><td class="num">8</td><td>Specialty nursing associations &amp; conferences</td><td>Chapter presidents, conference sponsorship and exhibitor teams</td><td>Member appreciation, speaker gifts, booth giveaways. Large regional chapters order in bulk.</td><td>Before each conference</td></tr>
+      <tr><td class="num">9</td><td>Nurse-facing health tech &amp; staffing apps</td><td>Head of Community, Clinician Marketing, Customer Success</td><td>Companies whose users are nurses (shift marketplaces, nurse job boards, credentialing apps) need gifts for top users and ambassador programs.</td><td>Year-round</td></tr>
+      <tr><td class="num">10</td><td>Corporate gifting platforms &amp; promo distributors</td><td>Partnerships or merchandising buyers</td><td>A channel, not a buyer. Get Type listed in the catalogs healthcare HR teams already order from.</td><td>Q1 for the Nurses Week catalogs</td></tr>
+      <tr><td class="num">11</td><td>Urgent care, retail clinics, NP-led practices</td><td>Regional Operations Director, Chief Nursing Officer</td><td>Multi-site chains with a central buyer. NP Week and Nurses Week.</td><td>Feb–Mar, Sep</td></tr>
+      <tr><td class="num">12</td><td>Veterinary hospital groups</td><td>Practice Manager, Regional Medical Director</td><td>Vet techs carry the same kit. Vet Tech Week in October. Test with one group first.</td><td>Aug</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><b>Leave out pharma and device reps</b> as a channel for gifting to clinicians. The PhRMA and AdvaMed codes bar reps from giving non-educational items to healthcare professionals, so a rep can't hand out Type even if they want to.</div>
+  <div class="card">
+    <h3>Two warm sources to work first</h3>
+    <ul class="small">
+      <li><b>Ask every buyer for one name.</b> After each delivered order, ask who else in the system plans recognition. Nurse leaders move between hospitals and know their counterparts.</li>
+      <li><b>Partner with Operation Happy Nurse.</b> Ask for an introduction to the hospitals and chapters already in their network, and offer co-branded Nurses Week messaging. A nonprofit introduction gets opened.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="ops">
+  <div class="eyebrow">10 · Running it</div>
+  <h2>Deliverability and the numbers to watch</h2>
+  <div class="grid2">
+    <div class="card"><h3>Getting into the inbox</h3><ul class="small">
+      <li>Hospital email filters are strict. Plain text, one link at most, no attachments in the first touch.</li>
+      <li>Take the embedded GIF out of new-prospect email 2. Use a linked still image or a link to the GIF. Embedded images in cold email hurt inbox placement.</li>
+      <li>Send from a warmed secondary domain, about 30–50 a day per inbox. Verify every new address before it goes in.</li>
+      <li>Send Tue–Thu, 6:30–7:30am in the recipient's time zone, before morning huddle. Test a 2pm slot against it.</li>
+    </ul></div>
+    <div class="card"><h3>Measure replies, not opens</h3><ul class="small">
+      <li>Apple Mail opens every message automatically, so open rates are inflated. Judge subject lines by reply rate.</li>
+      <li>A/B one subject line per step, 50/50, and keep the winner after about 100 sends each.</li>
+      <li>Starting targets to beat: 5% reply rate on Track A and C; half of positive replies take a sample; one in three samples becomes an order.</li>
+      <li>Weekly: sends, replies, samples out, quotes out, orders, average order size, and the segment each came from.</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="before">
+  <div class="eyebrow">11 · Before you send</div>
+  <h2>Checklist</h2>
+  <ul class="prose">
+    <li>Prices and minimums for the three packs, and the per-shift figure.</li>
+    <li>Lead time, and the last order date for each window: holiday, Certified Nurses Day, Doctors' Day, Nurses Week.</li>
+    <li>One or two real customer quotes with permission, and any hospital names you're allowed to mention.</li>
+    <li>What Operation Happy Nurse gets per purchase. A specific number lands better than "supports."</li>
+    <li>Customization: logo, names, gift boxing, card insert. If none exist, remove the brackets that mention them.</li>
+    <li>Cleaning and infection-control guidance.</li>
+    <li>The order page link and the vendor packet.</li>
+    <li>Sample stock and who ships them. The Track B timing assumes a sample goes out within two days.</li>
+    <li>Split the contact list into the tracks: replied (Track B), no reply (Track A), bounced or wrong person (fix, then Track C).</li>
+  </ul>
+</section>
+</div>
+
+<script type="application/json" id="campaign">
+{"A":[
+{"day":"Day 0","date":"Tue Nov 17","channel":"Email 3","why":"A reason to buy this month. Holiday and leftover recognition money is the only budget that's live right now.","subjA":"before the holidays","subjB":"leftover recognition budget","body":"Hi {{first_name}},\n\nOne timely thought.\n\nIf there's anything left in this year's recognition or holiday budget, Type is a better use of it than another pizza party. It's a gift your team will carry every shift, long after the holidays.\n\nOrder by [Dec X] and it lands on the unit before [Dec Y].\n\nHow many people are on your team? Reply with a number and I'll send pricing the same day.\n\nJess"},
+{"day":"Day 1","date":"Wed Nov 18","channel":"LinkedIn","why":"Second channel, no pitch. People open email from a name they've just seen.","subjA":"Connection request","subjB":"","body":"Hi {{first_name}}, I've been writing to you about Type, the bag a physician designed for 12-hour shifts. Thought I'd connect here too. Grateful for what your team does."},
+{"day":"Day 14","date":"Tue Dec 1","channel":"Email 4","why":"The referral ask. Often the highest-reply email in the sequence, because 'not me, try Pat' is easy to send.","subjA":"wrong person?","subjB":"who plans Nurses Week?","body":"Hi {{first_name}},\n\nI may be writing to the wrong person, so I'll just ask.\n\nWho plans staff gifts for Nurses Week at {{company}}? Sometimes it's the unit manager, sometimes a recognition committee, the practice council or the hospital foundation.\n\nIf it isn't you, a name is all I need.\n\nJess"},
+{"day":"Day 15","date":"Wed Dec 2","channel":"Call","why":"One call attempt. Leave the voicemail in section 07, then send nothing extra.","subjA":"","subjB":"","body":"Call the unit or office line. Use the voicemail script in section 07. If someone answers, ask the Email 4 question out loud: who plans Nurses Week gifts?"},
+{"day":"Day 21","date":"Tue Dec 8","channel":"Email 5","why":"The sample offer, made the whole email. The smallest possible yes.","subjA":"one for the break room","subjB":"can I send you one?","body":"Hi {{first_name}},\n\nEasier than another email: let me send you a Type bag.\n\nPut it in the break room for a shift. If the team fights over it, we'll talk. If nobody notices, you've got a free bag and I'll stop writing.\n\nReply with a shipping address and it goes out this week.\n\nJess"},
+{"day":"Day 49","date":"Tue Jan 5","channel":"Email 6","why":"Back after the holidays, timed to when Nurses Week budgets get set. Shows exactly how ordering works.","subjA":"Nurses Week, four months out","subjB":"before the May rush","body":"Hi {{first_name}},\n\nHappy new year. Nurses Week is May 6–12, and most hospitals lock in their gift in February or March, before budgets get spoken for.\n\nHere's how it works with us, so there's nothing to figure out:\n\n- You tell me the headcount and the date you need them by.\n- I send a quote the same day. [Starter packs fit on a P-card, no PO needed.]\n- We ship to the unit [boxed per person, with a card from you].\n\nWant me to hold a delivery slot for the week before Nurses Week?\n\nJess"},
+{"day":"Day 51","date":"Thu Jan 7","channel":"LinkedIn","why":"Message only if they accepted the connection.","subjA":"LinkedIn message","subjB":"","body":"Happy new year, {{first_name}}. Planning for Nurses Week usually starts around now. If gifts for your team are on the list, I'm happy to send a sample bag to the unit first. Just send an address."},
+{"day":"Day 63","date":"Tue Jan 19","channel":"Email 7","why":"A smaller first order. A manager who can't fund 60 bags can usually fund 12.","subjA":"a smaller place to start","subjB":"for your certified nurses","body":"Hi {{first_name}},\n\nIf a whole-unit order is a big ask, here's a smaller place to start.\n\nCertified Nurses Day is March 19. A Type bag for each certified nurse on your team is a short list, a small budget, and a real thank-you for the extra work certification takes. [For physician leaders: Doctors' Day is March 30, same idea for your medical staff.]\n\nHow many certified nurses do you have? I'll send a quote for just that group.\n\nJess"},
+{"day":"Day 77","date":"Tue Feb 2","channel":"Email 8","why":"The close-out. Numbered replies take two seconds, and each one routes them somewhere useful.","subjA":"close the loop?","subjB":"1, 2 or 3?","body":"Hi {{first_name}},\n\nI haven't heard back, which usually means one of three things. Reply with a number and I'll take it from there:\n\n1. Interested, just buried. Check back in March.\n2. Not me. Talk to ______.\n3. Not a fit. Close the file.\n\nEither way, thank you for everything your team does.\n\nJess"}
+],
+"A2":[
+{"day":"Mar 2","date":"Nurses Week","channel":"Seasonal","why":"Final call with a real deadline.","subjA":"last order date for Nurses Week","subjB":"","body":"Hi {{first_name}},\n\nTo have Type on your unit for Nurses Week (May 6), the last order date is [Apr X]. Want me to send a quote for your team? Just reply with a headcount.\n\nJess"},
+{"day":"Jun 1","date":"New grads & interns","channel":"Seasonal","why":"Cohort starts. Route to the educator if your contact isn't one.","subjA":"for your new grads","subjB":"","body":"Hi {{first_name}},\n\nNew grads and new interns start this summer. A Type bag on day one tells them how their first 12-hour shift is going to go: organized. Who runs onboarding for your new hires?\n\nJess"},
+{"day":"Aug 24","date":"Fall weeks","channel":"Seasonal","why":"Emergency Nurses Week, PA Week, Respiratory Care Week all fall in October.","subjA":"October is full of these","subjB":"","body":"Hi {{first_name}},\n\nOctober has Emergency Nurses Week, PA Week and Respiratory Care Week, all in about three weeks. If any of those teams are yours, the order date to make it is [Sep X]. Want a quote?\n\nJess"},
+{"day":"Sep 21","date":"NP Week & holidays","channel":"Seasonal","why":"The cycle restarts. Anyone who said 'next year' gets this.","subjA":"NP Week and the holidays","subjB":"","body":"Hi {{first_name}},\n\nNP Week is in November and the holidays follow right after. Last year's timing was tight for a lot of teams, so I'm writing early. Order by [Oct X] for NP Week. Headcount?\n\nJess"}
+],
+"B":[
+{"day":"Day 0","date":"Same day","channel":"Email","why":"Ship the sample the day they ask. Collect the two facts you need to quote while it's in transit.","subjA":"Re: (keep their thread)","subjB":"","body":"Hi {{first_name}},\n\nOn its way. Tracking: [link]. I put a card inside for whoever ends up wearing it.\n\nTwo quick questions so I can have pricing ready when it lands:\n\n1. Roughly how many people are on the team?\n2. Is there a date you'd need them by?\n\nJess"},
+{"day":"Day 3","date":"Delivery day","channel":"Email","why":"Tell them what to do with it. A bag that sits in its box never sells.","subjA":"it should be there today","subjB":"","body":"Hi {{first_name}},\n\nThe bag should have landed today. One favor: give it to whoever on your team carries the most in their pockets, and ask them how it went after one shift.\n\nTheir answer is the only review that matters.\n\nJess"},
+{"day":"Day 8","date":"","channel":"Email","why":"Ask for the verdict. Whatever they say, the next email is a quote.","subjA":"the verdict","subjB":"what did your team say?","body":"Hi {{first_name}},\n\nWhat did your team say about the bag?\n\nIf they liked it, I can have a quote for the whole team to you today. If something didn't work, I'd like to know that too.\n\nJess"},
+{"day":"Day 9","date":"On a yes","channel":"Quote","why":"Three options, one deadline. Lead with the middle option.","subjA":"Type for {{unit}}: three options","subjB":"","body":"Hi {{first_name}},\n\nHere's what it would look like for your team:\n\n- Whole unit, {{headcount}} bags: [$ total]. [Boxed per person, with a card from you.]\n- Starter, just your [charge nurses / certified nurses / preceptors], about [N] bags: [$ total]. Fits on a P-card.\n- Unit plus extras for new hires through the year: [$ total].\n\nTo have them on the unit by [date], I need the go-ahead by [date]. Card, P-card, PO or invoice all work.\n\nIf this needs someone else's sign-off, I've written a short note you can forward. Want it?\n\nJess"},
+{"day":"Day 14","date":"","channel":"Email","why":"Most stalls are approvals. Do the approver's paperwork for them.","subjA":"something to forward","subjB":"","body":"Hi {{first_name}},\n\nIn case it's sitting with someone else, here's a note you can forward as is:\n\n[paste the approval note from section 03, filled in]\n\nI've also attached our W-9 and insurance certificate in case procurement asks.\n\nJess"},
+{"day":"Day 21","date":"","channel":"Email","why":"Deadline reminder with the smaller option, so the answer can be yes to something.","subjA":"the [date] cutoff","subjB":"","body":"Hi {{first_name}},\n\nQuick reminder that [date] is the last day to order for delivery by [event date].\n\nIf the full unit isn't approved yet, we could start with the starter group now and add the rest later at the same per-bag price.\n\nJess"},
+{"day":"After delivery","date":"+14 days","channel":"Email","why":"Turn one order into the next one: a photo, a referral, and a reorder date.","subjA":"how did it land?","subjB":"","body":"Hi {{first_name}},\n\nHope the team liked them. Two small asks:\n\n1. If anyone took a photo, could I share it? [With your permission, first names only.]\n2. Who else in {{company}} plans recognition for their team? A name is all I need.\n\nI'll check in before [next event] in case you want bags for new hires.\n\nJess"}
+],
+"C-open":[
+{"day":"Hospital","date":"Nurse leaders","channel":"Email 1","why":"For nurse managers, directors and CNOs. The pocket line is your best opener; keep it.","subjA":"12 hours, 6 pockets","subjB":"where does it all go?","body":"Hi {{first_name}},\n\nQuick question: where does your team keep their stuff during a 12-hour shift?\n\nUsually it's scrub pockets, a stethoscope around the neck and a badge clipped wherever. A physician got fed up with that and designed Type, a bag worn by thousands of clinicians.\n\nNurses Week is May 6. Who on your team plans the gift? I'd like to send them a sample.\n\nJess\n\nPS. Every purchase supports Operation Happy Nurse, a nonprofit started by a nurse to support nurses' mental health."},
+{"day":"Agency","date":"Travel & staffing","channel":"Email 1","why":"Sell retention and first-day experience. The agency's clinician is the end user.","subjA":"first day on a new unit","subjB":"for your travelers","body":"Hi {{first_name}},\n\nA traveler's first shift on a new unit is the one where they don't know where anything is, including where to put their own things.\n\nType is a bag a physician designed for exactly that: stethoscope, shears, phone, badge, keys, all on them, all shift. Agencies use it as a welcome gift that clinicians actually keep using.\n\nHow many new travelers do you start in a typical month? I'll send a sample and pricing for that number.\n\nJess"},
+{"day":"School","date":"Nursing schools","channel":"Email 1","why":"Pinning is a moment that already has a gift attached. Timing matters: December and May.","subjA":"a pinning gift they'll use","subjB":"for your graduates","body":"Hi {{first_name}},\n\nYour graduates are about to start their first 12-hour shifts. Most of them will learn the hard way how little fits in scrub pockets.\n\nType is a bag a physician designed for that first year and every one after. Schools give it at pinning, and students use it the next week.\n\nWhen is your next pinning ceremony, and roughly how many graduates? I'll send a sample to your office.\n\nJess"},
+{"day":"Residency","date":"GME & programs","channel":"Email 1","why":"Physician-to-physician story. July 1 is a fixed date every year.","subjA":"July 1","subjB":"for your incoming interns","body":"Hi {{first_name}},\n\nType was designed by a physician who was tired of losing things in white coat pockets on long shifts. It's now carried by thousands of clinicians.\n\nPrograms give it to incoming interns on July 1. It's a welcome gift they'll use on their first call night.\n\nHow big is your incoming class? I'll send a sample and pricing.\n\nJess"},
+{"day":"EMS","date":"EMS & fire","channel":"Email 1","why":"EMS Week is in May. Shears, gloves and a radio are the pitch.","subjA":"shears, gloves, radio","subjB":"for EMS Week","body":"Hi {{first_name}},\n\nShears, gloves, penlight, phone, radio. On most crews that's spread across five pockets and a jump bag.\n\nType is a bag a physician designed to keep all of it on you. EMS Week is in May. Want me to send one to the station so the crew can try it on a shift?\n\nJess"}
+],
+"C":[
+{"day":"Day 3","date":"","channel":"LinkedIn","why":"Connection request, same note as Track A day 1.","subjA":"Connection request","subjB":"","body":"Hi {{first_name}}, I sent you a note about Type, the bag a physician designed for 12-hour shifts. Thought I'd connect here too."},
+{"day":"Day 5","date":"","channel":"Email 2","why":"Your GIF email. Keep the copy; swap the embedded GIF for a linked still or a link, and end on the sample.","subjA":"a 12-hour shift in one bag","subjB":"worth a thousand words","body":"Hi {{first_name}},\n\nThey say a picture is worth a thousand words, so here's a full 12-hour shift, packed into one bag: [link to GIF]\n\nStethoscope, shears, phone, badge, keys, glasses. All there, all day. No more overloaded scrub pockets or bags left at the nurses' station.\n\nCan I send you one to try? Just reply with an address.\n\nJess"},
+{"day":"Day 10","date":"","channel":"Email 3","why":"The referral ask from Track A.","subjA":"wrong person?","subjB":"","body":"Use Track A Email 4, with the event swapped for the segment's window (pinning, July 1, EMS Week, new-traveler welcome)."},
+{"day":"Day 12","date":"","channel":"Call","why":"One attempt plus voicemail.","subjA":"","subjB":"","body":"Use the voicemail script in section 07."},
+{"day":"Day 17","date":"","channel":"Email 4","why":"The sample email from Track A.","subjA":"one for the break room","subjB":"","body":"Use Track A Email 5. For agencies, change 'break room' to 'your next traveler'. For schools, 'your office'."},
+{"day":"Day 30","date":"","channel":"Email 5","why":"The 1/2/3 close-out from Track A, then into the seasonal touches.","subjA":"close the loop?","subjB":"","body":"Use Track A Email 8. Anyone who doesn't answer 3 joins the seasonal touches."}
+],
+"S":[
+{"day":"Voicemail","date":"20 seconds","channel":"Phone","why":"Name, reason, one question, number twice. No pitch.","subjA":"","subjB":"","body":"Hi {{first_name}}, it's Jess with Type. I've sent a couple of emails about Nurses Week gifts for your team. Quick question: who plans those at {{company}}? You can reach me at [number]. Again, Jess, [number]. Thanks."},
+{"day":"Live","date":"If they answer","channel":"Phone","why":"Get a name or an address, then get off the phone.","subjA":"","subjB":"","body":"\"Hi, this is Jess with Type. I'll be quick, I know you're between things. I've been emailing about a bag for your team for Nurses Week. Are you the right person for that, or is it someone else?\"\n\nIf right person: \"Can I send you one to try? What's the best address?\"\nIf not: \"Who should I talk to? Can I say you sent me?\""},
+{"day":"Comment","date":"Before any DM","channel":"LinkedIn","why":"When a contact posts about their team, comment first. It makes the next email familiar.","subjA":"","subjB":"","body":"Comment on the substance of their post, never the product. A congratulations on a Magnet designation, a DAISY award or a new unit opening is enough."}
+],
+"R":[
+{"day":"No budget","date":"","channel":"Reply","why":"Budget usually exists, just not in their hands.","subjA":"","subjB":"","body":"Totally understand. A lot of teams fund this through the hospital foundation, the auxiliary or a practice council rather than the unit budget. Would it help if I wrote a short note you could send them? And if timing is the issue, when does your next fiscal year start?"},
+{"day":"Send info","date":"","channel":"Reply","why":"Send it, then ask the question that turns it into a quote.","subjA":"","subjB":"","body":"Here you go: [one-page sheet]. The quickest way to see if it's a fit is to try one, so I'm happy to send a sample. Roughly how many people are on the team?"},
+{"day":"Have a gift","date":"Already planned","channel":"Reply","why":"Move to the next window rather than compete with this one.","subjA":"","subjB":"","body":"Great, glad the team's being looked after. Could I put you on the list for [next event: new grads in June / Certified Nurses Day next year]? I'll write once, closer to the date."},
+{"day":"Too much","date":"Price","channel":"Reply","why":"Per shift, and a smaller group.","subjA":"","subjB":"","body":"Fair. It works out to about [$ per shift] across a year of shifts, and it lasts longer than that. If the whole unit is too much right now, plenty of managers start with just the charge nurses or certified nurses. Want a quote for that group?"},
+{"day":"Procurement","date":"Vendor setup","channel":"Reply","why":"Make the paperwork disappear.","subjA":"","subjB":"","body":"No problem, here's our W-9 and certificate of insurance. We can invoice on net 30 against a PO, or take a P-card for smaller orders. Who in procurement should I send the vendor forms to?"},
+{"day":"Cleaning","date":"Infection control","channel":"Reply","why":"A real question on clinical units. Have a direct answer.","subjA":"","subjB":"","body":"[Material] can be [wiped with standard hospital disinfectant wipes / machine washed]. [Confirm and paste the exact guidance.]"},
+{"day":"Not me","date":"Referral","channel":"Reply","why":"Get a name and permission to use theirs.","subjA":"","subjB":"","body":"Thanks for pointing me the right way. Is it all right if I mention you sent me?"}
+]}
+</script>
+<script>
+(function(){
+  var data = JSON.parse(document.getElementById('campaign').textContent);
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function mark(s){return esc(s).replace(/\[([^\]]+)\]/g,'<span class="ph">[$1]</span>');}
+  var n = 0;
+  document.querySelectorAll('[data-track]').forEach(function(el){
+    var steps = data[el.getAttribute('data-track')] || [];
+    el.innerHTML = steps.map(function(s){
+      var id = 'm' + (n++);
+      var subj = s.subjA ? '<div class="subj"><span><b>Subject A </b>' + mark(s.subjA) + '</span>' +
+        (s.subjB ? '<span><b>Subject B </b>' + mark(s.subjB) + '</span>' : '') + '</div>' : '';
+      return '<div class="step"><div class="stamp"><span class="day">' + esc(s.day) + '</span><span class="date">' + esc(s.date) + '</span></div>' +
+        '<div class="msg"><div class="msghead"><span class="pill">' + esc(s.channel) + '</span><span class="why">' + esc(s.why) + '</span></div>' +
+        subj + '<div class="body" id="' + id + '">' + mark(s.body) + '</div>' +
+        '<button class="copy" type="button" data-copy="' + id + '">Copy text</button></div></div>';
+    }).join('');
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if(!b) return;
+    var node = document.getElementById(b.getAttribute('data-copy'));
+    var done = function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy text'; }, 1500); };
+    var fallback = function(){ var r = document.createRange(); r.selectNodeContents(node); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); };
+    try { navigator.clipboard.writeText(node.innerText).then(done, fallback); } catch(err){ fallback(); }
+  });
+})();
+</script>
